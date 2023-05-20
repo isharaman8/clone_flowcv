@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --body-color: #f9f9fd;
+  --light-color: #ffffff;
+  --dark-color: #111;
+  --text-color: #828282;
+  --link-color: #3366cc;
+  --gradient-to: #fc6767;
+  --gradient-from: #ec008c;
+  --poppins: "Poppins", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--body-color);
+  font-family: var(--poppins), sans-serif;
+}
+
+.pageContainer {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1240px;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+  width: 100%;
+}
+
+.center-flex {
+  @apply flex justify-center items-center;
+}
+
+.btn {
+  @apply rounded-full px-[1.6rem] py-2;
+}
+
+.gradient {
+  background: linear-gradient(
+    to right,
+    var(--gradient-from),
+    var(--gradient-to)
+  );
+}
