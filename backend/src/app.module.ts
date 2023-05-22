@@ -9,12 +9,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 import appConfig from 'config/app.config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ load: [appConfig] }),
-    PassportModule.register({ defaultStrategy: 'jwt' }),
+    ConfigModule.forRoot({ load: [appConfig], isGlobal: true }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule], // Import the ConfigModule
       useFactory: async (configService: ConfigService) => {
@@ -26,17 +26,8 @@ import appConfig from 'config/app.config';
       },
       inject: [ConfigService],
     }),
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => {
-        return {
-          secret: configService.get('jsonwebtoken.jwt_secret'),
-          signOptions: { expiresIn: '30d' },
-        };
-      },
-      inject: [ConfigService],
-    }),
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
