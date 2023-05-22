@@ -4,10 +4,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 // INNER IMPORTS
+import appConfig from 'config/app.config';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { AdminModule } from './modules/admin/admin.module';
-import appConfig from 'config/app.config';
 
 @Module({
   imports: [
@@ -16,7 +16,9 @@ import appConfig from 'config/app.config';
       imports: [ConfigModule], // Import the ConfigModule
       useFactory: async (configService: ConfigService) => {
         return {
-          uri: configService.get('mongo_db.url'),
+          uri: `${configService.get('mongo_db.url')}/${configService.get(
+            'mongodb_db.db_name',
+          )}`,
           useNewUrlParser: true,
           useUnifiedTopology: true,
         };

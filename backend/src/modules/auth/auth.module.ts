@@ -1,10 +1,13 @@
+// INNER IMPORTS
+import { JwtModule } from '@nestjs/jwt';
 import { Module } from '@nestjs/common';
+import { PassportModule } from '@nestjs/passport';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+
+// THIRD PARTY IMPORTS
 import { AuthController } from './controllers/auth.controller';
 import { AuthService } from './services/auth.service';
 import { UserModule } from 'src/modules/user/user.module';
-import { PassportModule } from '@nestjs/passport';
-import { JwtModule } from '@nestjs/jwt';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [

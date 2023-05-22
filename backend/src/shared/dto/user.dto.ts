@@ -29,7 +29,7 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  readonly password: string;
+  password: string;
 
   @IsString()
   @IsNotEmpty()

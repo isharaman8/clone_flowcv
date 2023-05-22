@@ -5,9 +5,10 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
+import { hash, verify } from 'argon2';
 
 // INNER IMPORTS
-import { UserService } from 'src/modules/user/user.service';
+import { UserService } from 'src/modules/user/services/user.service';
 import { CreateUserDto, LoginUserDto, UpdateUserDto } from 'src/shared/dto';
 
 @Injectable()
@@ -23,7 +24,15 @@ export class AuthService {
       role,
     });
 
-    if (user?.password !== loginObj.password) {
+    if (!user) {
+      throw new UnauthorizedException({
+        message: 'email or password incorrect',
+      });
+    }
+
+    const verifyPassword = await verify(user.password, loginObj.password);
+
+    if (!verifyPassword) {
       throw new UnauthorizedException({
         message: 'email or password incorrect',
       });
@@ -44,6 +53,7 @@ export class AuthService {
 
   async signUp(userObj: CreateUserDto, role = 'user') {
     userObj.role = role;
+    userObj.password = await hash(userObj.password);
 
     const user = await this.userService.createUser(userObj);
 
