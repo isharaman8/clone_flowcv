@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import { Model } from 'mongoose';
 
 // INNER IMPORTS
-import { CreateUserDto, UpdateUserDto } from './dto';
+import { CreateUserDto, UpdateUserDto } from '../../shared/dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { BadRequestException, Injectable } from '@nestjs/common';
 

@@ -13,10 +13,10 @@ import {
 } from '@nestjs/common';
 
 // INNER IMPORTS
-import { AuthService } from './auth.service';
-import { CreateUserDto, LoginUserDto, UpdateUserDto } from 'src/user/dto';
-import { AuthGuard } from './auth.guard';
-import { CustomRequest } from 'src/interfaces';
+import { AuthService } from '../services/auth.service';
+import { CreateUserDto, LoginUserDto, UpdateUserDto } from 'src/shared/dto';
+import { AuthGuard } from '../guards/auth.guard';
+import { CustomRequest } from 'src/shared/interfaces';
 
 @Controller('auth')
 export class AuthController {
