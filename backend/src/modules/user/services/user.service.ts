@@ -1,11 +1,17 @@
 // THIRD PARTY IMPORTS
 import { nanoid } from 'nanoid';
 import { Model } from 'mongoose';
-
-// INNER IMPORTS
-import { CreateUserDto, UpdateUserDto } from '../../shared/dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { BadRequestException, Injectable } from '@nestjs/common';
+
+// INNER IMPORTS
+import { CreateUserDto, UpdateUserDto } from '../../../shared/dto';
+import {
+  _getActiveAggregationFilter,
+  _getEmailAggregationFilter,
+  _getIdAggregationFilter,
+  _getNameAggregationFilter,
+} from 'src/shared/helpers/aggregations';
 
 // This should be a real class/interface representing a user entity
 export type User = any;
@@ -39,5 +45,24 @@ export class UserService {
     return this.userModel.findOneAndUpdate(filter, payload, {
       new: true,
     });
+  }
+
+  async getAllUsers(query: any = {}) {
+    const baseQuery = [
+      {
+        $match: {
+          $and: [
+            ..._getIdAggregationFilter(query),
+            ..._getActiveAggregationFilter(query),
+            ..._getEmailAggregationFilter(query),
+            ..._getNameAggregationFilter(query),
+          ],
+        },
+      },
+    ];
+
+    console.log('QUERY', JSON.stringify(baseQuery));
+
+    return this.userModel.aggregate(baseQuery);
   }
 }

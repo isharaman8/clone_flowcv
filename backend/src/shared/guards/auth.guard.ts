@@ -1,12 +1,13 @@
+// THIRD PARTY IMPORTS
+import { Request } from 'express';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 import {
   CanActivate,
   ExecutionContext,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { JwtService } from '@nestjs/jwt';
-import { Request } from 'express';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

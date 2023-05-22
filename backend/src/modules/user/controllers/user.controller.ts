@@ -1,5 +1,8 @@
+// THIRD PARTY IMPORTS
 import { Controller } from '@nestjs/common';
-import { UserService } from './user.service';
+
+// INNER IMPORTS
+import { UserService } from '../services/user.service';
 
 @Controller('user')
 export class UserController {
