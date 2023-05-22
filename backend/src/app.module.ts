@@ -1,15 +1,12 @@
 // THIRD PARTY IMPORTS
-import { JwtModule } from '@nestjs/jwt';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { PassportModule } from '@nestjs/passport';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 // INNER IMPORTS
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
+import { UserModule } from './modules/user/user.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { AdminModule } from './modules/admin/admin.module';
 import appConfig from 'config/app.config';
 
 @Module({
@@ -28,8 +25,7 @@ import appConfig from 'config/app.config';
     }),
     UserModule,
     AuthModule,
+    AdminModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

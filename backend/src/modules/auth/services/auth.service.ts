@@ -7,8 +7,8 @@ import {
 } from '@nestjs/common';
 
 // INNER IMPORTS
-import { UserService } from 'src/user/user.service';
-import { CreateUserDto, LoginUserDto, UpdateUserDto } from 'src/user/dto';
+import { UserService } from 'src/modules/user/user.service';
+import { CreateUserDto, LoginUserDto, UpdateUserDto } from 'src/shared/dto';
 
 @Injectable()
 export class AuthService {
@@ -17,27 +17,34 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signIn(loginObj: LoginUserDto) {
-    const user = await this.userService.findOne({ email: loginObj.email });
+  async signIn(loginObj: LoginUserDto, role: string = 'user') {
+    const user = await this.userService.findOne({
+      email: loginObj.email,
+      role,
+    });
 
     if (user?.password !== loginObj.password) {
       throw new UnauthorizedException({
         message: 'email or password incorrect',
       });
     }
+
     const payload = {
       email: user.email,
       name: user.name,
       uid: user.uid,
       role: user.role,
     };
+
     return {
       access_token: await this.jwtService.signAsync(payload),
       user: payload,
     };
   }
 
-  async signUp(userObj: CreateUserDto) {
+  async signUp(userObj: CreateUserDto, role = 'user') {
+    userObj.role = role;
+
     const user = await this.userService.createUser(userObj);
 
     const payload = {
