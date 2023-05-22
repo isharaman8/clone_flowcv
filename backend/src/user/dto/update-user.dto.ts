@@ -1,35 +1,28 @@
 // THIRD PARTY IMPORTS
-import {
-  IsString,
-  IsEmail,
-  IsNotEmpty,
-  IsEnum,
-  IsBoolean,
-} from 'class-validator';
+import { PartialType } from '@nestjs/mapped-types';
+import { IsString, IsEmail, IsEnum, IsBoolean } from 'class-validator';
 
 const RoleEnum = {
   admin: 'admin',
   user: 'user',
 };
 
-export class CreateUserDto {
+class UserDto {
   @IsString()
-  @IsNotEmpty()
   readonly name: string;
 
   @IsEmail()
-  @IsNotEmpty()
   readonly email: string;
 
   @IsString()
-  @IsNotEmpty()
   readonly password: string;
 
   @IsString()
-  @IsNotEmpty()
   @IsEnum(RoleEnum)
   readonly role: string;
 
   @IsBoolean()
   readonly active: boolean;
 }
+
+export class UpdateUserDto extends PartialType(UserDto) {}
