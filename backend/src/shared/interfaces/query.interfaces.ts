@@ -3,4 +3,6 @@ export interface Query {
   email?: string | string[];
   uid?: string | string[];
   active?: boolean;
+  minPrice?: number | null;
+  maxPrice?: number | null;
 }

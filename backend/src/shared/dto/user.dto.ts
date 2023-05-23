@@ -6,6 +6,7 @@ import {
   IsEnum,
   IsBoolean,
   IsOptional,
+  IsDate,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { PartialType } from '@nestjs/mapped-types';
@@ -42,6 +43,16 @@ export class CreateUserDto {
   @ApiProperty()
   @IsOptional()
   readonly active?: boolean;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty()
+  deleted_by?: string;
+
+  @IsDate()
+  @IsOptional()
+  @ApiProperty()
+  deleted_at?: Date;
 }
 
 export class LoginUserDto {
