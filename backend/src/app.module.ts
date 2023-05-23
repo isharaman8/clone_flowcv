@@ -8,6 +8,7 @@ import appConfig from 'config/app.config';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { AdminModule } from './modules/admin/admin.module';
+import { SubscriptionModule } from './modules/subscription/subscription.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { AdminModule } from './modules/admin/admin.module';
     UserModule,
     AuthModule,
     AdminModule,
+    SubscriptionModule,
   ],
 })
 export class AppModule {}

@@ -107,6 +107,9 @@ export class AuthService {
   }
 
   async deleteUserProfile(uid: string) {
-    await this.userService.updateUser({ active: false }, { uid });
+    await this.userService.updateUser(
+      { active: false, deleted_by: uid, deleted_at: new Date() },
+      { uid },
+    );
   }
 }

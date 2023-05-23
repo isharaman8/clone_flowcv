@@ -88,6 +88,11 @@ export class AdminController {
       });
     }
 
+    if ([true, 'true'].includes(payload['active'])) {
+      payload.deleted_at = null;
+      payload.deleted_by = null;
+    }
+
     const updatedUser = await this.adminService.updateUser(userId, payload);
 
     return updatedUser;
@@ -103,6 +108,10 @@ export class AdminController {
       });
     }
 
-    await this.adminService.updateUser(userId, { active: false });
+    await this.adminService.updateUser(userId, {
+      active: false,
+      deleted_at: new Date(),
+      deleted_by: req.user.uid,
+    });
   }
 }

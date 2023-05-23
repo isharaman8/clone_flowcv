@@ -1,5 +1,5 @@
 // THIRD PARTY IMPORTS
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 // INNER IMPORTS
 import { UpdateUserDto } from 'src/shared/dto';

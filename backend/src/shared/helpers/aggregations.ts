@@ -46,3 +46,18 @@ export const _getActiveAggregationFilter = (query: Query = {}) => {
 
   return filter;
 };
+
+// Subscription
+export const _getPriceAggregationFilter = (query: Query) => {
+  const filter = [];
+
+  if (query.minPrice) {
+    filter.push({ price: { $gte: query.minPrice } });
+  }
+
+  if (query.maxPrice) {
+    filter.push({ price: { $lte: query.maxPrice } });
+  }
+
+  return filter;
+};
