@@ -32,7 +32,7 @@ export class PurchaseController {
     return data;
   }
 
-  @Post('/')
+  @Post('/create')
   async makePurchase(@Body() payload: PurchaseDto, @Req() req: CustomRequest) {
     const data = await this.purchaseService.makePurchase(payload, req.user);
 

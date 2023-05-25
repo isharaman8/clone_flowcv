@@ -24,7 +24,8 @@ export class PurchaseDto {
 
   @IsDate()
   @IsNotEmpty()
-  purchase_date: Date;
+  @IsOptional()
+  purchased_date?: Date;
 
   @IsDate()
   @IsOptional()
