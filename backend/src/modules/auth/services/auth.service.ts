@@ -9,7 +9,7 @@ import { hash, verify } from 'argon2';
 
 // INNER IMPORTS
 import { UserService } from 'src/modules/user/services/user.service';
-import { CreateUserDto, LoginUserDto, UpdateUserDto } from 'src/shared/dto';
+import { CreateUserDto, LoginUserDto, UpdateUserDto } from '../dto';
 
 @Injectable()
 export class AuthService {

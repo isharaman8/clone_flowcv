@@ -22,6 +22,9 @@ export class Subscription extends Document {
   @Prop({ required: true, default: true })
   active: boolean;
 
+  @Prop({ required: true })
+  duration: number;
+
   @Prop({})
   deleted_by: string;
 

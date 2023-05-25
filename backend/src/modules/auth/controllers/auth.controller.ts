@@ -11,12 +11,13 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
+import argon from 'argon2';
 
 // INNER IMPORTS
 import { CustomRequest } from 'src/shared/interfaces';
 import { AuthService } from '../services/auth.service';
 import { AuthGuard } from '../../../shared/guards/auth.guard';
-import { CreateUserDto, LoginUserDto, UpdateUserDto } from 'src/shared/dto';
+import { CreateUserDto, LoginUserDto, UpdateUserDto } from '../dto';
 
 @Controller('auth')
 export class AuthController {
@@ -25,6 +26,10 @@ export class AuthController {
   @Post('/signup')
   @HttpCode(201)
   async signUp(@Body() user: CreateUserDto) {
+    user.deleted_at = null;
+    user.deleted_by = null;
+    user.active = true;
+
     const data = await this.authService.signUp(user);
 
     return data;
@@ -51,6 +56,10 @@ export class AuthController {
     @Req() req: CustomRequest,
     @Body() payload: UpdateUserDto,
   ) {
+    if (payload.password) {
+      payload.password = await argon.hash(payload.password);
+    }
+
     const updatedUser = await this.authService.updateUserProfile(
       payload,
       req.user,

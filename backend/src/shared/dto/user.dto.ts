@@ -42,7 +42,7 @@ export class CreateUserDto {
   @IsBoolean()
   @ApiProperty()
   @IsOptional()
-  readonly active?: boolean;
+  active?: boolean;
 
   @IsString()
   @IsOptional()
@@ -58,7 +58,7 @@ export class CreateUserDto {
 export class LoginUserDto {
   @IsEmail()
   @IsNotEmpty()
-  readonly email: number;
+  readonly email: string;
 
   @IsString()
   @IsNotEmpty()

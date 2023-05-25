@@ -2,7 +2,7 @@
 import { Injectable } from '@nestjs/common';
 
 // INNER IMPORTS
-import { UpdateUserDto } from 'src/shared/dto';
+import { UpdateUserDto } from '../dto';
 import { UserService } from 'src/modules/user/services/user.service';
 
 @Injectable()

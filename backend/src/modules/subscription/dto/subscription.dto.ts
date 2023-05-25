@@ -10,6 +10,10 @@ import {
 
 export class CreateSubscriptionDto {
   @IsString()
+  @IsOptional()
+  uid: string;
+
+  @IsString()
   @IsString()
   @IsNotEmpty()
   readonly name: string;
@@ -36,7 +40,12 @@ export class CreateSubscriptionDto {
 
   @IsString()
   @IsNotEmpty()
-  created_by: string;
+  @IsOptional()
+  created_by?: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  duration: number;
 }
 
 export class UpdateSubscriptionDto extends PartialType(CreateSubscriptionDto) {}

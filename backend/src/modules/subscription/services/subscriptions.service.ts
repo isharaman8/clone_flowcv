@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Subscription } from '../schemas/subscriptions.schema';
-import { CreateSubscriptionDto } from '../dto';
+import { CreateSubscriptionDto, UpdateSubscriptionDto } from '../dto';
 import { Query } from 'src/shared/interfaces';
 import {
   _getActiveAggregationFilter,
@@ -10,6 +10,7 @@ import {
   _getNameAggregationFilter,
   _getPriceAggregationFilter,
 } from 'src/shared/helpers/aggregations';
+import { nanoid } from 'nanoid';
 
 @Injectable()
 export class SubscriptionService {
@@ -19,6 +20,8 @@ export class SubscriptionService {
   ) {}
 
   async createSubscription(payload: CreateSubscriptionDto) {
+    payload.uid = nanoid();
+
     const data = await this.subscriptionModel.create(payload);
 
     return data;
@@ -61,5 +64,11 @@ export class SubscriptionService {
       uid,
       active,
     };
+  }
+
+  async editSubscriptions(filter = {}, payload: UpdateSubscriptionDto = {}) {
+    return this.subscriptionModel.findOneAndUpdate(filter, payload, {
+      new: true,
+    });
   }
 }
