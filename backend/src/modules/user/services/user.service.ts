@@ -5,16 +5,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { BadRequestException, Injectable } from '@nestjs/common';
 
 // INNER IMPORTS
-import { CreateUserDto, UpdateUserDto } from '../../../shared/dto';
+import { User } from '../schemas/user.schema';
+import { CreateUserDto, UpdateUserDto } from '../dto';
 import {
   _getActiveAggregationFilter,
   _getEmailAggregationFilter,
   _getIdAggregationFilter,
   _getNameAggregationFilter,
 } from 'src/shared/helpers/aggregations';
-
-// This should be a real class/interface representing a user entity
-export type User = any;
 
 @Injectable()
 export class UserService {

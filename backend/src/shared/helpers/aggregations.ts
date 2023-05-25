@@ -61,3 +61,37 @@ export const _getPriceAggregationFilter = (query: Query) => {
 
   return filter;
 };
+
+// PURCHASE
+export const _getUserIdAggregationFilter = (query: Query) => {
+  const filter = [];
+
+  if (query.user_id) {
+    const user_id = Array.isArray(query.user_id)
+      ? query.user_id
+      : [query.user_id];
+
+    filter.push({ user_id: { $in: user_id } });
+  }
+
+  return filter;
+};
+
+export const _getPurchaseDataAggregationFilter = (query: Query) => {
+  const filter = [];
+
+  if (query.populate_purchase_data && query.purchase_type) {
+    if (query.purchase_type === 'subscription') {
+      filter.push({
+        $lookup: {
+          from: 'subscriptions',
+          localField: 'purchase_uid',
+          foreignField: 'uid',
+          as: 'purchaseData',
+        },
+      });
+    }
+  }
+
+  return filter;
+};
