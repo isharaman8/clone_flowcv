@@ -24,7 +24,7 @@ export class PurchaseService {
 
   async getPurchases(query: IQuery, user: any = {}) {
     if (user?.role !== 'admin') {
-      query.user_id = [user?.uid];
+      query.user_uid = [user?.uid];
     }
 
     const baseQuery = [
@@ -34,10 +34,10 @@ export class PurchaseService {
             ..._getIdAggregationFilter(query),
             ..._getUserIdAggregationFilter(query),
             ..._getActiveAggregationFilter(query),
-            ..._getPurchaseDataAggregationFilter(query),
           ],
         },
       },
+      ..._getPurchaseDataAggregationFilter(query),
     ];
 
     console.log('QUERY', JSON.stringify(baseQuery));
@@ -54,10 +54,12 @@ export class PurchaseService {
     const payload = {
       ...purchase_data,
       uid: nanoid(),
-      user_id: user?.uid,
-      purchase_date: purchase_data.purchase_date || new Date(),
+      user_uid: user?.uid,
+      purchased_date: purchase_data.purchased_date || new Date(),
       active: true,
     };
+
+    console.log(`payload`, payload);
 
     const doc = await this.purchaseSchema.create(payload);
 
@@ -80,7 +82,7 @@ export class PurchaseService {
       active = true,
       populate_purchase_data = false,
       purchase_type,
-      user_id,
+      user_uid,
     } = query;
 
     active = [true, 'true'].includes(active);
@@ -90,7 +92,7 @@ export class PurchaseService {
     purchase_type = PURCHASE_ENUM.includes(purchase_type?.toString())
       ? purchase_type?.toString()
       : null;
-    user_id = user_id?.toString() || null;
+    user_uid = user_uid?.toString() || null;
 
     return {
       uid,
@@ -98,7 +100,7 @@ export class PurchaseService {
       purchase_uid,
       populate_purchase_data,
       purchase_type,
-      user_id,
+      user_uid,
     };
   }
 }

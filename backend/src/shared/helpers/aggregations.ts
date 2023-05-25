@@ -66,12 +66,12 @@ export const _getPriceAggregationFilter = (query: Query) => {
 export const _getUserIdAggregationFilter = (query: Query) => {
   const filter = [];
 
-  if (query.user_id) {
-    const user_id = Array.isArray(query.user_id)
-      ? query.user_id
-      : [query.user_id];
+  if (query.user_uid) {
+    const user_uid = Array.isArray(query.user_uid)
+      ? query.user_uid
+      : [query.user_uid];
 
-    filter.push({ user_id: { $in: user_id } });
+    filter.push({ user_uid: { $in: user_uid } });
   }
 
   return filter;

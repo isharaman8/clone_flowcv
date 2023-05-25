@@ -1,5 +1,6 @@
 // THIRD PARTY IMPORTS
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { PURCHASE_ENUM } from 'src/shared/constants';
 
 @Schema({ timestamps: true })
 export class Purchase {
@@ -9,7 +10,7 @@ export class Purchase {
   @Prop({ required: true })
   user_uid: string;
 
-  @Prop({ required: true, enum: ['individual_purchase', 'subscription'] })
+  @Prop({ required: true, enum: PURCHASE_ENUM })
   purchase_type: string;
 
   @Prop({ required: true })
