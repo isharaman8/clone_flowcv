@@ -1,0 +1,201 @@
+"use client";
+
+import React from "react";
+import { styled } from "@mui/material";
+import {
+  BsFillArrowUpRightCircleFill,
+  BsFilter,
+  BsCreditCard2Back,
+} from "react-icons/bs";
+import {
+  MdDescription,
+  MdAssignmentTurnedIn,
+  MdWorkspacePremium,
+} from "react-icons/md";
+import { FaUsers, FaRegMoneyBillAlt } from "react-icons/fa";
+
+const Section = styled("section")({
+  padding: "2rem",
+  borderLeft: "1px solid #cbcbcb",
+});
+
+const Main = styled("div")({
+  display: "flex",
+  gap: "2rem",
+});
+
+const LeftDiv = styled("div")({
+  width: "18rem",
+});
+
+const RightDiv = styled("div")({
+  width: "50rem",
+});
+
+const Content = styled("div")({
+  border: "1px solid #cbcbcb",
+  borderRadius: "1rem",
+  padding: "1.4rem",
+  display: "flex",
+  alignItems: "center",
+  gap: "1rem",
+});
+
+const Footer = styled("div")({
+  background: "#ededed",
+  borderRadius: "1rem",
+  padding: "1.4rem 2.4rem",
+});
+
+const FooterContent = styled("div")({
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "2rem 8rem",
+});
+
+const Card = styled("div")({
+  borderRadius: "1rem",
+  padding: "1rem 1.4rem",
+  display: "flex",
+  alignItems: "center",
+  gap: "1.2rem",
+  background: "#fff",
+  boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
+  width: "18rem",
+});
+
+export const Dashboard = () => {
+  const [selectedOption, setSelectedOption] = React.useState(null);
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  return (
+    <Section>
+      <h3>Overview</h3>
+      <Main>
+        <LeftDiv>
+          <Content>
+            <BsFillArrowUpRightCircleFill
+              style={{ fontSize: "2.6rem", marginRight: "1rem" }}
+            />
+            <div>
+              <p>Revenue</p>
+              <h3>$190.68</h3>
+            </div>
+          </Content>
+          <br />
+          <Content
+            style={{ flexDirection: "column", alignItems: "flex-start" }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: ".4rem",
+                fontWeight: "bold",
+              }}
+            >
+              <BsFilter style={{ fontSize: "1.4rem" }} />
+              Graph filter
+            </div>
+            <div>
+              <label
+                style={{
+                  background: "#ececec",
+                  padding: ".2rem .6rem",
+                  borderRadius: ".4rem",
+                  display: "flex",
+                  gap: "1rem",
+                  fontSize: ".9rem",
+                  width: "100%",
+                }}
+              >
+                <input
+                  style={{ accentColor: "#232323" }}
+                  type="radio"
+                  value="userSignups"
+                  checked={selectedOption === "userSignups"}
+                  onChange={handleOptionChange}
+                />
+                Number of User Sign-ups
+              </label>
+              <label
+                style={{
+                  background: "#ececec",
+                  padding: ".2rem .6rem",
+                  borderRadius: ".4rem",
+                  display: "flex",
+                  gap: "1rem",
+                  fontSize: ".9rem",
+                  marginTop: ".8rem",
+                  width: "100%",
+                }}
+              >
+                <input
+                  style={{ accentColor: "#232323" }}
+                  type="radio"
+                  value="totalRevenue"
+                  checked={selectedOption === "totalRevenue"}
+                  onChange={handleOptionChange}
+                />
+                Total Revenue
+              </label>
+            </div>
+          </Content>
+        </LeftDiv>
+        <RightDiv></RightDiv>
+      </Main>
+      <br />
+      <Footer>
+        <h3>General Numbers</h3>
+        <FooterContent>
+          <Card>
+            <MdDescription style={{ fontSize: "2.6rem" }} />
+            <div>
+              <p style={{ margin: 0, fontWeight: "500" }}>Resumes created</p>
+              <h3 style={{ margin: 0 }}>135</h3>
+            </div>
+          </Card>
+          <Card>
+            <FaUsers style={{ fontSize: "2.6rem" }} />
+            <div>
+              <p style={{ margin: 0, fontWeight: "500" }}>Users</p>
+              <h3 style={{ margin: 0 }}>44</h3>
+            </div>
+          </Card>
+          <Card>
+            <MdAssignmentTurnedIn style={{ fontSize: "2.6rem" }} />
+            <div>
+              <p style={{ margin: 0, fontWeight: "500" }}>Subscriptions</p>
+              <h3 style={{ margin: 0 }}>55</h3>
+            </div>
+          </Card>
+          <Card>
+            <FaRegMoneyBillAlt style={{ fontSize: "2.6rem" }} />
+            <div>
+              <p style={{ margin: 0, fontWeight: "500" }}>Total Revenue</p>
+              <h3 style={{ margin: 0 }}>$1,350</h3>
+            </div>
+          </Card>
+          <Card>
+            <BsCreditCard2Back style={{ fontSize: "2.6rem" }} />
+            <div>
+              <p style={{ margin: 0, fontWeight: "500" }}>Purchases</p>
+              <h3 style={{ margin: 0 }}>35</h3>
+            </div>
+          </Card>
+          <Card>
+            <MdWorkspacePremium style={{ fontSize: "2.6rem" }} />
+            <div>
+              <p style={{ margin: 0, fontWeight: "500" }}>Premium Purchases</p>
+              <h3 style={{ margin: 0 }}>23</h3>
+            </div>
+          </Card>
+        </FooterContent>
+      </Footer>
+    </Section>
+  );
+};
