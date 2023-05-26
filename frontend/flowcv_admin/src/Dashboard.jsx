@@ -13,6 +13,7 @@ import {
   MdWorkspacePremium,
 } from "react-icons/md";
 import { FaUsers, FaRegMoneyBillAlt } from "react-icons/fa";
+import Graph from "./chart/Graph";
 
 const Section = styled("section")({
   padding: "2rem",
@@ -22,6 +23,7 @@ const Section = styled("section")({
 const Main = styled("div")({
   display: "flex",
   gap: "2rem",
+  justifyContent: "space-between",
 });
 
 const LeftDiv = styled("div")({
@@ -65,7 +67,7 @@ const Card = styled("div")({
 });
 
 export const Dashboard = () => {
-  const [selectedOption, setSelectedOption] = React.useState(null);
+  const [selectedOption, setSelectedOption] = React.useState("userSignups");
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -82,7 +84,7 @@ export const Dashboard = () => {
             />
             <div>
               <p>Revenue</p>
-              <h3>$190.68</h3>
+              <h3>$0.00</h3>
             </div>
           </Content>
           <br />
@@ -146,7 +148,9 @@ export const Dashboard = () => {
             </div>
           </Content>
         </LeftDiv>
-        <RightDiv></RightDiv>
+        <RightDiv>
+          <Graph selectedOption={selectedOption} />
+        </RightDiv>
       </Main>
       <br />
       <Footer>
@@ -156,42 +160,42 @@ export const Dashboard = () => {
             <MdDescription style={{ fontSize: "2.6rem" }} />
             <div>
               <p style={{ margin: 0, fontWeight: "500" }}>Resumes created</p>
-              <h3 style={{ margin: 0 }}>135</h3>
+              <h3 style={{ margin: 0 }}>0</h3>
             </div>
           </Card>
           <Card>
             <FaUsers style={{ fontSize: "2.6rem" }} />
             <div>
               <p style={{ margin: 0, fontWeight: "500" }}>Users</p>
-              <h3 style={{ margin: 0 }}>44</h3>
+              <h3 style={{ margin: 0 }}>0</h3>
             </div>
           </Card>
           <Card>
             <MdAssignmentTurnedIn style={{ fontSize: "2.6rem" }} />
             <div>
               <p style={{ margin: 0, fontWeight: "500" }}>Subscriptions</p>
-              <h3 style={{ margin: 0 }}>55</h3>
+              <h3 style={{ margin: 0 }}>0</h3>
             </div>
           </Card>
           <Card>
             <FaRegMoneyBillAlt style={{ fontSize: "2.6rem" }} />
             <div>
               <p style={{ margin: 0, fontWeight: "500" }}>Total Revenue</p>
-              <h3 style={{ margin: 0 }}>$1,350</h3>
+              <h3 style={{ margin: 0 }}>$0</h3>
             </div>
           </Card>
           <Card>
             <BsCreditCard2Back style={{ fontSize: "2.6rem" }} />
             <div>
               <p style={{ margin: 0, fontWeight: "500" }}>Purchases</p>
-              <h3 style={{ margin: 0 }}>35</h3>
+              <h3 style={{ margin: 0 }}>0</h3>
             </div>
           </Card>
           <Card>
             <MdWorkspacePremium style={{ fontSize: "2.6rem" }} />
             <div>
               <p style={{ margin: 0, fontWeight: "500" }}>Premium Purchases</p>
-              <h3 style={{ margin: 0 }}>23</h3>
+              <h3 style={{ margin: 0 }}>0</h3>
             </div>
           </Card>
         </FooterContent>
