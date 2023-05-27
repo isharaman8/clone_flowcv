@@ -16,7 +16,7 @@ import {
 import argon from 'argon2';
 
 // INNER IMPORTS
-import { CustomRequest } from 'src/shared/interfaces';
+import { CustomRequest, Query as IQuery } from 'src/shared/interfaces';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { AdminService } from '../services/admin.service';
 import { UserService } from 'src/modules/user/services/user.service';
@@ -66,18 +66,23 @@ export class AdminController {
   @UseGuards(AuthGuard)
   @Get(['/get-users', '/get-users/:userId'])
   async getUsers(
-    @Query() query: any,
+    @Query() query: IQuery,
     @Param('userId') userId: string | null = null,
   ) {
     const parsedQuery = this.adminService.getParsedQuery(query);
 
     if (userId) {
-      parsedQuery.uid = userId;
+      parsedQuery.uid = [userId];
     }
 
     const allUsers = await this.userService.getAllUsers(parsedQuery);
+    const retObj: any = { users: allUsers };
 
-    return allUsers;
+    if (query.count) {
+      retObj.count = (retObj.users || []).length;
+    }
+
+    return retObj;
   }
 
   @Patch('/update-user/:userId')

@@ -9,10 +9,12 @@ import { User } from '../schemas/user.schema';
 import { CreateUserDto, UpdateUserDto } from '../dto';
 import {
   _getActiveAggregationFilter,
+  _getCountAggregationQuery,
   _getEmailAggregationFilter,
   _getIdAggregationFilter,
   _getNameAggregationFilter,
 } from 'src/shared/helpers/aggregations';
+import { Query as Iquery } from 'src/shared/interfaces';
 
 @Injectable()
 export class UserService {
@@ -45,7 +47,7 @@ export class UserService {
     });
   }
 
-  async getAllUsers(query: any = {}) {
+  async getAllUsers(query: Iquery = {}) {
     const baseQuery = [
       {
         $match: {

@@ -95,3 +95,14 @@ export const _getPurchaseDataAggregationFilter = (query: Query) => {
 
   return filter;
 };
+
+// MIXIN
+export const _getCountAggregationQuery = (query: Query) => {
+  const filter = [];
+
+  if (query.count) {
+    filter.push({ $count: 'totalCount' });
+  }
+
+  return filter;
+};
