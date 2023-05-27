@@ -54,8 +54,13 @@ export class SubscriptionController {
     const docs = await this.subscriptionService.getAllSubscriptions(
       parsedQuery,
     );
+    const retObj: any = { subscriptions: docs };
 
-    return docs;
+    if (query.count) {
+      retObj.count = retObj.subscriptions.length;
+    }
+
+    return retObj;
   }
 
   @Patch('/:uid')

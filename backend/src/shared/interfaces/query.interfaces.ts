@@ -9,4 +9,5 @@ export interface Query {
   populate_purchase_data?: boolean;
   purchase_uid?: string | null;
   purchase_type?: string | null;
+  count?: boolean | null;
 }

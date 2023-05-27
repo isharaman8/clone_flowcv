@@ -8,6 +8,7 @@ import { Purchase } from '../schema/purchase.schema';
 import { Query as IQuery } from 'src/shared/interfaces';
 import {
   _getActiveAggregationFilter,
+  _getCountAggregationQuery,
   _getIdAggregationFilter,
   _getPurchaseDataAggregationFilter,
   _getUserIdAggregationFilter,
@@ -83,6 +84,7 @@ export class PurchaseService {
       populate_purchase_data = false,
       purchase_type,
       user_uid,
+      count,
     } = query;
 
     active = [true, 'true'].includes(active);
@@ -93,6 +95,7 @@ export class PurchaseService {
       ? purchase_type?.toString()
       : null;
     user_uid = user_uid?.toString() || null;
+    count = [true, 'true'].includes(count) ? count : null;
 
     return {
       uid,
@@ -101,6 +104,7 @@ export class PurchaseService {
       populate_purchase_data,
       purchase_type,
       user_uid,
+      count,
     };
   }
 }

@@ -28,8 +28,13 @@ export class PurchaseController {
   async getAllPurchases(@Query() query: IQuery, @Req() req: CustomRequest) {
     const parsedQuery = this.purchaseService.getParsedQuery(query);
     const data = await this.purchaseService.getPurchases(parsedQuery, req.user);
+    const retObj: any = { purchases: data };
 
-    return data;
+    if (query.count) {
+      retObj.count = retObj.purchases.length;
+    }
+
+    return retObj;
   }
 
   @Post('/create')

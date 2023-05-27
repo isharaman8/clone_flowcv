@@ -6,6 +6,7 @@ import { CreateSubscriptionDto, UpdateSubscriptionDto } from '../dto';
 import { Query } from 'src/shared/interfaces';
 import {
   _getActiveAggregationFilter,
+  _getCountAggregationQuery,
   _getIdAggregationFilter,
   _getNameAggregationFilter,
   _getPriceAggregationFilter,
@@ -49,13 +50,21 @@ export class SubscriptionService {
   }
 
   getParsedQuery(query: Query) {
-    let { name, uid, active = true, minPrice = null, maxPrice = null } = query;
+    let {
+      name,
+      uid,
+      active = true,
+      minPrice = null,
+      maxPrice = null,
+      count,
+    } = query;
 
     active = [true, 'true'].includes(active);
     uid = uid ? (Array.isArray(uid) ? uid : [uid]) : null;
     name = name ? (Array.isArray(name) ? name : [name]) : null;
     minPrice = minPrice !== null && !isNaN(minPrice) ? Number(minPrice) : null;
     maxPrice = maxPrice !== null && !isNaN(maxPrice) ? Number(maxPrice) : null;
+    count = [true, 'true'].includes(count) ? count : null;
 
     return {
       name,
@@ -63,6 +72,7 @@ export class SubscriptionService {
       maxPrice,
       uid,
       active,
+      count,
     };
   }
 
