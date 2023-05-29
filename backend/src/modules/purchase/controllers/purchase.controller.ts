@@ -34,14 +34,14 @@ export class PurchaseController {
       retObj.count = retObj.purchases.length;
     }
 
-    return retObj;
+    return { purchases: retObj };
   }
 
   @Post('/create')
   async makePurchase(@Body() payload: PurchaseDto, @Req() req: CustomRequest) {
     const data = await this.purchaseService.makePurchase(payload, req.user);
 
-    return data;
+    return { purchase: data };
   }
 
   @Patch('/:uid')
@@ -62,7 +62,7 @@ export class PurchaseController {
 
     const doc = await this.purchaseService.updatePurchase(payload, uid);
 
-    return doc;
+    return { purchases: doc };
   }
 
   @Delete('/:uid')
@@ -77,11 +77,6 @@ export class PurchaseController {
       });
     }
 
-    const doc = await this.purchaseService.updatePurchase(
-      { active: false },
-      uid,
-    );
-
-    return doc;
+    return await this.purchaseService.updatePurchase({ active: false }, uid);
   }
 }

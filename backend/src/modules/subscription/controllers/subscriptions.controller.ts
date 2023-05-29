@@ -40,7 +40,7 @@ export class SubscriptionController {
 
     const data = await this.subscriptionService.createSubscription(payload);
 
-    return data;
+    return { subscription: data };
   }
 
   @Get(['/', '/:uid'])
@@ -60,7 +60,7 @@ export class SubscriptionController {
       retObj.count = retObj.subscriptions.length;
     }
 
-    return retObj;
+    return { subscriptions: retObj };
   }
 
   @Patch('/:uid')
@@ -91,7 +91,7 @@ export class SubscriptionController {
       });
     }
 
-    return data;
+    return { subscription: data };
   }
 
   @Delete('/:uid')
@@ -103,11 +103,9 @@ export class SubscriptionController {
       });
     }
 
-    await this.subscriptionService.editSubscriptions(
+    return await this.subscriptionService.editSubscriptions(
       { uid },
       { deleted_at: new Date(), deleted_by: req.user.uid, active: false },
     );
-
-    return { delete: true, uid };
   }
 }
