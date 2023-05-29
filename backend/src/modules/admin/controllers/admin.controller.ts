@@ -60,7 +60,7 @@ export class AdminController {
       payload.role || 'user',
     );
 
-    return createdUser;
+    return { user: createdUser };
   }
 
   @UseGuards(AuthGuard)
@@ -109,7 +109,7 @@ export class AdminController {
 
     const updatedUser = await this.adminService.updateUser(userId, payload);
 
-    return updatedUser;
+    return { user: updatedUser };
   }
 
   @Delete('/delete-user/:useId')
@@ -122,7 +122,7 @@ export class AdminController {
       });
     }
 
-    await this.adminService.updateUser(userId, {
+    return await this.adminService.updateUser(userId, {
       active: false,
       deleted_at: new Date(),
       deleted_by: req.user.uid,
