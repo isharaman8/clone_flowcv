@@ -11,3 +11,8 @@ export interface Query {
   purchase_type?: string | null;
   count?: boolean | null;
 }
+
+export interface TemplateQuery {
+  type?: string;
+  uid?: string | string[];
+}
