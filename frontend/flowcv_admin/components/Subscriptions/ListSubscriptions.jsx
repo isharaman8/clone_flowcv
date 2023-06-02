@@ -9,23 +9,23 @@ import {
 import { useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 
-export const UserList = (props) => {
+export const SubscriptionList = (props) => {
 	const isSmall = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
-	const [users, setUsers] = useState([]);
+	const [subscriptions, setSubscriptions] = useState([]);
 
 	const dataProvider = useDataProvider();
 
 	const fetchData = async () => {
 		const user = JSON.parse(localStorage.getItem("adminData")) || {},
 			token = user?.access_token,
-			{ data = [] } = await dataProvider.getList("admin/get-users", {
+			{ data = [] } = await dataProvider.getList("subscription", {
 				access_token: token,
 			});
 
 		console.log(user);
 
-		setUsers(data);
+		setSubscriptions(data);
 	};
 	useEffect(() => {
 		fetchData();
@@ -39,12 +39,14 @@ export const UserList = (props) => {
 					tertiaryText={(record) => record.email}
 				/>
 			) : (
-				<Datagrid data={users} rowClick="edit">
+				<Datagrid data={subscriptions} rowClick="edit">
 					{/* <TextField>{c.id}</TextField> */}
 					<TextField source="id" />
 					<TextField source="name" />
-					<EmailField source="email" />
-					<TextField source="role" />
+					<EmailField source="description" />
+					<TextField source="price" />
+					<TextField source="active" />
+					<TextField source="duration" />
 				</Datagrid>
 			)}
 		</List>

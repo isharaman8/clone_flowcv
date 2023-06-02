@@ -63,7 +63,7 @@ export class AdminController {
     return { user: createdUser };
   }
 
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   @Get(['/get-users', '/get-users/:userId'])
   async getUsers(
     @Query() query: IQuery,

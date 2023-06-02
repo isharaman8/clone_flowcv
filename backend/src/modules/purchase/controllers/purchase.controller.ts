@@ -34,7 +34,7 @@ export class PurchaseController {
       retObj.count = retObj.purchases.length;
     }
 
-    return { purchases: retObj };
+    return retObj;
   }
 
   @Post('/create')
