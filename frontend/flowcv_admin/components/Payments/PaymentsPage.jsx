@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import {
   Box,
   FormControl,
-  Grid,
   InputLabel,
   MenuItem,
   Select,
   Stack,
-  Switch,
-  TextField,
   Typography,
 } from "@mui/material";
+import PaymentFields from "./PaymentFields";
+import CommonButton from "../Button";
 
 export const PaymentsPage = () => {
   const [payment, setPayment] = useState({
@@ -32,7 +31,14 @@ export const PaymentsPage = () => {
   };
 
   return (
-    <Box mx={5} my={5}>
+    <Box
+      py={5}
+      px={5}
+      sx={{
+        borderLeft: "1px solid #cbcbcb",
+        height: "100vh",
+      }}
+    >
       <Stack>
         <Typography variant={"h5"} component={"h5"} fontWeight={600}>
           Currency
@@ -43,14 +49,16 @@ export const PaymentsPage = () => {
           sx={{
             width: "20rem",
             outline: "none",
-            borderRadius: ".5rem",
-            border: "1px solid #111",
           }}
         >
           <InputLabel id="demo-simple-select-label">Currency</InputLabel>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
+            variant="outlined"
+            sx={{
+              bgcolor: "#fff",
+              borderRadius: ".5rem",
+              padding: ".4rem",
+            }}
             value={payment.currency}
             label="Currency"
             name="currency"
@@ -63,78 +71,20 @@ export const PaymentsPage = () => {
         </FormControl>
       </Box>
 
-      <Box
-        sx={{ border: "1px solid black", padding: 2, borderRadius: 1 }}
-        my={2}
-      >
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography variant={"h5"} component={"h5"} fontWeight={600}>
-            Stripe
-          </Typography>
-
-          <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-            <Typography variant={"h6"} component={"h5"} fontWeight={600}>
-              Active
-            </Typography>
-            <Switch
-              checked={payment.stripe_checked}
-              name="stripe_checked"
-              onChange={handleChange}
-              inputProps={{ "aria-label": "controlled" }}
-            />
-          </Box>
-        </Box>
-
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <TextField label="API PUBLIC KEY" variant="outlined" fullWidth />
-          </Grid>
-
-          <Grid item xs={6}>
-            <TextField label="API SECRET KEY" variant="outlined" fullWidth />
-          </Grid>
-
-          <Grid item xs={6}>
-            <TextField label="API WEBHOOK URL" variant="outlined" fullWidth />
-          </Grid>
-        </Grid>
-      </Box>
+      <PaymentFields
+        handleChange={handleChange}
+        payment={payment}
+        value="stripe"
+      />
       <br />
-      <Box
-        sx={{ border: "1px solid black", padding: 2, borderRadius: 1 }}
-        my={2}
-      >
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography variant={"h5"} component={"h5"} fontWeight={600}>
-            Pay Stack
-          </Typography>
-
-          <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-            <Typography variant={"h6"} component={"h5"} fontWeight={600}>
-              Active
-            </Typography>
-            <Switch
-              checked={payment.paystack_checked}
-              name="paystack_checked"
-              onChange={handleChange}
-              inputProps={{ "aria-label": "controlled" }}
-            />
-          </Box>
-        </Box>
-
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <TextField label="API PUBLIC KEY" variant="outlined" fullWidth />
-          </Grid>
-
-          <Grid item xs={6}>
-            <TextField label="API SECRET KEY" variant="outlined" fullWidth />
-          </Grid>
-
-          <Grid item xs={6}>
-            <TextField label="API WEBHOOK URL" variant="outlined" fullWidth />
-          </Grid>
-        </Grid>
+      <PaymentFields
+        handleChange={handleChange}
+        payment={payment}
+        value="Pay Stack"
+      />
+      <Box display={"flex"} justifyContent={"flex-end"} gap={3} mt={2}>
+        <CommonButton value={"save"} />
+        <CommonButton value={"cancel"} />
       </Box>
     </Box>
   );

@@ -1,12 +1,15 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 import { PricingCard } from "./PricingCard";
 import { useDataProvider } from "react-admin";
+import EditPricing from "./EditPricing";
 
 export const ListPricing = () => {
   const [pricing, setPricing] = useState([]);
-
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const dataProvider = useDataProvider();
 
   const fetchData = async () => {
@@ -16,20 +19,27 @@ export const ListPricing = () => {
         access_token: token,
       });
 
-    console.log(user);
-
     setPricing(data);
   };
+
   useEffect(() => {
     fetchData();
   }, [dataProvider]);
+
   return (
-    <Box my={5} mx={5}>
+    <Box
+      py={5}
+      px={5}
+      sx={{
+        borderLeft: "1px solid #cbcbcb",
+        height: "100vh",
+      }}
+    >
       <Typography variant="h4" component="h4" fontWeight={600}>
         Pricing
       </Typography>
       <Typography
-        variant="h6"
+        variant="p"
         component={"p"}
         mt={2}
         color={"gray"}
@@ -39,18 +49,19 @@ export const ListPricing = () => {
       </Typography>
 
       {/* PRICING BOXES */}
-      {pricing.map((c) => {
-        console.log(c);
-        return (
+      <Grid container spacing={2} my={4} justifyContent="space-evenly">
+        {pricing.map((c) => (
           <PricingCard
             name={c.name}
             description={c.description}
             price={c.price}
             duration={c.duration}
             key={c.uid}
+            handleOpen={handleOpen}
           />
-        );
-      })}
+        ))}
+      </Grid>
+      {open && <EditPricing open={open} handleClose={handleClose} />}
     </Box>
   );
 };

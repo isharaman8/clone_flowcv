@@ -9,10 +9,12 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Switch,
   TextField,
 } from "@mui/material";
 import { GrClose } from "react-icons/gr";
 import CommonButton from "../Button";
+import { useState } from "react";
 
 const style = {
   position: "absolute",
@@ -27,7 +29,19 @@ const style = {
   borderRadius: ".4rem",
 };
 
-const EditUser = ({ open, handleClose }) => {
+const EditPricing = ({ open, handleClose }) => {
+  const [plan, setPlan] = useState({
+    active: false,
+  });
+
+  const handleChange = (event) => {
+    const { name, value, checked } = event.target;
+
+    setPlan((prevState) => ({
+      ...prevState,
+      [name]: name === "active" ? checked : value,
+    }));
+  };
   return (
     <div>
       <Modal
@@ -51,7 +65,7 @@ const EditUser = ({ open, handleClose }) => {
                 variant="h6"
                 component="h2"
               >
-                Edit User
+                Edit Plan
               </Typography>
               <GrClose
                 style={{ fontSize: "1.5rem", cursor: "pointer" }}
@@ -63,105 +77,82 @@ const EditUser = ({ open, handleClose }) => {
               <Grid container spacing={2}>
                 <Grid item xs={6}>
                   <label style={{ fontWeight: "600", fontSize: "1rem" }}>
-                    First Name
+                    Plan Name
                   </label>
-                  <TextField label="First Name" variant="outlined" fullWidth />
+                  <TextField label="Plan name" variant="outlined" fullWidth />
                 </Grid>
 
                 <Grid item xs={6}>
                   <label style={{ fontWeight: "600", fontSize: "1rem" }}>
-                    Last Name
+                    Plan Price
                   </label>
-                  <TextField label="Last Name" variant="outlined" fullWidth />
+                  <TextField label="Plan price" variant="outlined" fullWidth />
                 </Grid>
 
                 <Grid item xs={6}>
                   <label style={{ fontWeight: "600", fontSize: "1rem" }}>
-                    Email
-                  </label>
-                  <TextField label="Email" variant="outlined" fullWidth />
-                </Grid>
-                <Grid item xs={6}>
-                  <label style={{ fontWeight: "600", fontSize: "1rem" }}>
-                    Password
+                    Description
                   </label>
                   <TextField
-                    label="Password"
+                    label="Description"
                     variant="outlined"
-                    type="password"
                     fullWidth
+                    multiline
+                    rows={5}
                   />
                 </Grid>
+                <Grid item xs={6}>
+                  <label style={{ fontWeight: "600", fontSize: "1rem" }}>
+                    Plan Type
+                  </label>
+                  <Box sx={{ minWidth: 120 }}>
+                    <FormControl
+                      sx={{
+                        width: "20rem",
+                        outline: "none",
+                      }}
+                    >
+                      <InputLabel>Type</InputLabel>
+                      <Select
+                        label="Type"
+                        name="type"
+                        variant="outlined"
+                        sx={{
+                          bgcolor: "#fff",
+                          borderRadius: ".5rem",
+                          padding: ".4rem",
+                        }}
+                      >
+                        <MenuItem value={"monthly"}>Monthly</MenuItem>
+                        <MenuItem value={"yearly"}>Yearly</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                </Grid>
               </Grid>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  marginTop: "1rem",
+            </Box>
+            <br />
+            <Box>
+              <label style={{ fontWeight: "600", fontSize: "1rem" }}>
+                Active
+              </label>
+              <br />
+              <Switch
+                sx={{
+                  "& .MuiSwitch-switchBase.Mui-checked": {
+                    transform: "translateX(18px)",
+                    color: "#818181", // Change color here
+                    "& + .MuiSwitch-track": {
+                      opacity: 1,
+                      backgroundColor: "#000000", // Change track color here
+                    },
+                  },
                 }}
-              >
-                <Grid item xs={4}>
-                  <label style={{ fontWeight: "600", fontSize: "1rem" }}>
-                    Role
-                  </label>
-                  <Box sx={{ minWidth: 120 }}>
-                    <FormControl
-                      sx={{
-                        width: "20rem",
-                        outline: "none",
-                      }}
-                    >
-                      <InputLabel id="demo-simple-select-label">
-                        Role
-                      </InputLabel>
-                      <Select
-                        label="Role"
-                        name="role"
-                        variant="outlined"
-                        sx={{
-                          bgcolor: "#fff",
-                          borderRadius: ".5rem",
-                          padding: ".4rem",
-                        }}
-                      >
-                        <MenuItem value={"admin"}>Admin</MenuItem>
-                        <MenuItem value={"user"}>User</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Box>
-                </Grid>
-                <Grid item xs={4}>
-                  <label style={{ fontWeight: "600", fontSize: "1rem" }}>
-                    Plan
-                  </label>
-                  <Box sx={{ minWidth: 120 }}>
-                    <FormControl
-                      sx={{
-                        width: "20rem",
-                        outline: "none",
-                      }}
-                    >
-                      <InputLabel id="demo-simple-select-label">
-                        Plan
-                      </InputLabel>
-                      <Select
-                        label="Plan"
-                        name="plan"
-                        variant="outlined"
-                        sx={{
-                          bgcolor: "#fff",
-                          borderRadius: ".5rem",
-                          padding: ".4rem",
-                        }}
-                      >
-                        <MenuItem value={"basic"}>Basic</MenuItem>
-                        <MenuItem value={"standard"}>Standard</MenuItem>
-                        <MenuItem value={"premium"}>Premium</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Box>
-                </Grid>
-              </div>
+                checked={plan.active}
+                name="active"
+                onChange={handleChange}
+                inputProps={{ "aria-label": "controlled" }}
+              />
             </Box>
             <div
               style={{
@@ -179,4 +170,4 @@ const EditUser = ({ open, handleClose }) => {
   );
 };
 
-export default EditUser;
+export default EditPricing;
