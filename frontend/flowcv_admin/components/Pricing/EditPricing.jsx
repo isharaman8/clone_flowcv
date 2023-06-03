@@ -21,7 +21,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 1000,
+  width: { sm: "80%", xs: "80%", lg: 1000, md: 1000 },
   bgcolor: "background.paper",
   border: "1px solid #000",
   boxShadow: 24,
@@ -75,21 +75,21 @@ const EditPricing = ({ open, handleClose }) => {
 
             <Box mt={4}>
               <Grid container spacing={2}>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={12} lg={6} md={6}>
                   <label style={{ fontWeight: "600", fontSize: "1rem" }}>
                     Plan Name
                   </label>
                   <TextField label="Plan name" variant="outlined" fullWidth />
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={12} lg={6} md={6}>
                   <label style={{ fontWeight: "600", fontSize: "1rem" }}>
                     Plan Price
                   </label>
                   <TextField label="Plan price" variant="outlined" fullWidth />
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={12} lg={6} md={6}>
                   <label style={{ fontWeight: "600", fontSize: "1rem" }}>
                     Description
                   </label>

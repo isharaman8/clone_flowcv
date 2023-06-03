@@ -18,7 +18,7 @@ const GeneralSettings = () => {
       px={5}
       sx={{
         borderLeft: "1px solid #cbcbcb",
-        height: "100vh",
+        minHeight: "100vh",
       }}
     >
       <Typography variant="h4" component="h4" fontWeight={600}>
@@ -29,29 +29,29 @@ const GeneralSettings = () => {
         SEO Settings
       </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={4}>
+        <Grid item xs={6} sm={6} lg={4} md={4}>
           <label style={{ fontWeight: "600", fontSize: "1rem" }}>
             App Name
           </label>
           <TextField variant="outlined" fullWidth />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={6} sm={6} lg={4} md={4}>
           <label style={{ fontWeight: "600", fontSize: "1rem" }}>
             App Email
           </label>
           <TextField variant="outlined" fullWidth />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={12} lg={4} md={4}>
           <label style={{ fontWeight: "600", fontSize: "1rem" }}>App Url</label>
           <TextField variant="outlined" fullWidth />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={12} lg={6} md={6}>
           <label style={{ fontWeight: "600", fontSize: "1rem" }}>
             App Description
           </label>
           <TextField variant="outlined" fullWidth multiline rows={6} />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={12} lg={6} md={6}>
           <label style={{ fontWeight: "600", fontSize: "1rem" }}>
             App Keywords
           </label>
@@ -63,35 +63,35 @@ const GeneralSettings = () => {
         SMTP Settings
       </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={4}>
+        <Grid item xs={6} sm={6} lg={4} md={4}>
           <label style={{ fontWeight: "600", fontSize: "1rem" }}>
             SMTP Host
           </label>
           <TextField variant="outlined" fullWidth />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={6} sm={6} lg={4} md={4}>
           <label style={{ fontWeight: "600", fontSize: "1rem" }}>
             SMTP Port
           </label>
           <TextField variant="outlined" fullWidth />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={12} lg={4} md={4}>
           <label style={{ fontWeight: "600", fontSize: "1rem" }}>
             Username
           </label>
           <TextField variant="outlined" fullWidth />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={12} lg={4} md={4}>
           <label style={{ fontWeight: "600", fontSize: "1rem" }}>
             Password
           </label>
           <TextField variant="outlined" type="password" fullWidth />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={12} lg={4} md={4}>
           <label style={{ fontWeight: "600", fontSize: "1rem" }}>Email</label>
           <TextField variant="outlined" fullWidth type="email" />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={12} lg={4} md={4}>
           <label style={{ fontWeight: "600", fontSize: "1rem" }}>
             Encryption
           </label>

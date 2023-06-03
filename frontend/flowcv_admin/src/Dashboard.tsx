@@ -2,32 +2,13 @@
 
 // INNER IMPORTS
 import React from "react";
-import { styled } from "@mui/material";
+import { Box, Grid, styled } from "@mui/material";
 import { BsFillArrowUpRightCircleFill, BsFilter } from "react-icons/bs";
 import { IconType } from "react-icons/lib";
 
 // INNER IMPORTS
 import Graph from "./chart/Graph";
 import { DASHBOARD } from "../utils/Constants";
-
-const Section = styled("section")({
-  padding: "2rem",
-  borderLeft: "1px solid #cbcbcb",
-});
-
-const Main = styled("div")({
-  display: "flex",
-  gap: "2rem",
-  justifyContent: "space-between",
-});
-
-const LeftDiv = styled("div")({
-  width: "18rem",
-});
-
-const RightDiv = styled("div")({
-  width: "50rem",
-});
 
 const Content = styled("div")({
   border: "1px solid #cbcbcb",
@@ -89,11 +70,23 @@ export const Dashboard = () => {
   };
 
   return (
-    <Section>
+    <Box
+      py={5}
+      px={5}
+      sx={{
+        borderLeft: "1px solid #cbcbcb",
+        minHeight: "100vh",
+      }}
+    >
       <h3>Overview</h3>
-      <Main>
-        <LeftDiv>
-          <Content>
+
+      <Grid container gap={8}>
+        <Grid item md={4} lg={4} sm={12} xs={12}>
+          <Content
+            sx={{
+              width: { sm: "22rem", md: "100%", lg: "100%", xs: "22rem" },
+            }}
+          >
             <BsFillArrowUpRightCircleFill
               style={{ fontSize: "2.6rem", marginRight: "1rem" }}
             />
@@ -104,6 +97,9 @@ export const Dashboard = () => {
           </Content>
           <br />
           <Content
+            sx={{
+              width: { sm: "22rem", md: "100%", lg: "100%", xs: "22rem" },
+            }}
             style={{ flexDirection: "column", alignItems: "flex-start" }}
           >
             <div
@@ -162,11 +158,13 @@ export const Dashboard = () => {
               </label>
             </div>
           </Content>
-        </LeftDiv>
-        <RightDiv>
+        </Grid>
+
+        <Grid item md={6} lg={6} sm={12} xs={12}>
           <Graph selectedOption={selectedOption} />
-        </RightDiv>
-      </Main>
+        </Grid>
+      </Grid>
+
       <br />
       <Footer>
         <h3>General Numbers</h3>
@@ -176,6 +174,6 @@ export const Dashboard = () => {
           ))}
         </FooterContent>
       </Footer>
-    </Section>
+    </Box>
   );
 };

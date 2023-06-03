@@ -11,7 +11,7 @@ export const PricingCard = ({
   handleOpen,
 }) => {
   return (
-    <Grid item xs={3}>
+    <Grid item lg={3} md={3} sm={12} xs={12}>
       <Box
         sx={{
           background: "#e8e8e8",

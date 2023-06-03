@@ -36,7 +36,7 @@ export const PaymentsPage = () => {
       px={5}
       sx={{
         borderLeft: "1px solid #cbcbcb",
-        height: "100vh",
+        minHeight: "100vh",
       }}
     >
       <Stack>

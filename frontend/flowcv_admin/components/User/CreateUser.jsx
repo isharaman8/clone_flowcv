@@ -8,36 +8,42 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { Create, ReferenceInput, SimpleForm, TextInput } from "react-admin";
+import { Create, SimpleForm, TextInput } from "react-admin";
 
 const CreateUser = () => {
   return (
-    <Box my={4} mx={4}>
+    <Box
+      py={5}
+      px={5}
+      sx={{
+        minHeight: "100vh",
+      }}
+    >
       <Typography variant="h5" component="h2" fontWeight={600}>
         Create User
       </Typography>
       <Create>
         <SimpleForm>
           <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={12} lg={6} md={6}>
               <label style={{ fontWeight: "600", fontSize: "1rem" }}>
                 First Name
               </label>
               <TextInput source="first name" variant="outlined" fullWidth />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={12} lg={6} md={6}>
               <label style={{ fontWeight: "600", fontSize: "1rem" }}>
                 Last Name
               </label>
               <TextInput source="last name" variant="outlined" fullWidth />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={12} lg={6} md={6}>
               <label style={{ fontWeight: "600", fontSize: "1rem" }}>
                 Email
               </label>
               <TextInput source="email" variant="outlined" fullWidth />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={12} lg={6} md={6}>
               <label style={{ fontWeight: "600", fontSize: "1rem" }}>
                 Password
               </label>
@@ -49,15 +55,15 @@ const CreateUser = () => {
               />
             </Grid>
           </Grid>
-          <div
-            style={{
+          <Box
+            sx={{
               width: "100%",
-              display: "flex",
+              display: { sm: "block", xs: "block", lg: "flex", md: "flex" },
               justifyContent: "space-between",
               marginTop: "1rem",
             }}
           >
-            <Grid item xs={4}>
+            <Grid item xs={12} sm={12} lg={4} md={4}>
               <label style={{ fontWeight: "600", fontSize: "1rem" }}>
                 Role
               </label>
@@ -85,7 +91,7 @@ const CreateUser = () => {
                 </FormControl>
               </Box>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} sm={12} lg={4} md={4}>
               <label style={{ fontWeight: "600", fontSize: "1rem" }}>
                 Plan
               </label>
@@ -114,7 +120,7 @@ const CreateUser = () => {
                 </FormControl>
               </Box>
             </Grid>
-          </div>
+          </Box>
         </SimpleForm>
       </Create>
     </Box>

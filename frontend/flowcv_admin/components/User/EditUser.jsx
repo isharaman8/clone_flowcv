@@ -19,7 +19,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 1000,
+  width: { sm: "80%", xs: "80%", lg: 1000, md: 1000 },
   bgcolor: "background.paper",
   border: "1px solid #000",
   boxShadow: 24,
@@ -61,27 +61,27 @@ const EditUser = ({ open, handleClose }) => {
 
             <Box mt={4}>
               <Grid container spacing={2}>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={12} lg={6} md={6}>
                   <label style={{ fontWeight: "600", fontSize: "1rem" }}>
                     First Name
                   </label>
                   <TextField label="First Name" variant="outlined" fullWidth />
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={12} lg={6} md={6}>
                   <label style={{ fontWeight: "600", fontSize: "1rem" }}>
                     Last Name
                   </label>
                   <TextField label="Last Name" variant="outlined" fullWidth />
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={12} lg={6} md={6}>
                   <label style={{ fontWeight: "600", fontSize: "1rem" }}>
                     Email
                   </label>
                   <TextField label="Email" variant="outlined" fullWidth />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={12} lg={6} md={6}>
                   <label style={{ fontWeight: "600", fontSize: "1rem" }}>
                     Password
                   </label>
@@ -93,9 +93,9 @@ const EditUser = ({ open, handleClose }) => {
                   />
                 </Grid>
               </Grid>
-              <div
-                style={{
-                  display: "flex",
+              <Box
+                sx={{
+                  display: { sm: "block", xs: "block", lg: "flex", md: "flex" },
                   justifyContent: "space-between",
                   marginTop: "1rem",
                 }}
@@ -161,7 +161,7 @@ const EditUser = ({ open, handleClose }) => {
                     </FormControl>
                   </Box>
                 </Grid>
-              </div>
+              </Box>
             </Box>
             <div
               style={{

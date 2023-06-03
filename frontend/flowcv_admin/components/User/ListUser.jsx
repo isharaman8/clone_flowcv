@@ -39,6 +39,7 @@ export const UserList = (props) => {
     <List {...props} title="Users' List">
       {isSmall ? (
         <SimpleList
+          onClick={handleOpen}
           primaryText={(record) => record.name}
           tertiaryText={(record) => record.email}
         />

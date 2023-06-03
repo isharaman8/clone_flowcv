@@ -32,7 +32,7 @@ export const ListPricing = () => {
       px={5}
       sx={{
         borderLeft: "1px solid #cbcbcb",
-        height: "100vh",
+        minHeight: "100vh",
       }}
     >
       <Typography variant="h4" component="h4" fontWeight={600}>

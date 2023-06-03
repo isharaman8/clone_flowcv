@@ -6,7 +6,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
-import { Admin, ListGuesser, Resource } from "react-admin";
+import { Admin, Resource } from "react-admin";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 
 // INNER IMPORTS

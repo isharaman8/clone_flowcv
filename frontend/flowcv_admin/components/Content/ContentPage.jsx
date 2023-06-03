@@ -38,7 +38,7 @@ const ContentPage = () => {
       px={5}
       sx={{
         borderLeft: "1px solid #cbcbcb",
-        height: "100vh",
+        minHeight: "100vh",
       }}
     >
       <Typography variant="h4" component="h4" fontWeight={600}>
@@ -46,7 +46,7 @@ const ContentPage = () => {
       </Typography>
       <br />
       <Grid container spacing={2}>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={12} lg={4} md={4}>
           <label style={{ fontWeight: "600", fontSize: "1rem" }}>Content</label>
           <Box sx={{ minWidth: 120 }}>
             <FormControl
@@ -75,7 +75,7 @@ const ContentPage = () => {
             </FormControl>
           </Box>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={12} lg={6} md={6}>
           <label style={{ fontWeight: "600", fontSize: "1rem" }}>Logo</label>
           <label htmlFor="upload-logo">
             <Box
@@ -114,13 +114,21 @@ const ContentPage = () => {
             </Box>
           </label>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={12} lg={4} md={4}>
           <label style={{ fontWeight: "600", fontSize: "1rem" }}>Value</label>
           <br />
           <TextField variant="outlined" source="Value" multiline rows={8} />
         </Grid>
-        <Grid item xs={6} sm container>
-          <Grid item xs={6}>
+        <Grid
+          item
+          xs={12}
+          sm={12}
+          lg={6}
+          md={6}
+          sx={{ height: { xs: "22rem", sm: "20rem", lg: "100%", md: "100%" } }}
+          container
+        >
+          <Grid item xs={12}>
             <label style={{ fontWeight: "600", fontSize: "1rem" }}>
               Site Images
             </label>
@@ -151,7 +159,7 @@ const ContentPage = () => {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={12}>
             <label htmlFor="upload-image">
               <Box
                 border={"1px solid #b7b7b7"}
@@ -189,7 +197,7 @@ const ContentPage = () => {
               </Box>
             </label>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={12}>
             <Box display={"flex"} justifyContent={"flex-end"} gap={3} mt={2}>
               <CommonButton value={"save"} />
               <CommonButton value={"cancel"} />
