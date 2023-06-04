@@ -16,6 +16,12 @@ const RoleEnum = {
   user: 'user',
 };
 
+const PlanEnum = {
+  basic: 'basic',
+  standard: 'standard',
+  premium: 'premium',
+};
+
 export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
@@ -38,6 +44,13 @@ export class CreateUserDto {
   @IsOptional()
   @ApiProperty()
   role?: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @IsEnum(PlanEnum)
+  @IsOptional()
+  @ApiProperty()
+  plan?: string;
 
   @IsBoolean()
   @ApiProperty()

@@ -19,6 +19,9 @@ export class User extends Document {
   @Prop({ required: true, enum: ['admin', 'user'] })
   role: string;
 
+  @Prop({ required: true, enum: ['basic', 'standard', 'premium'] })
+  plan: string;
+
   @Prop({ required: true, default: true })
   active: boolean;
 

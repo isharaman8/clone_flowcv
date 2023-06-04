@@ -13,7 +13,7 @@ import {
   Delete,
   UnauthorizedException,
 } from '@nestjs/common';
-import argon from 'argon2';
+import { hash } from 'argon2';
 
 // INNER IMPORTS
 import { CustomRequest, Query as IQuery } from 'src/shared/interfaces';
@@ -52,7 +52,7 @@ export class AdminController {
   @HttpCode(201)
   async createUser(@Body() payload: CreateUserDto) {
     if (payload.password) {
-      payload.password = await argon.hash(payload.password);
+      payload.password = await hash(payload.password);
     }
 
     const createdUser = await this.authService.signUp(
@@ -104,7 +104,7 @@ export class AdminController {
     }
 
     if (payload.password) {
-      payload.password = await argon.hash(payload.password);
+      payload.password = await hash(payload.password);
     }
 
     const updatedUser = await this.adminService.updateUser(userId, payload);
@@ -112,7 +112,7 @@ export class AdminController {
     return { user: updatedUser };
   }
 
-  @Delete('/delete-user/:useId')
+  @Delete('/delete-user/:userId')
   @UseGuards(AuthGuard)
   @HttpCode(201)
   async deleteUser(@Param('userId') userId: string, @Req() req: CustomRequest) {

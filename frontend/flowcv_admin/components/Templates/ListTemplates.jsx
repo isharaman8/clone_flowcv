@@ -1,7 +1,19 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
+import EditTemplate from "./EditTemplates";
+import { useDataProvider } from "react-admin";
 
 const ListTemplates = () => {
+  const [templates, setTemplates] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [template, setTemplate] = useState(null);
+  const dataProvider = useDataProvider();
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => setOpen(false);
   return (
     <Box
       py={5}
@@ -15,6 +27,8 @@ const ListTemplates = () => {
         Templates
       </Typography>
       <br />
+      <p onClick={handleOpen}>Open </p>
+      {open && <EditTemplate open={open} handleClose={handleClose} />}
     </Box>
   );
 };

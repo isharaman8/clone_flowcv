@@ -85,7 +85,6 @@ const ContentPage = () => {
                   border: "1px solid #111",
                 },
               }}
-              fullWidth
               borderRadius={".4rem"}
               py={1.5}
               mt={1}
@@ -168,7 +167,6 @@ const ContentPage = () => {
                     border: "1px solid #111",
                   },
                 }}
-                fullWidth
                 borderRadius={".4rem"}
                 py={1.5}
                 mt={1}

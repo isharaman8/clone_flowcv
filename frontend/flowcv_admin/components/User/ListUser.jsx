@@ -9,16 +9,30 @@ import {
 import { useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import EditUser from "./EditUser";
+import { useLocation } from "react-router-dom";
 
 export const UserList = (props) => {
   const isSmall = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   const [users, setUsers] = useState([]);
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const handleOpen = (user) => {
+    setOpen(true);
+  };
   const handleClose = () => setOpen(false);
 
+  const handleRowClick = (id) => {
+    const selectedUser = users.find((user) => user.id === id);
+    setSelectedUser(selectedUser);
+    handleOpen();
+  };
+
   const dataProvider = useDataProvider();
+  const location = useLocation();
+
+  // Check the pathname to determine the current resource
+  const isSubscriptionsResource = location.pathname === "/subscriptions";
 
   const fetchData = async () => {
     const user = JSON.parse(localStorage.getItem("adminData")) || {},
@@ -27,10 +41,9 @@ export const UserList = (props) => {
         access_token: token,
       });
 
-    console.log(user);
-
     setUsers(data);
   };
+
   useEffect(() => {
     fetchData();
   }, [dataProvider]);
@@ -39,20 +52,28 @@ export const UserList = (props) => {
     <List {...props} title="Users' List">
       {isSmall ? (
         <SimpleList
-          onClick={handleOpen}
+          rowClick={handleRowClick}
           primaryText={(record) => record.name}
           tertiaryText={(record) => record.email}
         />
       ) : (
-        <Datagrid data={users} rowClick={handleOpen}>
+        <Datagrid data={users} rowClick={handleRowClick}>
           {/* <TextField>{c.id}</TextField> */}
           <TextField source="id" />
           <TextField source="name" />
           <EmailField source="email" />
-          <TextField source="role" />
+          {!isSubscriptionsResource && <TextField source="role" />}
+          {isSubscriptionsResource && <TextField source="plan" />}
         </Datagrid>
       )}
-      {open && <EditUser open={open} handleClose={handleClose} />}
+      {open && (
+        <EditUser
+          open={open}
+          handleClose={handleClose}
+          user={selectedUser}
+          fetchData={fetchData}
+        />
+      )}
     </List>
   );
 };

@@ -8,9 +8,17 @@ import EditPricing from "./EditPricing";
 export const ListPricing = () => {
   const [pricing, setPricing] = useState([]);
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [selectedPlan, setSelectedPlan] = useState(null);
   const dataProvider = useDataProvider();
+
+  const handleOpen = () => setOpen(true);
+
+  const handleClick = (c) => {
+    const selectedPlan = pricing.find((plan) => plan.name === c);
+    setSelectedPlan(selectedPlan);
+  };
+
+  const handleClose = () => setOpen(false);
 
   const fetchData = async () => {
     const user = JSON.parse(localStorage.getItem("adminData")) || {},
@@ -56,12 +64,21 @@ export const ListPricing = () => {
             description={c.description}
             price={c.price}
             duration={c.duration}
-            key={c.uid}
+            id={c.uid}
+            key={c.id}
             handleOpen={handleOpen}
+            handleClick={handleClick}
           />
         ))}
       </Grid>
-      {open && <EditPricing open={open} handleClose={handleClose} />}
+      {open && (
+        <EditPricing
+          open={open}
+          handleClose={handleClose}
+          selectedPlan={selectedPlan}
+          fetchData={fetchData}
+        />
+      )}
     </Box>
   );
 };

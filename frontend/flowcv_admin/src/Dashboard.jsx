@@ -1,14 +1,14 @@
 "use client";
 
 // INNER IMPORTS
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Grid, styled } from "@mui/material";
 import { BsFillArrowUpRightCircleFill, BsFilter } from "react-icons/bs";
-import { IconType } from "react-icons/lib";
 
 // INNER IMPORTS
 import Graph from "./chart/Graph";
 import { DASHBOARD } from "../utils/Constants";
+import { useDataProvider } from "react-admin";
 
 const Content = styled("div")({
   border: "1px solid #cbcbcb",
@@ -42,20 +42,16 @@ const Card = styled("div")({
   width: "18rem",
 });
 
-type CardProps = {
-  title: string;
-  icon: IconType;
-};
-
-const CommonCard = (props: CardProps) => {
-  const { title, icon } = props;
+const CommonCard = (props) => {
+  const { title, icon, dashData } = props;
+  const key = title.split(" ")[0].toLowerCase();
   return (
     <>
       <Card>
         <span style={{ fontSize: "2.6rem" }}>{icon()}</span>
         <div>
           <p style={{ margin: 0, fontWeight: "500" }}>{title}</p>
-          <h3 style={{ margin: 0 }}>0</h3>
+          <h3 style={{ margin: 0 }}>{dashData[key] || 0}</h3>
         </div>
       </Card>
     </>
@@ -63,11 +59,36 @@ const CommonCard = (props: CardProps) => {
 };
 
 export const Dashboard = () => {
-  const [selectedOption, setSelectedOption] = React.useState("userSignups");
+  const [selectedOption, setSelectedOption] = useState("userSignups");
+  const [dashData, setDashData] = useState({});
+  const dataProvider = useDataProvider();
 
-  const handleOptionChange = (event: any) => {
+  const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
+
+  const fetchData = async () => {
+    const user = JSON.parse(localStorage.getItem("adminData")) || {},
+      token = user?.access_token,
+      { data = [] } = await dataProvider.getList("admin/get-users", {
+        access_token: token,
+      });
+    const payload = {
+      users: data.length,
+      subscriptions: data.filter((c) =>
+        ["standard", "premium"].includes(c.plan)
+      ).length,
+      premium: data.filter((c) => ["premium"].includes(c.plan)).length,
+      purchases: data.filter((c) => ["standard", "premium"].includes(c.plan))
+        .length,
+    };
+
+    setDashData(payload);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [dataProvider]);
 
   return (
     <Box
@@ -170,7 +191,12 @@ export const Dashboard = () => {
         <h3>General Numbers</h3>
         <FooterContent>
           {DASHBOARD.CARD.map((c) => (
-            <CommonCard title={c.title} icon={c.icon} key={c.id} />
+            <CommonCard
+              title={c.title}
+              icon={c.icon}
+              key={c.id}
+              dashData={dashData}
+            />
           ))}
         </FooterContent>
       </Footer>

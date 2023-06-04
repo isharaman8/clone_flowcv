@@ -9,9 +9,19 @@ export const PricingCard = ({
   description,
   price,
   handleOpen,
+  handleClick,
+  id,
 }) => {
   return (
-    <Grid item lg={3} md={3} sm={12} xs={12}>
+    <Grid
+      item
+      lg={3}
+      md={3}
+      sm={12}
+      xs={12}
+      key={id}
+      onClick={() => handleClick(name)}
+    >
       <Box
         sx={{
           background: "#e8e8e8",
@@ -51,7 +61,7 @@ export const PricingCard = ({
           </Typography>
         )}
 
-        {(SUBSCRIPTIONS[name.toUpperCase()] || []).map((c, i) => (
+        {(SUBSCRIPTIONS[name.toUpperCase()] || []).map((c) => (
           <>
             <Box key={c.id} display={"flex"} gap={2} alignItems={"center"}>
               {c.icon()}

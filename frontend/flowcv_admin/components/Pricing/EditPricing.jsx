@@ -15,6 +15,7 @@ import {
 import { GrClose } from "react-icons/gr";
 import CommonButton from "../Button";
 import { useState } from "react";
+import { useDataProvider, useNotify } from "react-admin";
 
 const style = {
   position: "absolute",
@@ -29,10 +30,45 @@ const style = {
   borderRadius: ".4rem",
 };
 
-const EditPricing = ({ open, handleClose }) => {
+const EditPricing = ({ open, handleClose, selectedPlan, fetchData }) => {
   const [plan, setPlan] = useState({
-    active: false,
+    active: selectedPlan.active,
+    name: selectedPlan.name,
+    price: selectedPlan.price,
+    description: selectedPlan.description || "",
+    type: selectedPlan.type || "",
   });
+
+  const dataProvider = useDataProvider();
+  const notify = useNotify();
+
+  const handleSave = async () => {
+    const updatedPlan = {
+      ...plan,
+      name: plan.name,
+      active: plan.active,
+      price: +plan.price,
+      description: plan.description,
+      type: plan.type,
+    };
+
+    const admin = JSON.parse(localStorage.getItem("adminData")) || {};
+
+    const res = await dataProvider.update(
+      `subscription/${selectedPlan.uid}`,
+      { data: updatedPlan },
+      admin.access_token
+    );
+
+    if (res.data.error) {
+      notify(res.data.error.message, { type: "error" });
+      return;
+    }
+
+    notify(`Plan Updated`, { type: "success" });
+    fetchData();
+    handleClose();
+  };
 
   const handleChange = (event) => {
     const { name, value, checked } = event.target;
@@ -79,14 +115,28 @@ const EditPricing = ({ open, handleClose }) => {
                   <label style={{ fontWeight: "600", fontSize: "1rem" }}>
                     Plan Name
                   </label>
-                  <TextField label="Plan name" variant="outlined" fullWidth />
+                  <TextField
+                    name="name"
+                    label="Plan name"
+                    variant="outlined"
+                    value={plan.name}
+                    onChange={handleChange}
+                    fullWidth
+                  />
                 </Grid>
 
                 <Grid item xs={12} sm={12} lg={6} md={6}>
                   <label style={{ fontWeight: "600", fontSize: "1rem" }}>
                     Plan Price
                   </label>
-                  <TextField label="Plan price" variant="outlined" fullWidth />
+                  <TextField
+                    name="price"
+                    label="Plan price"
+                    value={plan.price}
+                    onChange={handleChange}
+                    variant="outlined"
+                    fullWidth
+                  />
                 </Grid>
 
                 <Grid item xs={12} sm={12} lg={6} md={6}>
@@ -94,8 +144,11 @@ const EditPricing = ({ open, handleClose }) => {
                     Description
                   </label>
                   <TextField
+                    name="description"
                     label="Description"
                     variant="outlined"
+                    value={plan.description}
+                    onChange={handleChange}
                     fullWidth
                     multiline
                     rows={5}
@@ -116,6 +169,8 @@ const EditPricing = ({ open, handleClose }) => {
                       <Select
                         label="Type"
                         name="type"
+                        value={plan.type}
+                        onChange={handleChange}
                         variant="outlined"
                         sx={{
                           bgcolor: "#fff",
@@ -161,7 +216,7 @@ const EditPricing = ({ open, handleClose }) => {
                 marginTop: "4rem",
               }}
             >
-              <CommonButton value={"save"} />
+              <CommonButton value={"save"} cb={handleSave} />
             </div>
           </Box>
         </Fade>
