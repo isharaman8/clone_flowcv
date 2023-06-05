@@ -1,5 +1,13 @@
 import { Box } from "@mui/material";
 import React from "react";
+import { AiOutlinePlus } from "react-icons/ai";
+import {
+  HeaderFive,
+  HeaderFour,
+  HeaderOne,
+  HeaderThree,
+  HeaderTwo,
+} from "./HeadersSVG";
 
 export const LayoutButton = ({ title, style }) => {
   return (
@@ -74,5 +82,118 @@ export const ColumnButton = () => {
         </svg>
       </div>
     </Box>
+  );
+};
+
+export const FontElement = ({ title }) => {
+  return (
+    <>
+      <Box
+        sx={{
+          border: "1px solid #cbcbcb",
+          borderRadius: ".4rem",
+          width: "4rem",
+          height: "4rem",
+        }}
+      >
+        <div
+          style={{
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <span style={{ fontSize: "1.2rem", fontWeight: 600 }}>Aa</span>
+          <span style={{ fontSize: ".9rem" }}>{title}</span>
+        </div>
+      </Box>
+    </>
+  );
+};
+
+export const ColumnWidth = ({ title }) => {
+  return (
+    <>
+      <Box sx={{ lineHeight: ".8" }}>
+        <p>{title} 50%</p>
+        <div
+          style={{
+            width: "8rem",
+            display: "grid",
+            placeContent: "center",
+            padding: ".6rem",
+            border: "1px solid #cbcbcb",
+            borderRadius: ".4rem",
+          }}
+        >
+          <AiOutlinePlus
+            style={{
+              color: "#cbcbcb",
+              fontSize: "1.6rem",
+            }}
+          />
+        </div>
+      </Box>
+    </>
+  );
+};
+
+export const ColorsElement = ({ style, title }) => {
+  return (
+    <>
+      <Box textAlign={"center"}>
+        <Box
+          sx={{
+            borderRadius: "100%",
+            width: "4rem",
+            height: "4rem",
+            overflow: "hidden",
+            backgroundColor: style.border ? "#fff" : "#e8e8e8",
+            outline: style.border ? style.border : "",
+          }}
+        >
+          {!style.border && <div style={style}></div>}
+        </Box>
+        <p style={{ textTransform: "capitalize", fontSize: ".9rem" }}>
+          {title}
+        </p>
+      </Box>
+    </>
+  );
+};
+
+export const HeadersElement = () => {
+  return (
+    <>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: "1rem",
+          flexWrap: "wrap",
+        }}
+        my={2}
+      >
+        {[HeaderOne, HeaderTwo, HeaderThree, HeaderFour, HeaderFive].map(
+          (c) => (
+            <div
+              style={{
+                border: "1px solid #cbcbcb",
+                borderRadius: ".4rem",
+                width: "6rem",
+                height: "1.4rem",
+                padding: ".8rem .4rem",
+                display: "grid",
+                placeContent: "center",
+              }}
+            >
+              {c()}
+            </div>
+          )
+        )}
+      </Box>
+    </>
   );
 };

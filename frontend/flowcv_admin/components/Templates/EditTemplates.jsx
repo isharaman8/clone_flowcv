@@ -8,7 +8,14 @@ import { GrClose } from "react-icons/gr";
 import CommonButton from "../Button";
 import { useState } from "react";
 import { useDataProvider, useNotify } from "react-admin";
-import { LayoutButton, ColumnButton } from "./Template";
+import {
+  LayoutButton,
+  ColumnButton,
+  ColumnWidth,
+  FontElement,
+  ColorsElement,
+  HeadersElement,
+} from "./Template";
 
 const style = {
   position: "absolute",
@@ -16,9 +23,11 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: { sm: "80%", xs: "80%", lg: 1000, md: 1000 },
+  height: "80vh",
   bgcolor: "background.paper",
   border: "1px solid #000",
   boxShadow: 24,
+  overflowY: "auto",
   p: 4,
   borderRadius: ".4rem",
 };
@@ -159,6 +168,72 @@ const EditTemplate = ({ open, handleClose, fetchData, template = {} }) => {
                         bgcolor: "#c7c7c7",
                       }}
                     ></Box>
+                  </Box>
+                </Grid>
+                <Grid item lg={4} md={4}>
+                  <label style={{ fontWeight: "600", fontSize: "1rem" }}>
+                    Column width
+                  </label>
+                  <Box display={"flex"} gap={"2rem"}>
+                    <ColumnWidth title={"Left"} />
+                    <ColumnWidth title={"Right"} />
+                  </Box>
+                </Grid>
+                <Grid item lg={7} md={7}>
+                  <Box display="flex" flexDirection={"column"}>
+                    <Box alignSelf={"center"}>
+                      <label style={{ fontWeight: "600", fontSize: "1rem" }}>
+                        Font
+                      </label>
+
+                      <Box display={"flex"} gap={"2rem"} mt={3}>
+                        <FontElement title={"Serif"} />
+                        <FontElement title={"Sans"} />
+                        <FontElement title={"Mono"} />
+                      </Box>
+                    </Box>
+                  </Box>
+                </Grid>
+                <Grid item lg={4} md={4}>
+                  <label style={{ fontWeight: "600", fontSize: "1rem" }}>
+                    Colors
+                  </label>
+                  <Box display={"flex"} gap={"2rem"} mt={2}>
+                    <ColorsElement
+                      style={{
+                        width: "100%",
+                        backgroundColor: "#e8e8e8",
+                        height: "100%",
+                      }}
+                      title={"Basic"}
+                    />
+                    <ColorsElement
+                      style={{
+                        width: "100%",
+                        backgroundColor: "#cbcbcb",
+                        height: "50%",
+                      }}
+                      title={"Advanced"}
+                    />
+                    <ColorsElement
+                      style={{
+                        border: "4px solid #cbcbcb",
+                      }}
+                      title={"Border"}
+                    />
+                  </Box>
+                </Grid>
+                <Grid item lg={7} md={7}>
+                  <Box display="flex" justifyContent={"flex-end"}>
+                    <Box>
+                      <label style={{ fontWeight: "600", fontSize: "1rem" }}>
+                        Heading Style
+                      </label>
+
+                      <Box width={"26.3rem"}>
+                        <HeadersElement />
+                      </Box>
+                    </Box>
                   </Box>
                 </Grid>
               </Grid>

@@ -4,11 +4,12 @@ import React, { useEffect, useState } from "react";
 import { PricingCard } from "./PricingCard";
 import { useDataProvider } from "react-admin";
 import EditPricing from "./EditPricing";
+import { AiOutlinePlus } from "react-icons/ai";
 
 export const ListPricing = () => {
   const [pricing, setPricing] = useState([]);
   const [open, setOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [selectedPlan, setSelectedPlan] = useState({});
   const dataProvider = useDataProvider();
 
   const handleOpen = () => setOpen(true);
@@ -18,7 +19,10 @@ export const ListPricing = () => {
     setSelectedPlan(selectedPlan);
   };
 
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedPlan({});
+  };
 
   const fetchData = async () => {
     const user = JSON.parse(localStorage.getItem("adminData")) || {},
@@ -71,6 +75,22 @@ export const ListPricing = () => {
           />
         ))}
       </Grid>
+      <Box display={"flex"} justifyContent={"flex-end"}>
+        <div
+          style={{
+            borderRadius: "100%",
+            backgroundColor: "#111",
+            width: "3rem",
+            height: "3rem",
+            display: "grid",
+            placeContent: "center",
+            cursor: "pointer",
+          }}
+          onClick={handleOpen}
+        >
+          <AiOutlinePlus fontSize={"2.3rem"} color="#fff" />
+        </div>
+      </Box>
       {open && (
         <EditPricing
           open={open}

@@ -50,12 +50,15 @@ const EditPricing = ({ open, handleClose, selectedPlan, fetchData }) => {
       price: +plan.price,
       description: plan.description,
       type: plan.type,
+      duration: plan.duration || 0,
     };
 
     const admin = JSON.parse(localStorage.getItem("adminData")) || {};
-
-    const res = await dataProvider.update(
-      `subscription/${selectedPlan.uid}`,
+    const method = selectedPlan.uid ? "update" : "create";
+    const res = await dataProvider[method](
+      selectedPlan.uid
+        ? `subscription/${selectedPlan.uid}`
+        : "subscription/create",
       { data: updatedPlan },
       admin.access_token
     );
@@ -65,7 +68,9 @@ const EditPricing = ({ open, handleClose, selectedPlan, fetchData }) => {
       return;
     }
 
-    notify(`Plan Updated`, { type: "success" });
+    notify(selectedPlan.uid ? `Plan Updated` : "Plan Created", {
+      type: "success",
+    });
     fetchData();
     handleClose();
   };
@@ -101,7 +106,7 @@ const EditPricing = ({ open, handleClose, selectedPlan, fetchData }) => {
                 variant="h6"
                 component="h2"
               >
-                Edit Plan
+                {selectedPlan.uid ? "Edit Plan" : "Create Plan"}
               </Typography>
               <GrClose
                 style={{ fontSize: "1.5rem", cursor: "pointer" }}
