@@ -16,11 +16,12 @@ const LoginPage = () => {
   console.log("USER DATA", userData);
 
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  if (userData.access_token) router.push("/");
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
-
-  const router = useRouter();
 
   const handleSubmit = () => {
     if (!email || !password) {
@@ -57,7 +58,7 @@ const LoginPage = () => {
 
   return (
     <div className="flex flex-col justify-center items-center min-h-[80vh] w-[100vw]">
-      <div className="rounded-large shadow-card min-h-[calc(100vh-theme(space.16))] w-full max-w-lg bg-white p-10 pt-6 sm:p-12 sm:pt-8 md:min-h-min md:min-w-[500px] md:p-14 md:pt-10 lg:p-16 lg:pt-16 flex flex-col justify-center items-center gap-10">
+      <div className="rounded-[1rem] shadow-md min-h-[calc(100vh-theme(space.16))] w-full max-w-lg bg-white p-10 pt-6 sm:p-12 sm:pt-8 md:min-h-min md:min-w-[500px] md:p-14 md:pt-10 lg:p-16 lg:pt-16 flex flex-col justify-center items-center gap-10">
         {/* main heading */}
         <h1 class="text-primaryBlack mt-6 flex text-[28px] font-bold sm:mt-10 sm:text-[32px] md:mt-4 md:justify-center md:text-[38px]">
           Login

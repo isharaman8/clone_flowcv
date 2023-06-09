@@ -1,15 +1,22 @@
 "use client";
 
 import { addUserData } from "@redux/features";
+import { useAppSelector } from "@redux/hooks";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 const SignUp = () => {
+  const userData = useAppSelector((state) => state.persistedReducer.userData);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
+  const router = useRouter();
 
   const dispatch = useDispatch();
+
+  if (userData.access_token) router.push("/");
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -49,7 +56,7 @@ const SignUp = () => {
 
   return (
     <div className="flex flex-col min-h-[80vh] w-[100vw] justify-center items-center">
-      <div class="rounded-large shadow-card min-h-[calc(100vh-theme(space.16))] w-full max-w-lg bg-white p-10 pt-6 sm:p-12 sm:pt-8 md:min-h-min md:p-14 md:pt-10 lg:p-16 lg:pt-16">
+      <div class="rounded-[1rem] shadow-md min-h-[calc(100vh-theme(space.16))] w-full max-w-lg bg-white p-10 pt-6 sm:p-12 sm:pt-8 md:min-h-min md:p-14 md:pt-10 lg:p-16 lg:pt-16">
         <h1 class="text-primaryBlack mt-6 flex text-[28px] font-bold sm:mt-10 sm:text-[32px] md:mt-4 md:justify-center md:text-[38px]">
           Create account
         </h1>
@@ -79,7 +86,7 @@ const SignUp = () => {
               <input
                 id="passwordId"
                 name="password"
-                type="password"
+                type={show ? "text" : "password"}
                 class="peer font- h-14 w-full cursor-text appearance-none border-b-2 border-gray-300 bg-white  text-base text-primaryBlack placeholder-transparent focus:outline-none md:text-xl"
                 placeholder="Enter Password"
                 value={password}
@@ -98,8 +105,9 @@ const SignUp = () => {
             <button
               type="button"
               class="border-none appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 absolute right-0 top-[58%] -translate-y-1/2 cursor-pointer text-base font-bold hover:opacity-80"
+              onClick={() => setShow(!show)}
             >
-              Show
+              {show ? "Hide" : "Show"}
             </button>
           </div>
           <div class="mt-6 sm:mt-12 md:mt-16">
