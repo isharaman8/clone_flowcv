@@ -179,6 +179,7 @@ export const HeadersElement = () => {
         {[HeaderOne, HeaderTwo, HeaderThree, HeaderFour, HeaderFive].map(
           (c) => (
             <div
+              key={c}
               style={{
                 border: "1px solid #cbcbcb",
                 borderRadius: ".4rem",

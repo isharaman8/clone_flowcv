@@ -44,3 +44,22 @@ export const CONTENT = Object.freeze({
   CONTENT: ["Site Banner Title", "Site Banner Description"],
   IMAGE: ["Banner Image", "Footer Image"],
 });
+
+export const COLORS = [
+  "#fff",
+  "rgb(73, 89, 99)",
+  "rgb(84, 121, 128)",
+  "rgb(147, 183, 190)",
+  "rgb(52, 138, 167)",
+  "rgb(53, 92, 125)",
+  "rgb(56, 111, 164)",
+  "rgb(103, 152, 192)",
+  "rgb(89, 165, 216)",
+  "rgb(132, 210, 246)",
+  "rgb(67, 35, 113)",
+  "rgb(103, 45, 80)",
+  "rgb(192, 108, 132)",
+  "rgb(199, 65, 123)",
+  "rgb(244, 91, 105)",
+  "picker",
+];

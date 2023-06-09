@@ -16,6 +16,7 @@ import {
   ColorsElement,
   HeadersElement,
 } from "./Template";
+import ColorsComponent from "./components/ColorsComponent";
 
 const style = {
   position: "absolute",
@@ -121,11 +122,15 @@ const EditTemplate = ({ open, handleClose, fetchData, template = {} }) => {
             <Box mt={4}>
               <Grid container spacing={2}>
                 <Grid item lg={4} md={4}>
-                  <label style={{ fontWeight: "600", fontSize: "1rem" }}>
+                  <label style={{ fontWeight: "600", fontSize: "1.2rem" }}>
                     Layout
                   </label>
                   <Box
-                    sx={{ display: "flex", alignItems: "center", gap: "1rem" }}
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "1.2rem",
+                    }}
                     my={2}
                   >
                     <LayoutButton
@@ -154,7 +159,7 @@ const EditTemplate = ({ open, handleClose, fetchData, template = {} }) => {
                       }}
                     />
                   </Box>
-                  <label style={{ fontWeight: "600", fontSize: "1rem" }}>
+                  <label style={{ fontWeight: "600", fontSize: "1.2rem" }}>
                     Columns
                   </label>
                   <ColumnButton />
@@ -171,7 +176,7 @@ const EditTemplate = ({ open, handleClose, fetchData, template = {} }) => {
                   </Box>
                 </Grid>
                 <Grid item lg={4} md={4}>
-                  <label style={{ fontWeight: "600", fontSize: "1rem" }}>
+                  <label style={{ fontWeight: "600", fontSize: "1.2rem" }}>
                     Column width
                   </label>
                   <Box display={"flex"} gap={"2rem"}>
@@ -182,7 +187,7 @@ const EditTemplate = ({ open, handleClose, fetchData, template = {} }) => {
                 <Grid item lg={7} md={7}>
                   <Box display="flex" flexDirection={"column"}>
                     <Box alignSelf={"center"}>
-                      <label style={{ fontWeight: "600", fontSize: "1rem" }}>
+                      <label style={{ fontWeight: "600", fontSize: "1.2rem" }}>
                         Font
                       </label>
 
@@ -195,7 +200,7 @@ const EditTemplate = ({ open, handleClose, fetchData, template = {} }) => {
                   </Box>
                 </Grid>
                 <Grid item lg={4} md={4}>
-                  <label style={{ fontWeight: "600", fontSize: "1rem" }}>
+                  <label style={{ fontWeight: "600", fontSize: "1.2rem" }}>
                     Colors
                   </label>
                   <Box display={"flex"} gap={"2rem"} mt={2}>
@@ -226,7 +231,7 @@ const EditTemplate = ({ open, handleClose, fetchData, template = {} }) => {
                 <Grid item lg={7} md={7}>
                   <Box display="flex" justifyContent={"flex-end"}>
                     <Box>
-                      <label style={{ fontWeight: "600", fontSize: "1rem" }}>
+                      <label style={{ fontWeight: "600", fontSize: "1.2rem" }}>
                         Heading Style
                       </label>
 
@@ -234,6 +239,11 @@ const EditTemplate = ({ open, handleClose, fetchData, template = {} }) => {
                         <HeadersElement />
                       </Box>
                     </Box>
+                  </Box>
+                </Grid>
+                <Grid item lg={6} md={6}>
+                  <Box>
+                    <ColorsComponent />
                   </Box>
                 </Grid>
               </Grid>
