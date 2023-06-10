@@ -1,4 +1,6 @@
 import BottomSection from "@components/LandingPage/BottomSection";
+import TemplatesSection from "@components/LandingPage/TemplatesSection";
+import VideoSection from "@components/LandingPage/VideoSection";
 import Link from "next/link";
 
 const Home = () => {
@@ -37,6 +39,21 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <VideoSection
+        header={"Beautiful design made easy"}
+        description={
+          "Format your resume with just a few clicks and reformat it easily."
+        }
+      />
+      <TemplatesSection />
+      <VideoSection
+        header={"Avoid common pitfalls"}
+        description={"Get guidance on what goes inside a job-winning resume."}
+      />
+      <VideoSection
+        header={"Quick, easy & flexible"}
+        description={"Effortless editing with live preview."}
+      />
       <BottomSection />
     </section>
   );

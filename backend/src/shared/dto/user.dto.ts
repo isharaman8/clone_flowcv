@@ -53,6 +53,11 @@ export class CreateUserDto {
   @IsOptional()
   @ApiProperty()
   deleted_at?: Date;
+
+  @IsString()
+  @IsOptional()
+  @IsNotEmpty()
+  readonly newPassword?: string;
 }
 
 export class LoginUserDto {

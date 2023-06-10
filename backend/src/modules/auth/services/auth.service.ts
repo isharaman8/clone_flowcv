@@ -22,6 +22,7 @@ export class AuthService {
     const user = await this.userService.findOne({
       email: loginObj.email,
       role,
+      active: true,
     });
 
     if (!user) {
@@ -71,8 +72,8 @@ export class AuthService {
     };
   }
 
-  async getProfile(email: string) {
-    const user = await this.userService.findOne({ email });
+  async getProfile(uid: string) {
+    const user = await this.userService.findOne({ uid });
 
     if (!user) {
       throw new BadRequestException({
