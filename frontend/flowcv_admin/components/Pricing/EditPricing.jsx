@@ -75,6 +75,25 @@ const EditPricing = ({ open, handleClose, selectedPlan, fetchData }) => {
     handleClose();
   };
 
+  const handleDelete = async () => {
+    const admin = JSON.parse(localStorage.getItem("adminData")) || {};
+
+    const res = await dataProvider.delete(
+      `subscription/${selectedPlan.uid}`,
+      {},
+      admin.access_token
+    );
+
+    if (res.data.error) {
+      notify(res.data.error.message, { type: "error" });
+      return;
+    }
+
+    notify(`Plan Deleted`, { type: "success" });
+    fetchData();
+    handleClose();
+  };
+
   const handleChange = (event) => {
     const { name, value, checked } = event.target;
 
@@ -166,7 +185,7 @@ const EditPricing = ({ open, handleClose, selectedPlan, fetchData }) => {
                   <Box sx={{ minWidth: 120 }}>
                     <FormControl
                       sx={{
-                        width: "20rem",
+                        width: "100%",
                         outline: "none",
                       }}
                     >
@@ -219,9 +238,13 @@ const EditPricing = ({ open, handleClose, selectedPlan, fetchData }) => {
                 display: "flex",
                 justifyContent: "flex-end",
                 marginTop: "4rem",
+                gap: "2rem",
               }}
             >
               <CommonButton value={"save"} cb={handleSave} />
+              {selectedPlan.uid && (
+                <CommonButton value={"delete"} cb={handleDelete} />
+              )}
             </div>
           </Box>
         </Fade>

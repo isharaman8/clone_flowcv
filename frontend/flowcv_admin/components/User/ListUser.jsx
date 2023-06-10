@@ -49,7 +49,7 @@ export const UserList = (props) => {
   }, [dataProvider]);
 
   return (
-    <List {...props} title="Users' List">
+    <List {...props}>
       {isSmall ? (
         <SimpleList
           rowClick={handleRowClick}

@@ -116,7 +116,13 @@ const ContentPage = () => {
         <Grid item xs={12} sm={12} lg={4} md={4}>
           <label style={{ fontWeight: "600", fontSize: "1rem" }}>Value</label>
           <br />
-          <TextField variant="outlined" source="Value" multiline rows={8} />
+          <TextField
+            variant="outlined"
+            source="Value"
+            multiline
+            rows={8}
+            fullWidth
+          />
         </Grid>
         <Grid
           item
