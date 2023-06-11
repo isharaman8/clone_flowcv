@@ -1,5 +1,4 @@
 // THIRD PARTY IMPORTS
-import Nav from "@components/Nav";
 import { Providers } from "@redux/provider";
 import "@styles/globals.css";
 
@@ -15,7 +14,6 @@ const RootLayout = ({ children }) => {
     <html lang="en">
       <body>
         <Providers>
-          <Nav />
           <main>{children}</main>
         </Providers>
       </body>

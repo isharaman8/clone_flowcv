@@ -27,7 +27,7 @@ const Nav = () => {
 
   return (
     <>
-      <header className="pageContainer pt-[2rem]">
+      <header className="pageContainer py-[2rem]">
         <div className="flex items-center justify-between">
           <Link href="/">
             <img src="/flowcv.svg" alt="flow cv" className="w-32" />
@@ -36,7 +36,7 @@ const Nav = () => {
             {!user.access_token ? (
               <>
                 <Link
-                  href="/"
+                  href="/resume"
                   className="center-flex gap-3 btn border-4 border-[#F0F2F6] h-10 min-w[120px] hover:border-[#f2f4f7]"
                 >
                   Try for free

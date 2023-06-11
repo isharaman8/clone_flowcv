@@ -1,6 +1,5 @@
 import React from "react";
 
-import Footer from "./Footer";
 import FaqSection from "./FaqSection";
 import ResumeCard from "./ResumeCard";
 import DetailsCard from "./DetailsCard";
@@ -41,9 +40,6 @@ const BottomSection = () => {
           <FaqSection key={c} question={c.question} answer={c.answer} />
         ))}
       </div>
-
-      {/* BOTTOM SECTION */}
-      <Footer />
     </div>
   );
 };

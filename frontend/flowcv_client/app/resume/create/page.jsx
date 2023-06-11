@@ -1,13 +1,16 @@
 import PersonalInfo from "@components/ResumeComponents/PersonalInfo";
+import Link from "next/link";
 
 const CreateResume = () => {
   return (
-    <div className="min-h-[90vh] w-[100vw] flex flex-row gap-5 justify-center items-start bg-gray-200 pt-5">
+    <div className="min-h-[90vh] w-[100vw] flex gap-5 relative bg-[#EEF0F4] pt-10 px-10">
       {/* left */}
-      <div className="flex grow flex-row justify-center items-start gap-5">
+      <div className="flex grow items-start gap-8 relative">
         {/* left */}
-        <div className="grow-0 flex flex-col items-center justify-center gap-10 p-5 rounded-xl shadow-lg bg-gray-50">
-          <img src="/flowcv.svg" alt="flow cv" className="w-16" />
+        <div className="grow-0 sticky top-8 z-[10000] flex flex-col items-center justify-center gap-10 p-5 rounded-xl shadow-lg bg-gray-50">
+          <Link href={"/"}>
+            <img src="/flowcv.svg" alt="flow cv" className="w-16" />
+          </Link>
           <div className="flex flex-col justify-center items-center">
             <img src="/content.svg" alt="content" className="w-10" />
             <p>Content</p>
@@ -23,19 +26,19 @@ const CreateResume = () => {
         </div>
 
         {/* right */}
-        <div className="flex flex-col justify-center items-stretch gap-4">
-          <div class="sidebar:flex sidebar:justify-between sidebar:rounded-large sidebar:shadow-card sticky top-8 grid max-w-full grid-cols-[min-content_1fr_min-content] items-center bg-gray-50 px-6 py-3 md:px-8 md:py-4  lg:px-9 lg:py-5 rounded-xl shadow-lg">
-            <a class="sidebar:hidden mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 hover:cursor-pointer hover:opacity-80">
+        <div className="flex grow flex-col  justify-center items-stretch gap-4">
+          <div className="sticky top-8 z-[1000] grid max-w-full grid-cols-[min-content_1fr_min-content] items-center bg-gray-50 px-6 py-3 md:px-8 md:py-4  lg:px-9 lg:py-5 rounded-xl shadow-lg">
+            <a className="sidebar:hidden mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 hover:cursor-pointer hover:opacity-80">
               <img src="/arrow.svg" className="w-6" />
             </a>
-            <div class="min-w-0">
-              <div class="flex w-full cursor-pointer items-center space-x-2 pr-4 hover:opacity-80">
-                <p class="text-black truncate text-2xl font-extrabold">
+            <div className="min-w-0">
+              <div className="flex w-full cursor-pointer items-center space-x-2 pr-4 hover:opacity-80">
+                <p className="text-black truncate text-2xl font-extrabold">
                   Resume No. 1
                 </p>
                 <button
                   type="button"
-                  class="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 min-h-[30px] min-w-[30px] text-gray-400"
+                  className="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 min-h-[30px] min-w-[30px] text-gray-400"
                 >
                   <img src="/edit.svg" className="w-5" />
                 </button>
@@ -44,13 +47,13 @@ const CreateResume = () => {
             <div>
               <button
                 type="button"
-                class="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 min-h-[30px] min-w-[30px] text-white bg-black h-12 w-12 rounded-full md:hidden"
+                className="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 min-h-[30px] min-w-[30px] text-white bg-black h-12 w-12 rounded-full md:hidden"
               >
                 <img src="/download.svg" />
               </button>
               <button
                 type="button"
-                class="border-none cursor-pointer appearance-none touch-manipulation items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 px-7 py-2 rounded-full font-extrabold h-10 text-[15px] min-w-[120px] text-white bg-black hidden md:flex"
+                className="border-none cursor-pointer appearance-none touch-manipulation items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 px-7 py-2 rounded-full font-extrabold h-10 text-[15px] min-w-[120px] text-white bg-black hidden md:flex"
               >
                 Download
               </button>
@@ -58,12 +61,14 @@ const CreateResume = () => {
           </div>
 
           {/* resume components */}
-          <PersonalInfo />
+          <div className="w-full max-w-[800px] pb-16">
+            <PersonalInfo />
+          </div>
         </div>
       </div>
 
       {/* right */}
-      <div className="grow bg-red-50 h-10"></div>
+      <div className="grow-[4] bg-white h-10 sticky top-8"></div>
     </div>
   );
 };
