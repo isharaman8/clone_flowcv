@@ -1,7 +1,14 @@
+"use client";
+
+import { useState } from "react";
+import { AiOutlinePlus } from "react-icons/ai";
+import AddContent from "@components/ResumeComponents/AddContent";
 import PersonalInfo from "@components/ResumeComponents/PersonalInfo";
 import Link from "next/link";
 
 const CreateResume = () => {
+  const [addContent, setAddContent] = useState(false);
+  console.log(addContent);
   return (
     <div className="min-h-[90vh] w-[100vw] flex gap-5 relative bg-[#EEF0F4] pt-10 px-10">
       {/* left */}
@@ -64,11 +71,21 @@ const CreateResume = () => {
           <div className="w-full max-w-[800px] pb-16">
             <PersonalInfo />
           </div>
+          <div className="flex justify-center">
+            <button
+              className="mt-8 flex gradient border-none cursor-pointer appearance-none touch-manipulation items-center justify-center outline-none hover:scale-105 transition-transform shadow-md rounded-full font-extrabold h-15 text-[17px] min-w-[180px] text-white bg-gradient-to-r from-brandPink to-brandRed py-4 px-[4rem]"
+              onClick={() => setAddContent(true)}
+            >
+              <AiOutlinePlus className="text-3xl mr-2" />
+              Add Content
+            </button>
+          </div>
         </div>
       </div>
 
       {/* right */}
       <div className="grow-[4] bg-white h-10 sticky top-8"></div>
+      {addContent && <AddContent setAddContent={setAddContent} />}
     </div>
   );
 };
