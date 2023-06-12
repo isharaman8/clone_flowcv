@@ -1,7 +1,7 @@
 const PersonalInfo = () => {
   return (
     <div>
-      <div class="w-full rounded-xl shadow-lg bg-white shadow-card px-5 md:px-7 lg:px-9 relative max-w-full cursor-pointer break-words pt-6 pb-9">
+      <div class="w-full rounded-xl shadow-md bg-white shadow-card px-5 md:px-7 lg:px-9 relative max-w-full cursor-pointer break-words pt-6 pb-9">
         <button
           type="button"
           class="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 min-h-[30px] min-w-[30px] rounded-full text-white bg-gradientPinkRed absolute top-4 right-4 h-8 w-8"
