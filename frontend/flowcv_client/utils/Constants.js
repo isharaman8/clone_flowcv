@@ -227,37 +227,22 @@ export const AVAILABLE_COMPONENTS = Object.freeze({
 	interests: "Interest",
 });
 
-export const MONTHS = Object.freeze({
-	jan: "January",
-	feb: "February",
-	mar: "March",
-	apr: "April",
-	may: "May",
-	jun: "June",
-	jul: "July",
-	aug: "August",
-	sep: "September",
-	oct: "October",
-	nov: "November",
-	dec: "December",
-});
-
 export const MONTHS = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+	"January",
+	"February",
+	"March",
+	"April",
+	"May",
+	"June",
+	"July",
+	"August",
+	"September",
+	"October",
+	"November",
+	"December",
 ];
 
 export const YEARS = Array.from(
-  { length: new Date().getFullYear() - 1990 + 1 },
-  (_, i) => 1990 + i
+	{ length: new Date().getFullYear() - 1990 + 1 },
+	(_, i) => 1990 + i
 );

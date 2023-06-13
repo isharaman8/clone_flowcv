@@ -99,7 +99,7 @@ const ProjectComponent = () => {
 										</button>
 										{popupOpen === "startMonth" && (
 											<Popup
-												list={Object.values(MONTHS)}
+												list={MONTHS}
 												handleValue={handleMonth}
 												cols={3}
 												monthType="start"
@@ -159,7 +159,7 @@ const ProjectComponent = () => {
 
 											{popupOpen === "endMonth" && (
 												<Popup
-													list={Object.values(MONTHS)}
+													list={MONTHS}
 													handleValue={handleMonth}
 													cols={3}
 													monthType="end"
