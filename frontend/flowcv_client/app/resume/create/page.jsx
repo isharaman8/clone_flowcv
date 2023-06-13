@@ -1,16 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import AddContent from "@components/ResumeComponents/AddContent";
 import PersonalInfo from "@components/ResumeComponents/PersonalInfo";
 import Link from "next/link";
 import Skills from "@components/ResumeComponents/Skills";
 import Language from "@components/ResumeComponents/Language";
+import { AVAILABLE_COMPONENTS } from "@utils/Constants";
+import Interest from "@components/ResumeComponents/Interests";
 
 const CreateResume = () => {
   const [addContent, setAddContent] = useState(false);
-  console.log(addContent);
+  const [currentComponent, setCurrentComponent] = useState("personalInfo");
+
+  const handleCurrentComponent = (e) => {
+    setCurrentComponent(e.title);
+    setAddContent(false);
+  };
+
+  useEffect(() => console.log(currentComponent), [currentComponent]);
+
   return (
     <div className="min-h-[90vh] w-[100vw] flex gap-5 relative bg-[#EEF0F4] px-10">
       {/* left */}
@@ -73,7 +83,15 @@ const CreateResume = () => {
 
           {/* resume components */}
           <div className="w-full max-w-[800px] pb-16">
-            <PersonalInfo />
+            {currentComponent === AVAILABLE_COMPONENTS.personalInfo ? (
+              <PersonalInfo />
+            ) : currentComponent === AVAILABLE_COMPONENTS.skill ? (
+              <Skills />
+            ) : currentComponent === AVAILABLE_COMPONENTS.language ? (
+              <Language />
+            ) : currentComponent === AVAILABLE_COMPONENTS.interests ? (
+              <Interest />
+            ) : null}
           </div>
           <div className="flex justify-center">
             <button
@@ -89,7 +107,12 @@ const CreateResume = () => {
 
       {/* right */}
       <div className="grow-[4] bg-white h-10 sticky top-8"></div>
-      {addContent && <AddContent setAddContent={setAddContent} />}
+      {addContent && (
+        <AddContent
+          setAddContent={setAddContent}
+          handleCurrentComponent={handleCurrentComponent}
+        />
+      )}
     </div>
   );
 };

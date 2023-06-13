@@ -3,7 +3,7 @@ import React from "react";
 import FaqSection from "./FaqSection";
 import ResumeCard from "./ResumeCard";
 import DetailsCard from "./DetailsCard";
-import { cardsData, faqData } from "./data";
+import { cardsData, faqData } from "../../utils/Constants";
 
 const BottomSection = () => {
   return (
