@@ -1,4 +1,4 @@
-const Interest = () => {
+const Interest = ({ setCurrentComponent }) => {
   return (
     <div class="relative shadow-lg">
       <div class="relative w-full rounded-lg bg-white shadow-card px-5 md:px-7 lg:px-9 py-5 pb-5 md:py-7 md:pb-9 lg:py-9 lg:pb-10">
@@ -59,6 +59,7 @@ const Interest = () => {
           <button
             type="button"
             className="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 py-2 rounded-full text-primaryBlack font-extrabold h-12 min-w-min px-4 text-[16px]"
+            onClick={() => setCurrentComponent("personalInfo")}
           >
             Cancel
           </button>

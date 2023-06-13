@@ -11,6 +11,7 @@ import Interest from "@components/ResumeComponents/Interests";
 import AddContent from "@components/ResumeComponents/AddContent";
 import ProjectComponent from "@components/ResumeComponents/Project";
 import PersonalInfo from "@components/ResumeComponents/PersonalInfo";
+import ProfessionalExperience from "@components/ResumeComponents/ProfessionalExperience";
 
 // import { optimizeFonts } from "@next.config";
 
@@ -100,6 +101,9 @@ const CreateResume = () => {
 							<Interest />
 						) : currentComponent === AVAILABLE_COMPONENTS.project ? (
 							<ProjectComponent />
+						) : currentComponent ===
+						  AVAILABLE_COMPONENTS.professionalExperience ? (
+							<ProfessionalExperience />
 						) : null}
 					</div>
 					<div className="flex justify-center">
