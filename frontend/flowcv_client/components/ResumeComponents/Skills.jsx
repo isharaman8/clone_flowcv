@@ -1,7 +1,7 @@
 import React from "react";
 import { BsCheck2 } from "react-icons/bs";
 
-const Skills = () => {
+const Skills = ({ setCurrentComponent }) => {
   return (
     <div className="w-full">
       <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">
@@ -58,7 +58,12 @@ const Skills = () => {
       </div>
 
       <div className="bg-white rounded-2xl w-full py-4 px-5 md:px-7 lg:px-9 relative max-w-full mt-4 flex justify-end items-center gap-6">
-        <button className="font-bold">Cancel</button>
+        <button
+          className="font-bold"
+          onClick={() => setCurrentComponent("personalInfo")}
+        >
+          Cancel
+        </button>
         <button className="flex gradient border-none cursor-pointer appearance-none touch-manipulation items-center gap-4 outline-none shadow-md rounded-full font-extrabold hover:opacity-80 text-white bg-gradient-to-r from-brandPink to-brandRed py-3 px-[2rem]">
           <span className="flex items-center gap-2">
             <BsCheck2 className="text-2xl" />

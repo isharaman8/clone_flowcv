@@ -9,6 +9,7 @@ import Skills from "@components/ResumeComponents/Skills";
 import Language from "@components/ResumeComponents/Language";
 import { AVAILABLE_COMPONENTS } from "@utils/Constants";
 import Interest from "@components/ResumeComponents/Interests";
+import ProfessionalExperience from "@components/ResumeComponents/ProfessionalExperience";
 
 const CreateResume = () => {
   const [addContent, setAddContent] = useState(false);
@@ -83,15 +84,24 @@ const CreateResume = () => {
 
           {/* resume components */}
           <div className="w-full max-w-[800px] pb-16">
-            {currentComponent === AVAILABLE_COMPONENTS.personalInfo ? (
+            {currentComponent === AVAILABLE_COMPONENTS.personalInfo && (
               <PersonalInfo />
-            ) : currentComponent === AVAILABLE_COMPONENTS.skill ? (
-              <Skills />
-            ) : currentComponent === AVAILABLE_COMPONENTS.language ? (
-              <Language />
-            ) : currentComponent === AVAILABLE_COMPONENTS.interests ? (
-              <Interest />
-            ) : null}
+            )}
+            {currentComponent === AVAILABLE_COMPONENTS.skill && (
+              <Skills setCurrentComponent={setCurrentComponent} />
+            )}
+            {currentComponent === AVAILABLE_COMPONENTS.language && (
+              <Language setCurrentComponent={setCurrentComponent} />
+            )}
+            {currentComponent === AVAILABLE_COMPONENTS.interests && (
+              <Interest setCurrentComponent={setCurrentComponent} />
+            )}
+            {currentComponent ===
+              AVAILABLE_COMPONENTS.professionalExperience && (
+              <ProfessionalExperience
+                setCurrentComponent={setCurrentComponent}
+              />
+            )}
           </div>
           <div className="flex justify-center">
             <button

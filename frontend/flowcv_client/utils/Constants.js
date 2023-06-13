@@ -1,4 +1,3 @@
-import { BiAward } from "react-icons/bi";
 import {
   FaAward,
   FaFolderOpen,
@@ -227,3 +226,23 @@ export const AVAILABLE_COMPONENTS = Object.freeze({
   professionalExperience: "Professional Experience",
   interests: "Interest",
 });
+
+export const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+export const YEARS = Array.from(
+  { length: new Date().getFullYear() - 1990 + 1 },
+  (_, i) => 1990 + i
+);
