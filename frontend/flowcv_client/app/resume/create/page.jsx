@@ -91,20 +91,21 @@ const CreateResume = () => {
 
 					{/* resume components */}
 					<div className="w-full max-w-[800px] pb-16">
-						{currentComponent === AVAILABLE_COMPONENTS.personalInfo ? (
+						{currentComponent === AVAILABLE_COMPONENTS.personalInfo && (
 							<PersonalInfo />
-						) : currentComponent === AVAILABLE_COMPONENTS.skill ? (
-							<Skills />
-						) : currentComponent === AVAILABLE_COMPONENTS.language ? (
-							<Language />
-						) : currentComponent === AVAILABLE_COMPONENTS.interests ? (
+						)}
+						{currentComponent === AVAILABLE_COMPONENTS.skill && <Skills />}
+						{currentComponent === AVAILABLE_COMPONENTS.language && <Language />}
+						{currentComponent === AVAILABLE_COMPONENTS.interests && (
 							<Interest />
-						) : currentComponent === AVAILABLE_COMPONENTS.project ? (
+						)}
+						{currentComponent === AVAILABLE_COMPONENTS.project && (
 							<ProjectComponent />
-						) : currentComponent ===
-						  AVAILABLE_COMPONENTS.professionalExperience ? (
+						)}
+						{currentComponent ===
+							AVAILABLE_COMPONENTS.professionalExperience && (
 							<ProfessionalExperience />
-						) : null}
+						)}
 					</div>
 					<div className="flex justify-center">
 						<button
