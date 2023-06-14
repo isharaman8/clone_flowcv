@@ -5,11 +5,9 @@ import { _getYears } from "@utils/helpers";
 import DatePicker from "./minicomponents/DatePicker";
 
 const ProjectComponent = () => {
-    const [YEARS] = useState(_getYears());
-
     const [subTitle, setSubTitle] = useState("");
-    const [popupOpen, setPopupOpen] = useState(null);
     const [description, setDescription] = useState("");
+    const [popupOpen, setPopupOpen] = useState(null);
     const [year, setYear] = useState({ startYear: null, endYear: null });
     const [month, setMonth] = useState({ startMonth: null, endMonth: null });
 
@@ -20,6 +18,10 @@ const ProjectComponent = () => {
     const handleYear = (e) => {
         setYear((p) => ({ ...p, ...e }));
         setPopupOpen(false);
+    };
+
+    const handlePopupOpen = (value) => {
+        setPopupOpen(value);
     };
 
     const handleSubTitle = (e) => setSubTitle(e.target.value);
@@ -81,7 +83,7 @@ const ProjectComponent = () => {
                                 month={month.startMonth}
                                 handleMonth={handleMonth}
                                 popupOpen={popupOpen}
-                                handlePopupOpen={setPopupOpen}
+                                handlePopupOpen={handlePopupOpen}
                                 mainHeading={"Start Date"}
                                 prefix="start"
                             />
@@ -91,7 +93,7 @@ const ProjectComponent = () => {
                                 month={month.endMonth}
                                 handleMonth={handleMonth}
                                 popupOpen={popupOpen}
-                                handlePopupOpen={setPopupOpen}
+                                handlePopupOpen={handlePopupOpen}
                                 mainHeading={"End Date"}
                                 prefix="end"
                             />

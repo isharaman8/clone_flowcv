@@ -1,8 +1,29 @@
-import { MONTHS, YEARS } from "@utils/Constants";
-import React from "react";
+// THIRD PARTY IMPORTS
+import React, { useState } from "react";
 import { BsLink45Deg, BsCheck2 } from "react-icons/bs";
 
+// INNER IMPORTS
+import { MONTHS, YEARS } from "@utils/Constants";
+import DatePicker from "./minicomponents/DatePicker";
+
 const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subTwo }) => {
+    const [popupOpen, setPopupOpen] = useState(null);
+    const [year, setYear] = useState({ startYear: null, endYear: null });
+    const [month, setMonth] = useState({ startMonth: null, endMonth: null });
+
+    const handleMonth = (e) => {
+        setMonth((p) => ({ ...p, ...e }));
+        setPopupOpen(false);
+    };
+    const handleYear = (e) => {
+        setYear((p) => ({ ...p, ...e }));
+        setPopupOpen(false);
+    };
+
+    const handlePopupOpen = (value) => {
+        setPopupOpen(value);
+    };
+
     return (
         <div className="w-full">
             <div className="bg-white shadow-md rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">
@@ -74,53 +95,27 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
                             />
                         </div>
                     </div>
-                    <div className="flex w-full gap-4 justify-between">
-                        <div className="w-2/4">
-                            <label htmlFor="start" className="text-sm font-semibold">
-                                Start Date
-                            </label>
-                            <span className="text-[.65rem] pl-2 font-semibold text-gray-400">optional</span>
-                            <br />
-                            <div className="flex gap-2 justify-between">
-                                <select className="w-full px-2 py-3 rounded-md bg-gray-100 mt-1" name="month" id="month">
-                                    {MONTHS.map((c) => (
-                                        <option key={c} value={c}>
-                                            {c}
-                                        </option>
-                                    ))}
-                                </select>
-                                <select className="w-full px-2 py-3 rounded-md bg-gray-100 mt-1" name="year" id="year">
-                                    {YEARS.map((c) => (
-                                        <option key={c} value={c}>
-                                            {c}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                        </div>
-                        <div className="w-2/4">
-                            <label htmlFor="country" className="text-sm font-semibold">
-                                End Date
-                            </label>
-                            <span className="text-[.65rem] pl-2 font-semibold text-gray-400">optional</span>
-                            <br />
-                            <div className="flex gap-2 justify-between">
-                                <select className="w-full px-2 py-3 rounded-md bg-gray-100 mt-1" name="month" id="month">
-                                    {MONTHS.map((c) => (
-                                        <option key={c} value={c}>
-                                            {c}
-                                        </option>
-                                    ))}
-                                </select>
-                                <select className="w-full px-2 py-3 rounded-md bg-gray-100 mt-1" name="year" id="year">
-                                    {YEARS.map((c) => (
-                                        <option key={c} value={c}>
-                                            {c}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                        </div>
+                    <div className="relative grid grid-cols-1 justify-between gap-4 md:grid-cols-[48.5%_48.5%] md:gap-0">
+                        <DatePicker
+                            year={year.startYear}
+                            handleYear={handleYear}
+                            month={month.startMonth}
+                            handleMonth={handleMonth}
+                            popupOpen={popupOpen}
+                            handlePopupOpen={handlePopupOpen}
+                            mainHeading={"Start Date"}
+                            prefix="start"
+                        />
+                        <DatePicker
+                            year={year.endYear}
+                            handleYear={handleYear}
+                            month={month.endMonth}
+                            handleMonth={handleMonth}
+                            popupOpen={popupOpen}
+                            handlePopupOpen={handlePopupOpen}
+                            mainHeading={"End Date"}
+                            prefix="end"
+                        />
                     </div>
                     <div className="flex justify-between">
                         <div>
