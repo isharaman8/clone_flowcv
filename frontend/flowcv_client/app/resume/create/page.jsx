@@ -12,6 +12,7 @@ import AddContent from "@components/ResumeComponents/AddContent";
 import ProjectComponent from "@components/ResumeComponents/Project";
 import PersonalInfo from "@components/ResumeComponents/PersonalInfo";
 import ProfessionalExperience from "@components/ResumeComponents/ProfessionalExpAndEducation";
+import Certificate from "@components/ResumeComponents/Certificate";
 
 // import { optimizeFonts } from "@next.config";
 
@@ -89,27 +90,48 @@ const CreateResume = () => {
 
                     {/* resume components */}
                     <div className="w-full max-w-[800px] pb-16">
-                        {currentComponent === AVAILABLE_COMPONENTS.personalInfo && <PersonalInfo />}
-                        {currentComponent === AVAILABLE_COMPONENTS.skill && <Skills />}
-                        {currentComponent === AVAILABLE_COMPONENTS.language && <Language />}
-                        {currentComponent === AVAILABLE_COMPONENTS.interests && <Interest />}
-                        {currentComponent === AVAILABLE_COMPONENTS.project && <ProjectComponent />}
+                        {currentComponent === AVAILABLE_COMPONENTS.personalInfo && <PersonalInfo setCurrentComponent={setCurrentComponent} />}
+                        {currentComponent === AVAILABLE_COMPONENTS.skill && <Skills setCurrentComponent={setCurrentComponent} />}
+                        {currentComponent === AVAILABLE_COMPONENTS.language && <Language setCurrentComponent={setCurrentComponent} />}
+                        {currentComponent === AVAILABLE_COMPONENTS.interests && <Interest setCurrentComponent={setCurrentComponent} />}
+                        {currentComponent === AVAILABLE_COMPONENTS.project && <ProjectComponent setCurrentComponent={setCurrentComponent} />}
+                        {currentComponent === AVAILABLE_COMPONENTS.certificate && <Certificate setCurrentComponent={setCurrentComponent} />}
                         {currentComponent === AVAILABLE_COMPONENTS.professionalExperience && (
-                            <ProfessionalExperience mainHeading={"Create Professional Experience"} subOne={"Employer"} subTwo={"Job Title"} />
+                            <ProfessionalExperience
+                                setCurrentComponent={setCurrentComponent}
+                                mainHeading={"Create Professional Experience"}
+                                subOne={"Employer"}
+                                subTwo={"Job Title"}
+                            />
                         )}
                         {currentComponent === AVAILABLE_COMPONENTS.education && (
-                            <ProfessionalExperience mainHeading={"Create Education"} subOne={"Degree"} subTwo={"School"} />
+                            <ProfessionalExperience
+                                setCurrentComponent={setCurrentComponent}
+                                mainHeading={"Create Education"}
+                                subOne={"School"}
+                                subTwo={"Degree"}
+                            />
+                        )}
+                        {currentComponent === AVAILABLE_COMPONENTS.course && (
+                            <ProfessionalExperience
+                                setCurrentComponent={setCurrentComponent}
+                                mainHeading={"Create Course"}
+                                subOne={"Course title"}
+                                subTwo={"Institution"}
+                            />
                         )}
                     </div>
-                    <div className="flex justify-center">
-                        <button
-                            className="mt-8 flex gradient border-none cursor-pointer appearance-none touch-manipulation items-center justify-center outline-none hover:scale-105 transition-transform shadow-md rounded-full font-extrabold h-15 text-[17px] min-w-[180px] text-white bg-gradient-to-r from-brandPink to-brandRed py-4 px-[4rem]"
-                            onClick={() => setAddContent(true)}
-                        >
-                            <AiOutlinePlus className="text-3xl mr-2" />
-                            Add Content
-                        </button>
-                    </div>
+                    {currentComponent === "personalInfo" && (
+                        <div className="flex justify-center">
+                            <button
+                                className="mt-8 flex gradient border-none cursor-pointer appearance-none touch-manipulation items-center justify-center outline-none hover:scale-105 transition-transform shadow-md rounded-full font-extrabold h-15 text-[17px] min-w-[180px] text-white bg-gradient-to-r from-brandPink to-brandRed py-4 px-[4rem]"
+                                onClick={() => setAddContent(true)}
+                            >
+                                <AiOutlinePlus className="text-3xl mr-2" />
+                                Add Content
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
 

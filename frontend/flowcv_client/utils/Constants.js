@@ -162,6 +162,7 @@ export const AVAILABLE_COMPONENTS = Object.freeze({
     professionalExperience: "Professional Experience",
     interests: "Interest",
     education: "Education",
+    course: "Course",
 });
 
 export const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
