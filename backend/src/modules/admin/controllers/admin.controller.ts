@@ -112,7 +112,7 @@ export class AdminController {
     return { user: updatedUser };
   }
 
-  @Delete('/delete-user/:useId')
+  @Delete('/delete-user/:userId')
   @UseGuards(AuthGuard)
   @HttpCode(201)
   async deleteUser(@Param('userId') userId: string, @Req() req: CustomRequest) {
@@ -121,7 +121,7 @@ export class AdminController {
         message: 'user cannot delete or update other users',
       });
     }
-
+    console.log(userId);
     return await this.adminService.updateUser(userId, {
       active: false,
       deleted_at: new Date(),
