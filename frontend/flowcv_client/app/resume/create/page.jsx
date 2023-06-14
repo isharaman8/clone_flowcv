@@ -17,7 +17,7 @@ import ProfessionalExperience from "@components/ResumeComponents/ProfessionalExp
 
 const CreateResume = () => {
     const [addContent, setAddContent] = useState(false);
-    const [currentComponent, setCurrentComponent] = useState("Professional Experience");
+    const [currentComponent, setCurrentComponent] = useState("personalInfo");
 
     const handleCurrentComponent = (e) => {
         setCurrentComponent(e.title);

@@ -1,11 +1,15 @@
 "use-client";
+
+// inner imports
 import React, { useState } from "react";
-import Switch from "./Switch";
 import { GrClose } from "react-icons/gr";
-import { useAppSelector } from "@redux/hooks";
-import { addUserData, removeUserData } from "@redux/features";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
+
+// third party imports
+import Switch from "./Switch";
+import { useAppSelector } from "@redux/hooks";
+import { addUserData, removeUserData } from "@redux/auth/features";
 
 const SideBar = ({ setProfile }) => {
     const [checked, setChecked] = useState(false);

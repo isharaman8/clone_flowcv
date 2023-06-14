@@ -1,6 +1,6 @@
-// THIRD PARTY IMPORTS
-import { Providers } from "@redux/provider";
+// INNER IMPORTS
 import "@styles/globals.css";
+import { Providers } from "@redux/provider";
 
 // INNER IMPORS
 
