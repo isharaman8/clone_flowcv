@@ -1,9 +1,11 @@
-const Interest = ({ setCurrentComponent }) => {
+import React from "react";
+
+const Certificate = ({ setCurrentComponent }) => {
     return (
         <div class="relative shadow-lg">
             <div class="relative w-full rounded-lg bg-white shadow-card px-5 md:px-7 lg:px-9 py-5 pb-5 md:py-7 md:pb-9 lg:py-9 lg:pb-10">
                 <div class="mb-8 grid grid-cols-[auto_auto] items-center gap-2">
-                    <h3 class="text-xl font-extrabold md:text-2xl">Create Interest</h3>
+                    <h3 class="text-xl font-extrabold md:text-2xl">Create Certificate</h3>
                 </div>
                 <form class="flex w-full flex-col justify-between items-stretch">
                     <div class="mb-4 w-full">
@@ -11,7 +13,7 @@ const Interest = ({ setCurrentComponent }) => {
                             for="inputinterest"
                             class="text-primaryBlack mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
                         >
-                            <span>Interest</span>
+                            <span>Certificate</span>
                             <span class="bg-gradientPinkRed min-h-1 min-w-1 ml-[5px] mt-1 inline-block h-1 w-1 rounded-full align-top"></span>
                         </label>
                         <div class="relative flex items-center">
@@ -19,7 +21,7 @@ const Interest = ({ setCurrentComponent }) => {
                                 name="interest"
                                 id="inputinterest"
                                 type="text"
-                                placeholder="Enter Interest / Hobby"
+                                placeholder="Enter Certificate"
                                 class="h-10 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid text-inputText p-[10px]"
                                 autocomplete="off"
                                 value=""
@@ -75,4 +77,4 @@ const Interest = ({ setCurrentComponent }) => {
     );
 };
 
-export default Interest;
+export default Certificate;

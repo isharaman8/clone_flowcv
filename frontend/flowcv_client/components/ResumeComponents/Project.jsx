@@ -1,17 +1,21 @@
-import { useEffect, useState } from "react";
-import Popup from "./minicomponents/Popup";
-import { MONTHS } from "@utils/Constants";
-import { _getYears } from "@utils/helpers";
+import { useEffect, useRef, useState } from "react";
 import DatePicker from "./minicomponents/DatePicker";
 
-const ProjectComponent = () => {
-    const [YEARS] = useState(_getYears());
-
+const ProjectComponent = ({ setCurrentComponent }) => {
     const [subTitle, setSubTitle] = useState("");
     const [popupOpen, setPopupOpen] = useState(null);
     const [description, setDescription] = useState("");
     const [year, setYear] = useState({ startYear: null, endYear: null });
     const [month, setMonth] = useState({ startMonth: null, endMonth: null });
+    const [checkboxData, setCheckboxData] = useState({
+        start_show: false,
+        start_year: false,
+        present: false,
+        end_show: false,
+        end_year: false,
+    });
+
+    const popupRef = useRef(null);
 
     const handleMonth = (e) => {
         setMonth((p) => ({ ...p, ...e }));
@@ -22,19 +26,27 @@ const ProjectComponent = () => {
         setPopupOpen(false);
     };
 
+    const handleCheckbox = (e) => {
+        const { name, checked } = e.target;
+        setCheckboxData((prevData) => ({ ...prevData, [name]: checked }));
+    };
+
     const handleSubTitle = (e) => setSubTitle(e.target.value);
     const handleDescription = (e) => setDescription(e.target.value);
 
     useEffect(() => {
-        console.log("MONTH", month);
-        console.log("YEAR", year);
-        console.log("POPUP OPEN", popupOpen);
-    }, [month, year, popupOpen]);
+        const handleClickOutside = (event) => {
+            if (popupRef.current && !popupRef.current.contains(event.target)) {
+                setPopupOpen(false);
+            }
+        };
 
-    useEffect(() => {
-        console.log("DESCRIPTION", description);
-        console.log("SUBTITLE", subTitle);
-    }, [description, subTitle]);
+        document.addEventListener("click", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("click", handleClickOutside);
+        };
+    }, []);
 
     return (
         <div class="relative">
@@ -42,7 +54,7 @@ const ProjectComponent = () => {
                 <div class="mb-8 grid grid-cols-[auto_auto] items-center gap-2">
                     <h3 class="text-xl font-extrabold md:text-2xl">Create Project</h3>
                 </div>
-                <form class="flex w-full flex-wrap justify-between">
+                <form class="w-full">
                     <div class="mb-4 w-full">
                         <label
                             for="inputprojectTitle"
@@ -74,7 +86,7 @@ const ProjectComponent = () => {
                         </div>
                     </div>
                     <div class="mb-4 flex w-full flex-col">
-                        <div class="relative grid grid-cols-1 justify-between gap-4 md:grid-cols-[48.5%_48.5%] md:gap-0">
+                        <div class="relative grid grid-cols-1 justify-between gap-4 md:grid-cols-[48.5%_48.5%] md:gap-0" ref={popupRef}>
                             <DatePicker
                                 year={year.startYear}
                                 handleYear={handleYear}
@@ -84,6 +96,7 @@ const ProjectComponent = () => {
                                 handlePopupOpen={setPopupOpen}
                                 mainHeading={"Start Date"}
                                 prefix="start"
+                                checkboxData={checkboxData}
                             />
                             <DatePicker
                                 year={year.endYear}
@@ -94,7 +107,88 @@ const ProjectComponent = () => {
                                 handlePopupOpen={setPopupOpen}
                                 mainHeading={"End Date"}
                                 prefix="end"
+                                checkboxData={checkboxData}
                             />
+                        </div>
+                        <div className="flex justify-between">
+                            <div>
+                                <div className="my-3 flex items-center gap-2">
+                                    <input
+                                        type="checkbox"
+                                        name="start_show"
+                                        id="start_show"
+                                        className="h-6 w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                        value={checkboxData.start_show}
+                                        onChange={handleCheckbox}
+                                    />
+                                    <div className="flex cursor-pointer items-center">
+                                        <label htmlFor="start_show" className="text-sm cursor-pointer">
+                                            Don't show
+                                        </label>
+                                    </div>
+                                </div>
+                                <div className="my-3 flex items-center gap-2">
+                                    <input
+                                        type="checkbox"
+                                        name="start_year"
+                                        id="start_year"
+                                        className="h-6 w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                        value={checkboxData.start_year}
+                                        onChange={handleCheckbox}
+                                    />
+                                    <div className="flex cursor-pointer items-center">
+                                        <label htmlFor="start_year" className="text-sm cursor-pointer">
+                                            Only year
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="w-2/4 px-2">
+                                <div className="my-3 flex items-center gap-2">
+                                    <input
+                                        id="present"
+                                        type="checkbox"
+                                        name="present"
+                                        className="h-6 w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                        value={checkboxData.present}
+                                        onChange={handleCheckbox}
+                                    />
+
+                                    <label htmlFor="present" className="text-sm cursor-pointer">
+                                        Present (current)
+                                    </label>
+                                </div>
+                                <div className="my-3 flex items-center gap-2">
+                                    <input
+                                        type="checkbox"
+                                        name="end_show"
+                                        id="show"
+                                        className="h-6 w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                        value={checkboxData.end_show}
+                                        onChange={handleCheckbox}
+                                    />
+                                    <div className="flex cursor-pointer items-center">
+                                        <label htmlFor="show" className="text-sm cursor-pointer">
+                                            Don't show
+                                        </label>
+                                    </div>
+                                </div>
+                                <div className="my-3 flex items-center gap-2">
+                                    <input
+                                        type="checkbox"
+                                        name="end_year"
+                                        id="end_year"
+                                        className="h-6 w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                        value={checkboxData.end_year}
+                                        onChange={handleCheckbox}
+                                    />
+                                    <div className="flex cursor-pointer items-center">
+                                        <label htmlFor="end_year" className="text-sm cursor-pointer">
+                                            Only year
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className="w-full">
@@ -118,6 +212,7 @@ const ProjectComponent = () => {
                     <button
                         type="button"
                         class="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 py-2 rounded-full text-primaryBlack font-extrabold h-12 min-w-min px-4 text-[16px]"
+                        onClick={() => setCurrentComponent("personalInfo")}
                     >
                         Cancel
                     </button>
