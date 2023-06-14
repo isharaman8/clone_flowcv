@@ -3,8 +3,8 @@ import DatePicker from "./minicomponents/DatePicker";
 
 const ProjectComponent = ({ setCurrentComponent }) => {
     const [subTitle, setSubTitle] = useState("");
-    const [popupOpen, setPopupOpen] = useState(null);
     const [description, setDescription] = useState("");
+    const [popupOpen, setPopupOpen] = useState(null);
     const [year, setYear] = useState({ startYear: null, endYear: null });
     const [month, setMonth] = useState({ startMonth: null, endMonth: null });
     const [checkboxData, setCheckboxData] = useState({
