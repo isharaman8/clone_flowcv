@@ -168,3 +168,5 @@ export const AVAILABLE_COMPONENTS = Object.freeze({
 export const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 export const YEARS = Array.from({ length: new Date().getFullYear() - 1944 + 1 }, (_, i) => 1944 + i).reverse();
+
+export const LINKS = ["Github", "Website", "LinkedIn", "Twitter", "Medium"];

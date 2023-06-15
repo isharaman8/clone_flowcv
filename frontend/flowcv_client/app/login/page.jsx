@@ -14,8 +14,6 @@ const LoginPage = () => {
 
     const userData = useAppSelector((state) => state.persistedReducer.auth.userData);
 
-    console.log("USER DATA", userData);
-
     const dispatch = useDispatch();
     const router = useRouter();
 

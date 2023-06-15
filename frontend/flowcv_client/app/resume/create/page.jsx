@@ -9,10 +9,10 @@ import Skills from "@components/ResumeComponents/Skills";
 import Language from "@components/ResumeComponents/Language";
 import Interest from "@components/ResumeComponents/Interests";
 import AddContent from "@components/ResumeComponents/AddContent";
+import Certificate from "@components/ResumeComponents/Certificate";
 import ProjectComponent from "@components/ResumeComponents/Project";
 import PersonalInfo from "@components/ResumeComponents/PersonalInfo";
 import ProfessionalExperience from "@components/ResumeComponents/ProfessionalExpAndEducation";
-import Certificate from "@components/ResumeComponents/Certificate";
 
 // import { optimizeFonts } from "@next.config";
 
