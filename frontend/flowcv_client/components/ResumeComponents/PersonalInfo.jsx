@@ -20,46 +20,46 @@ const PersonalInfo = () => {
 
     return (
         <>
-            <div class="w-full rounded-xl shadow-md bg-white shadow-card px-5 md:px-7 lg:px-9 relative max-w-full cursor-pointer break-words pt-6 pb-9">
+            <div className="w-full rounded-xl shadow-md bg-white shadow-card px-5 md:px-7 lg:px-9 relative max-w-full cursor-pointer break-words pt-6 pb-9">
                 {!open && (
                     <div onClick={toggleOpen}>
                         <button
                             type="button"
-                            class="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 min-h-[30px] min-w-[30px] rounded-full text-white gradient absolute top-4 right-4 h-8 w-8"
+                            className="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 min-h-[30px] min-w-[30px] rounded-full text-white gradient absolute top-4 right-4 h-8 w-8"
                         >
-                            <img src="/resume1.svg" alt="resume1" />
+                            <img className="w-[1rem]" src="/resume1.svg" alt="resume1" />
                         </button>
-                        <div class="mt-2">
-                            <div class=" mb-4 w-16 sm:hidden">
-                                <div class="sc-hxaKAp eUurRf">
-                                    <div class="sc-gfXuXe iWLUGs">
+                        <div className="mt-2">
+                            <div className=" mb-4 w-16 sm:hidden">
+                                <div className="sc-hxaKAp eUurRf">
+                                    <div className="sc-gfXuXe iWLUGs">
                                         <img src="/personal1.svg" alt="personal1" />
                                     </div>
                                 </div>
                             </div>
                             <div>
-                                <p class="text-xl font-bold">
-                                    <span class="text-placeholderGrayOnWhite">Your name</span>
+                                <p className="text-xl font-bold">
+                                    <span className="text-placeholderGrayOnWhite">Your name</span>
                                 </p>
                             </div>
-                            <div class="mt-4  grid items-center gap-3 sm:grid-cols-[1fr_90px] md:grid-cols-[1fr_110px]">
+                            <div className="mt-4  grid items-center gap-3 sm:grid-cols-[1fr_90px] md:grid-cols-[1fr_110px]">
                                 <div>
-                                    <span class="flex items-center  text-placeholderGrayOnWhite">
+                                    <span className="flex items-center  text-placeholderGrayOnWhite">
                                         <img src="/email.svg" alt="email" className="w-5 mr-2" />
                                         Email
                                     </span>
-                                    <span class="mt-4 flex items-center text-placeholderGrayOnWhite">
+                                    <span className="mt-4 flex items-center text-placeholderGrayOnWhite">
                                         <img src="/phone.svg" alt="phone" className="w-5 mr-2" />
                                         Phone
                                     </span>
-                                    <span class="mt-4 flex items-center  text-placeholderGrayOnWhite">
+                                    <span className="mt-4 flex items-center  text-placeholderGrayOnWhite">
                                         <img src="/address.svg" alt="address" className="w-5 mr-2" />
                                         Address
                                     </span>
                                 </div>
-                                <div class="hidden sm:block">
-                                    <div class="sc-hxaKAp eUurRf">
-                                        <div class="sc-gfXuXe iWLUGs">
+                                <div className="hidden sm:block">
+                                    <div className="sc-hxaKAp eUurRf">
+                                        <div className="sc-gfXuXe iWLUGs">
                                             <svg width="44px" height="63px" viewBox="0 0 44 63" version="1.1">
                                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                     <g transform="translate(0.000000, 1.000000)">
@@ -128,47 +128,47 @@ const PersonalInfo = () => {
                 )}
 
                 {open && (
-                    <div class="">
+                    <div className="">
                         <div>
-                            <div class="mb-4 grid grid-cols-[auto_min-content] items-center gap-2">
-                                <h3 class="text-xl font-extrabold md:text-2xl">Edit personal details</h3>
+                            <div className="mb-4 grid grid-cols-[auto_min-content] items-center gap-2">
+                                <h3 className="text-xl font-extrabold md:text-2xl">Edit personal details</h3>
                             </div>
-                            <div class="grid w-full grid-cols-1 items-center md:grid-cols-[auto_min-content] md:gap-6 xl:gap-8 justify-stretch">
+                            <div className="grid w-full grid-cols-1 items-center md:grid-cols-[auto_min-content] md:gap-6 xl:gap-8 justify-stretch">
                                 <div className="order-2 md:order-1 w-full">
-                                    <div class="mb-4 w-full">
+                                    <div className="mb-4 w-full">
                                         <label
                                             for="inputfullName"
-                                            class="text-black mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
+                                            className="text-black mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
                                         >
                                             <span>Full name</span>
                                         </label>
-                                        <div class="relative flex items-center">
+                                        <div className="relative flex items-center">
                                             <input
                                                 name="fullName"
                                                 id="inputfullName"
                                                 type="text"
                                                 placeholder="Enter your title, first- and last name"
-                                                class="h-12 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid border-inputBorder text-inputText p-[10px]"
+                                                className="h-12 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid border-inputBorder text-inputText p-[10px]"
                                                 autocomplete="off"
                                                 value=""
                                             />
                                         </div>
                                     </div>
-                                    <div class="mb-4 w-full">
+                                    <div className="mb-4 w-full">
                                         <label
                                             for="inputjobTitle"
-                                            class="text-black mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
+                                            className="text-black mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
                                         >
                                             <span>Job title</span>
-                                            <span class="ml-2 text-[11px]  text-gray-400">optional</span>
+                                            <span className="ml-2 text-[11px]  text-gray-400">optional</span>
                                         </label>
-                                        <div class="relative flex items-center">
+                                        <div className="relative flex items-center">
                                             <input
                                                 name="jobTitle"
                                                 id="inputjobTitle"
                                                 type="text"
                                                 placeholder="Enter Job title"
-                                                class="h-12 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid border-inputBorder text-inputText p-[10px]"
+                                                className="h-12 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid border-inputBorder text-inputText p-[10px]"
                                                 autocomplete="off"
                                                 value=""
                                             />
@@ -177,65 +177,65 @@ const PersonalInfo = () => {
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-4">
-                            <div class="">
-                                <div class="flex w-full space-x-4">
-                                    <div class="mb-4 w-1/2">
+                        <div className="mt-4">
+                            <div className="">
+                                <div className="flex w-full space-x-4">
+                                    <div className="mb-4 w-1/2">
                                         <label
                                             for="inputdisplayEmail"
-                                            class="text-black mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
+                                            className="text-black mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
                                         >
                                             <span>Email</span>
-                                            <span class="ml-2 text-[11px]  text-gray-400">recommended</span>
+                                            <span className="ml-2 text-[11px]  text-gray-400">recommended</span>
                                         </label>
-                                        <div class="relative flex items-center">
+                                        <div className="relative flex items-center">
                                             <input
                                                 name="displayEmail"
                                                 id="inputdisplayEmail"
                                                 type="email"
                                                 placeholder="Enter email"
-                                                class="h-12 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid border-inputBorder text-inputText p-[10px]"
+                                                className="h-12 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid border-inputBorder text-inputText p-[10px]"
                                                 autocomplete="off"
                                                 value=""
                                             />
                                         </div>
                                     </div>
-                                    <div class="mb-4 w-1/2">
+                                    <div className="mb-4 w-1/2">
                                         <label
                                             for="inputphone"
-                                            class="text-black mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
+                                            className="text-black mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
                                         >
                                             <span>Phone</span>
-                                            <span class="ml-2 text-[11px]  text-gray-400">recommended</span>
+                                            <span className="ml-2 text-[11px]  text-gray-400">recommended</span>
                                         </label>
-                                        <div class="relative flex items-center">
+                                        <div className="relative flex items-center">
                                             <input
                                                 name="phone"
                                                 id="inputphone"
                                                 type="text"
                                                 placeholder="Enter Phone"
-                                                class="h-12 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid border-inputBorder text-inputText p-[10px]"
+                                                className="h-12 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid border-inputBorder text-inputText p-[10px]"
                                                 autocomplete="off"
                                                 value=""
                                             />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-4 w-full">
+                                <div className="mb-4 w-full">
                                     <label
                                         for="inputaddress"
-                                        class="text-black mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
+                                        className="text-black mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
                                     >
                                         <span>Address</span>
-                                        <span class="ml-2 text-[11px]  text-gray-400">recommended</span>
+                                        <span className="ml-2 text-[11px]  text-gray-400">recommended</span>
                                     </label>
-                                    <div class="relative flex items-center">
+                                    <div className="relative flex items-center">
                                         <input
                                             name="address"
                                             id="inputaddress"
                                             type="text"
                                             placeholder="City, Country"
-                                            class="h-12 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid border-inputBorder text-inputText p-[10px]"
+                                            className="h-12 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid border-inputBorder text-inputText p-[10px]"
                                             autocomplete="off"
                                             value=""
                                         />
@@ -243,24 +243,24 @@ const PersonalInfo = () => {
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-9">
-                            <h3 class="mb-4 w-full text-2xl font-extrabold">Links</h3>
-                            <div class="">
-                                <div class="">
-                                    <div class="flex w-full flex-wrap items-center ">
+                        <div className="mt-9">
+                            <h3 className="mb-4 w-full text-2xl font-extrabold">Links</h3>
+                            <div className="">
+                                <div className="">
+                                    <div className="flex w-full flex-wrap items-center ">
                                         {LINKS.map((c) => (
                                             <div
                                                 key={c}
-                                                class="flex w-auto cursor-pointer items-center justify-center rounded-md bg-gray-100 p-2 pr-[10px] text-sm text-inputPlaceholder hover:opacity-80 mr-2 mb-2"
+                                                className="flex w-auto cursor-pointer items-center justify-center rounded-md bg-gray-100 p-2 pr-[10px] text-sm text-inputPlaceholder hover:opacity-80 mr-2 mb-2"
                                             >
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 19" fill="black" class="w-[1.4em]">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 19" fill="black" className="w-[1.4em]">
                                                     <path
                                                         fill-rule="evenodd"
                                                         d="M10.8 2.452a1.3 1.3 0 10-2.6 0v5.316H2.885a1.3 1.3 0 000 2.6H8.2v5.315a1.3 1.3 0 002.6 0v-5.315h5.315a1.3 1.3 0 100-2.6H10.8V2.452z"
                                                         clip-rule="evenodd"
                                                     ></path>
                                                 </svg>
-                                                <span class="ml-1">{c}</span>
+                                                <span className="ml-1">{c}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -271,28 +271,28 @@ const PersonalInfo = () => {
                 )}
             </div>
             {open && (
-                <div class="bg-white rounded-2xl w-full py-4 px-5 md:px-7 lg:px-9 relative max-w-full mt-4 flex justify-end items-center gap-6">
-                    <button class="font-bold" onClick={handleCancel}>
+                <div className="bg-white rounded-2xl w-full py-4 px-5 md:px-7 lg:px-9 relative max-w-full mt-4 flex justify-end items-center gap-6">
+                    <button className="font-bold" onClick={handleCancel}>
                         Cancel
                     </button>
                     <button
                         onClick={handleSave}
-                        class="flex gradient border-none cursor-pointer appearance-none touch-manipulation items-center gap-4 outline-none shadow-md rounded-full font-extrabold hover:opacity-80 text-white bg-gradient-to-r from-brandPink to-brandRed py-3 px-[2rem]"
+                        className="flex gradient border-none cursor-pointer appearance-none touch-manipulation items-center gap-4 outline-none shadow-md rounded-full font-extrabold hover:opacity-80 text-white bg-gradient-to-r from-brandPink to-brandRed py-3 px-[2rem]"
                     >
-                        <span class="flex items-center gap-2">
+                        <span className="flex items-center gap-2">
                             <svg
                                 stroke="currentColor"
                                 fill="currentColor"
                                 stroke-width="0"
                                 viewBox="0 0 16 16"
-                                class="text-2xl"
+                                className="text-2xl"
                                 height="1em"
                                 width="1em"
                                 xmlns="http://www.w3.org/2000/svg"
                             >
                                 <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"></path>
                             </svg>
-                            <span class="font-extralight text-xl">|</span>
+                            <span className="font-extralight text-xl">|</span>
                         </span>
                         Save
                     </button>

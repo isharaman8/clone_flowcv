@@ -14,8 +14,6 @@ import ProjectComponent from "@components/ResumeComponents/Project";
 import PersonalInfo from "@components/ResumeComponents/PersonalInfo";
 import ProfessionalExperience from "@components/ResumeComponents/ProfessionalExpAndEducation";
 
-// import { optimizeFonts } from "@next.config";
-
 const CreateResume = () => {
     const [addContent, setAddContent] = useState(false);
     const [currentComponent, setCurrentComponent] = useState("personalInfo");
