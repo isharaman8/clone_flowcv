@@ -56,7 +56,7 @@ const PersonalInfo = () => {
                             type="button"
                             className="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 min-h-[30px] min-w-[30px] rounded-full text-white gradient absolute top-4 right-4 h-8 w-8"
                         >
-                            <img src="/resume1.svg" alt="resume1" />
+                            <img className="w-[1rem]" src="/resume1.svg" alt="resume1" />
                         </button>
                         <div className="mt-2">
                             <div className=" mb-4 w-16 sm:hidden">
@@ -298,7 +298,6 @@ const PersonalInfo = () => {
                                                 key={c}
                                                 className="flex w-auto cursor-pointer items-center justify-center rounded-md bg-gray-100 p-2 pr-[10px] text-sm text-inputPlaceholder hover:opacity-80 mr-2 mb-2"
                                                 onClick={() => handleLink(c)}
-                                            >
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 19" fill="black" className="w-[1.4em]">
                                                     <path
                                                         fillRule="evenodd"

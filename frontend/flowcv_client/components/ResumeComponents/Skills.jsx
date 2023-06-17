@@ -1,3 +1,4 @@
+
 import { useAppSelector } from "@redux/hooks";
 import { addSkills, updateSkills } from "@redux/resume/features";
 import { AVAILABLE_COMPONENTS } from "@utils/Constants";
@@ -36,6 +37,27 @@ const Skills = ({ setCurrentComponent, skill = {} }) => {
         console.log("SKILL", skill);
     }, [skill]);
 
+
+const Skills = ({ setCurrentComponent }) => {
+    const [data, setData] = useState({
+        skill: "",
+        sub_skill: "",
+        level: "",
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setData((prevData) => ({ ...prevData, [name]: value }));
+    };
+
+    const handleSubmit = () => {
+        const payload = {
+            ...data,
+        };
+
+        console.log(payload);
+    };
+
     return (
         <div className="w-full">
             <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">
@@ -53,6 +75,8 @@ const Skills = ({ setCurrentComponent, skill = {} }) => {
                             type="text"
                             name="skill"
                             id="skill"
+                            value={data.skill}
+                            onChange={handleChange}
                             placeholder="Enter skill"
                             value={currentSkill.skill || ""}
                             onChange={(e) => handleAddOrUpdateSkill({ skill: e.target.value })}
@@ -69,6 +93,8 @@ const Skills = ({ setCurrentComponent, skill = {} }) => {
                             type="text"
                             name="sub_skill"
                             id="sub_skill"
+                            value={data.sub_skill}
+                            onChange={handleChange}
                             placeholder="Enter information or sub-skills"
                             value={currentSkill.description || ""}
                             onChange={(e) => handleAddOrUpdateSkill({ description: e.target.value })}
@@ -103,6 +129,7 @@ const Skills = ({ setCurrentComponent, skill = {} }) => {
                 <button
                     onClick={() => setCurrentComponent(AVAILABLE_COMPONENTS.personalInfo)}
                     className="flex gradient border-none cursor-pointer appearance-none touch-manipulation items-center gap-4 outline-none shadow-md rounded-full font-extrabold hover:opacity-80 text-white bg-gradient-to-r from-brandPink to-brandRed py-3 px-[2rem]"
+
                 >
                     <span className="flex items-center gap-2">
                         <BsCheck2 className="text-2xl" />

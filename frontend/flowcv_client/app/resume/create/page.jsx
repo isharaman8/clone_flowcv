@@ -17,6 +17,7 @@ import ProfessionalExperience from "@components/ResumeComponents/ProfessionalExp
 import DropDownComp from "@components/ResumeComponents/minicomponents/DropDownComp/DropDownComp";
 import { _camelize, _getEditObj } from "../../../utils/helpers";
 
+
 const CreateResume = () => {
     const [addContent, setAddContent] = useState(false);
     const [currentComponent, setCurrentComponent] = useState(AVAILABLE_COMPONENTS.skill);
