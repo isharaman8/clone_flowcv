@@ -1,8 +1,7 @@
-import { FaAward, FaFolderOpen, FaGraduationCap, FaGuitar, FaMarker, FaPuzzlePiece, FaSuitcase } from "react-icons/fa";
+import { FaFolderOpen, FaGraduationCap, FaGuitar, FaSuitcase } from "react-icons/fa";
 import { GiEarthAmerica, GiSkills } from "react-icons/gi";
-import { GrCertificate, GrDocumentUser, GrOrganization } from "react-icons/gr";
+import { GrCertificate } from "react-icons/gr";
 import { ImBooks } from "react-icons/im";
-import { VscReferences } from "react-icons/vsc";
 
 export const ADD_CONTENT = [
     {

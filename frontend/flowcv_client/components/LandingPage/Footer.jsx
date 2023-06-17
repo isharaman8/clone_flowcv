@@ -27,9 +27,9 @@ const Footer = () => {
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 25" className="w-7">
                                     <path
                                         stroke="currentColor"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
                                         d="M9.723 18.952l5.275-6.25-5.275-6.25"
                                     ></path>
                                 </svg>
@@ -98,9 +98,9 @@ const Footer = () => {
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8" className="w-4">
                                             <path
                                                 stroke="currentColor"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
                                                 d="M12.834 1.083L7 6.917 1.167 1.084"
                                             ></path>
                                         </svg>

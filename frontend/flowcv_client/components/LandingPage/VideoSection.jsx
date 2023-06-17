@@ -12,7 +12,7 @@ const VideoSection = ({ header, description }) => {
             <div className="mt-8 md:mt-9 lg:mt-10 w-full m-w-[1200px]">
                 <div className="shadow-2xl">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 45" className="">
-                        <g fill="none" fill-rule="evenodd">
+                        <g fill="none" fillRule="evenodd">
                             <path
                                 fill="#2A2A2A"
                                 d="M8.974 0h1262.052c3.12 0 4.252.325 5.393.935a6.36 6.36 0 0 1 2.646 2.646c.61 1.14.935 2.272.935 5.393V45H0V8.974c0-3.12.325-4.252.935-5.393A6.36 6.36 0 0 1 3.581.935C4.721.325 5.853 0 8.974 0z"

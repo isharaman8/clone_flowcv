@@ -2,7 +2,7 @@
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 81 80"
-                class="-ml-2 mr-3 w-9 sm:mr-6 md:ml-0 md:w-10"
+                 className="-ml-2 mr-3 w-9 sm:mr-6 md:ml-0 md:w-10"
               >
                 <path
                   fill="url(#paint0_linear_339_39480.9866203733453556)"

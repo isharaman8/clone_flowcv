@@ -2,7 +2,7 @@
 													xmlns="http://www.w3.org/2000/svg"
 													fill="none"
 													viewBox="0 0 24 24"
-													class="w-5 text-gray-700"
+													 className="w-5 text-gray-700"
 												>
 													<path
 														stroke="currentColor"
