@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 
+import { useAppSelector } from "@redux/hooks";
 import { AVAILABLE_COMPONENTS } from "@utils/Constants";
 import Skills from "@components/ResumeComponents/Skills";
 import Language from "@components/ResumeComponents/Language";
@@ -13,22 +14,39 @@ import Certificate from "@components/ResumeComponents/Certificate";
 import ProjectComponent from "@components/ResumeComponents/Project";
 import PersonalInfo from "@components/ResumeComponents/PersonalInfo";
 import ProfessionalExperience from "@components/ResumeComponents/ProfessionalExpAndEducation";
-
-// import { optimizeFonts } from "@next.config";
+import DropDownComp from "@components/ResumeComponents/minicomponents/DropDownComp/DropDownComp";
+import { _camelize, _getEditObj } from "../../../utils/helpers";
 
 const CreateResume = () => {
     const [addContent, setAddContent] = useState(false);
-    const [currentComponent, setCurrentComponent] = useState("personalInfo");
+    const [currentComponent, setCurrentComponent] = useState(AVAILABLE_COMPONENTS.skill);
+    const [editObj, setEditObj] = useState(_getEditObj());
+
+    const resumeData = useAppSelector((state) => state.persistedReducer.resume);
 
     const handleCurrentComponent = (e) => {
         setCurrentComponent(e.title);
         setAddContent(false);
     };
 
+    const currentComponentWrapper = (value) => {
+        return () => {
+            setCurrentComponent(value);
+        };
+    };
+
+    const handleEditObj = (key, value) => {
+        setEditObj((p) => ({ ...p, [key]: value }));
+    };
+
     useEffect(() => {
-        console.log(currentComponent);
-        console.log(currentComponent === AVAILABLE_COMPONENTS.project);
-    }, [currentComponent]);
+        console.log("RESUME DATA", resumeData);
+    }, []);
+
+    useEffect(() => {
+        console.log("EDITOBJ", editObj);
+        console.log("CURRENT COMPO", currentComponent);
+    }, [editObj]);
 
     return (
         <div className="min-h-[90vh] w-[100vw] flex gap-5 relative bg-[#EEF0F4] px-10">
@@ -90,12 +108,14 @@ const CreateResume = () => {
 
                     {/* resume components */}
                     <div className="w-full max-w-[800px] pb-16">
-                        {currentComponent === AVAILABLE_COMPONENTS.personalInfo && <PersonalInfo setCurrentComponent={setCurrentComponent} />}
-                        {currentComponent === AVAILABLE_COMPONENTS.skill && <Skills setCurrentComponent={setCurrentComponent} />}
+                        {currentComponent === AVAILABLE_COMPONENTS.skill && (
+                            <Skills setCurrentComponent={setCurrentComponent} skill={editObj[AVAILABLE_COMPONENTS.skill.toLowerCase()]} />
+                        )}
                         {currentComponent === AVAILABLE_COMPONENTS.language && <Language setCurrentComponent={setCurrentComponent} />}
                         {currentComponent === AVAILABLE_COMPONENTS.interests && <Interest setCurrentComponent={setCurrentComponent} />}
-                        {currentComponent === AVAILABLE_COMPONENTS.project && <ProjectComponent setCurrentComponent={setCurrentComponent} />}
                         {currentComponent === AVAILABLE_COMPONENTS.certificate && <Certificate setCurrentComponent={setCurrentComponent} />}
+                        {currentComponent === AVAILABLE_COMPONENTS.project && <ProjectComponent setCurrentComponent={setCurrentComponent} />}
+                        {currentComponent === AVAILABLE_COMPONENTS.personalInfo && <PersonalInfo setCurrentComponent={setCurrentComponent} />}
                         {currentComponent === AVAILABLE_COMPONENTS.professionalExperience && (
                             <ProfessionalExperience
                                 setCurrentComponent={setCurrentComponent}
@@ -118,6 +138,58 @@ const CreateResume = () => {
                                 mainHeading={"Create Course"}
                                 subOne={"Course title"}
                                 subTwo={"Institution"}
+                            />
+                        )}
+
+                        {/* LIST WISE DROPDOWN */}
+                        {resumeData.professionalExperience.length > 0 && (
+                            <DropDownComp
+                                list={resumeData.professionalExperience.map((c) => ({ ...c, name: c.jobTitle }))}
+                                title={"Professional Experience"}
+                                handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.professionalExperience)}
+                            />
+                        )}
+                        {resumeData.skills.length > 0 && (
+                            <DropDownComp
+                                list={resumeData.skills.map((c) => ({ ...c, name: c.skill }))}
+                                handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.skill)}
+                                title={_camelize(AVAILABLE_COMPONENTS.skill)}
+                                handleEditObj={handleEditObj}
+                            />
+                        )}
+                        {resumeData.languages.length > 0 && (
+                            <DropDownComp
+                                list={resumeData.languages.map((c) => ({ ...c, name: c.language }))}
+                                handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.language)}
+                                title={"Languages"}
+                            />
+                        )}
+                        {resumeData.projects.length > 0 && (
+                            <DropDownComp
+                                list={resumeData.projects.map((c) => ({ ...c, name: c.subTitle }))}
+                                handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.project)}
+                                title={"Projects"}
+                            />
+                        )}
+                        {resumeData.interests.length > 0 && (
+                            <DropDownComp
+                                list={resumeData.interests.map((c) => ({ ...c, name: c.interest }))}
+                                handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.interests)}
+                                title={"Interests"}
+                            />
+                        )}
+                        {resumeData.education.length > 0 && (
+                            <DropDownComp
+                                list={resumeData.education.map((c) => ({ ...c, name: c.degree }))}
+                                handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.education)}
+                                title={"Education"}
+                            />
+                        )}
+                        {resumeData.courses.length > 0 && (
+                            <DropDownComp
+                                list={resumeData.courses.map((c) => ({ ...c, name: c.courseTitle }))}
+                                handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.course)}
+                                title={"Courses"}
                             />
                         )}
                     </div>

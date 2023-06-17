@@ -1,4 +1,4 @@
-import { LINKS } from "./Constants";
+import { AVAILABLE_COMPONENTS, LINKS } from "./Constants";
 
 export const _getYears = () => {
     const year = new Date().getFullYear();
@@ -19,4 +19,21 @@ export const _getLinksObj = () => {
     }
 
     return obj;
+};
+
+export const _getEditObj = () => {
+    const obj = {};
+
+    for (const key in AVAILABLE_COMPONENTS) {
+        obj[key] = undefined;
+    }
+
+    return obj;
+};
+
+export const _camelize = (str = "") => {
+    return str
+        .split(" ")
+        .map((c) => c[0].toUpperCase() + c.substring(1))
+        .join(" ");
 };

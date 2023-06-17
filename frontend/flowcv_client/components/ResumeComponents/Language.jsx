@@ -11,7 +11,7 @@ const Language = ({ setCurrentComponent }) => {
                     <div>
                         <label htmlFor="language" className="text-sm font-semibold">
                             Language
-                            <span class="gradient min-h-1 min-w-1 ml-[5px] mt-1 inline-block h-1 w-1 rounded-full align-top"></span>
+                            <span className="gradient min-h-1 min-w-1 ml-[5px] mt-1 inline-block h-1 w-1 rounded-full align-top"></span>
                         </label>
                         <br />
                         <input

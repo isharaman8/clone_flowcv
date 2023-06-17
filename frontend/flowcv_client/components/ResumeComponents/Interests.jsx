@@ -1,36 +1,36 @@
 const Interest = ({ setCurrentComponent }) => {
     return (
-        <div class="relative shadow-lg">
-            <div class="relative w-full rounded-lg bg-white shadow-card px-5 md:px-7 lg:px-9 py-5 pb-5 md:py-7 md:pb-9 lg:py-9 lg:pb-10">
-                <div class="mb-8 grid grid-cols-[auto_auto] items-center gap-2">
-                    <h3 class="text-xl font-extrabold md:text-2xl">Create Interest</h3>
+        <div className="relative shadow-lg">
+            <div className="relative w-full rounded-lg bg-white shadow-card px-5 md:px-7 lg:px-9 py-5 pb-5 md:py-7 md:pb-9 lg:py-9 lg:pb-10">
+                <div className="mb-8 grid grid-cols-[auto_auto] items-center gap-2">
+                    <h3 className="text-xl font-extrabold md:text-2xl">Create Interest</h3>
                 </div>
-                <form class="flex w-full flex-col justify-between items-stretch">
-                    <div class="mb-4 w-full">
+                <form className="flex w-full flex-col justify-between items-stretch">
+                    <div className="mb-4 w-full">
                         <label
                             for="inputinterest"
-                            class="text-primaryBlack mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
+                            className="text-primaryBlack mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
                         >
                             <span>Interest</span>
-                            <span class="bg-gradientPinkRed min-h-1 min-w-1 ml-[5px] mt-1 inline-block h-1 w-1 rounded-full align-top"></span>
+                            <span className="bg-gradientPinkRed min-h-1 min-w-1 ml-[5px] mt-1 inline-block h-1 w-1 rounded-full align-top"></span>
                         </label>
-                        <div class="relative flex items-center">
+                        <div className="relative flex items-center">
                             <input
                                 name="interest"
                                 id="inputinterest"
                                 type="text"
                                 placeholder="Enter Interest / Hobby"
-                                class="h-10 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid text-inputText p-[10px]"
+                                className="h-10 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid text-inputText p-[10px]"
                                 autocomplete="off"
                                 value=""
                             />
-                            <div class="relative">
+                            <div className="relative">
                                 <button
                                     type="button"
-                                    class="cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 bg-white text-[#8f8f8f] border-uncheckedGray border border-solid ml-1 h-10 rounded-md pl-3 pr-4"
+                                    className="cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 bg-white text-[#8f8f8f] border-uncheckedGray border border-solid ml-1 h-10 rounded-md pl-3 pr-4"
                                 >
                                     <img src="/interest2.svg" className="w-5" />
-                                    <span class="ml-1 whitespace-nowrap">Link</span>
+                                    <span className="ml-1 whitespace-nowrap">Link</span>
                                 </button>
                             </div>
                         </div>

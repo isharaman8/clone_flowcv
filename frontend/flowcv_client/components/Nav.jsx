@@ -52,34 +52,34 @@ const Nav = () => {
                                 </Link>
                             </>
                         ) : (
-                            <div class="flex w-auto items-center space-x-3 sm:space-x-4">
+                            <div className="flex w-auto items-center space-x-3 sm:space-x-4">
                                 <button
                                     type="button"
-                                    class="cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 text-black border-4 border-buttonGray h-10 w-10 border-none"
+                                    className="cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 text-black border-4 border-buttonGray h-10 w-10 border-none"
                                     onClick={() => setProfile(true)}
                                 >
                                     <img src="/user.svg" alt="user" />
                                 </button>
                                 <button
                                     type="button"
-                                    class="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 px-7 py-2 rounded-full font-extrabold h-10 text-[15px] min-w-[120px] text-white bg-black"
+                                    className="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 px-7 py-2 rounded-full font-extrabold h-10 text-[15px] min-w-[120px] text-white bg-black"
                                     onClick={handleLogout}
                                 >
                                     Logout
-                                    <span class="flex items-center justify-center ml-2 -mr-1 md:ml-3 md:-mr-[6px]">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-[1.4em]">
+                                    <span className="flex items-center justify-center ml-2 -mr-1 md:ml-3 md:-mr-[6px]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-[1.4em]">
                                             <path
                                                 stroke="currentColor"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="1.5"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="1.5"
                                                 d="M15.813 12.022H3.77M12.885 9.106l2.928 2.916-2.928 2.916"
                                             ></path>
                                             <path
                                                 stroke="currentColor"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="1.5"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="1.5"
                                                 d="M8.504 7.389v-.933a3.684 3.684 0 013.685-3.684h4.884a3.675 3.675 0 013.675 3.675v11.14a3.685 3.685 0 01-3.685 3.685h-4.885a3.675 3.675 0 01-3.674-3.675v-.942"
                                             ></path>
                                         </svg>

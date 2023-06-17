@@ -65,7 +65,7 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
                             {subOne}
 
                             {subOne === "Course title" && (
-                                <span class="gradient min-h-1 min-w-1 ml-[5px] mt-1 inline-block h-1 w-1 rounded-full align-top"></span>
+                                <span className="gradient min-h-1 min-w-1 ml-[5px] mt-1 inline-block h-1 w-1 rounded-full align-top"></span>
                             )}
                         </label>
                         {subOne !== "Course title" && <span className="text-[.65rem] pl-2 font-semibold text-gray-400">optional</span>}
@@ -130,8 +130,8 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
                         </div>
                     </div>
 
-                    <div class="mb-4 flex w-full flex-col">
-                        <div class="relative grid grid-cols-1 justify-between gap-4 md:grid-cols-[48.5%_48.5%] md:gap-0" ref={popupRef}>
+                    <div className="mb-4 flex w-full flex-col">
+                        <div className="relative grid grid-cols-1 justify-between gap-4 md:grid-cols-[48.5%_48.5%] md:gap-0" ref={popupRef}>
                             <DatePicker
                                 year={year.startYear}
                                 handleYear={handleYear}
@@ -240,7 +240,7 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
                 <div className="w-full">
                     <label htmlFor="description" className="text-primaryBlack mb-[2.5px]  inline-block w-full text-[14px] font-bold md:text-[15px]">
                         <span>Description</span>
-                        <span class="ml-2 text-[11px]  text-gray-400">optional</span>
+                        <span className="ml-2 text-[11px]  text-gray-400">optional</span>
                     </label>
                     <textarea
                         id="description"

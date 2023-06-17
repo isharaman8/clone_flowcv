@@ -1,3 +1,7 @@
+// third party imports
+import _ from "lodash";
+
+// inner imports
 import { createSlice } from "@reduxjs/toolkit";
 import {
     _createOrUpdateCourse,
@@ -18,7 +22,7 @@ const initialState = {
         address: null,
         links: {},
     },
-    professionaExperience: [],
+    professionalExperience: [],
     skills: [],
     languages: [],
     projects: [],
@@ -34,26 +38,26 @@ export const resume = createSlice({
     reducers: {
         // PERSONAL INFO
         addOrUpdatePersonalInfo: (state, action) => {
-            state.personalInfo = structuredClone({ ...state.personalInfo, ...action.payload });
+            state.personalInfo = _.cloneDeep({ ...state.personalInfo, ...action.payload });
         },
         resetPersonalInfo: (state) => {
             state.personalInfo = initialState.personalInfo;
         },
         addLinks: (state, action) => {
-            state.personalInfo.links = structuredClone({ ...state.personalInfo.links, ...action.payload });
+            state.personalInfo.links = _.cloneDeep({ ...state.personalInfo.links, ...action.payload });
         },
         // PROFESSIONAL EXPERIENCE
         addProfessionalExperience: (state, action) => {
-            state.professionaExperience.push(_createOrUpdateProfessionalExperience(action.payload));
+            state.professionalExperience.push(_createOrUpdateProfessionalExperience(action.payload));
         },
         removeProfessionalExperience: (state, action) => {
-            state.professionaExperience = structuredClone(state.professionaExperience.filter((c) => c.id !== action.payload.id));
+            state.professionalExperience = _.cloneDeep(state.professionalExperience.filter((c) => c.id !== action.payload.id));
         },
         resetProfessionExperience: (state) => {
-            state.professionaExperience = initialState.professionaExperience;
+            state.professionalExperience = initialState.professionalExperience;
         },
         updateProfessionalExperience: (state, action) => {
-            const requiredProfessionalExpIdx = state.professionaExperience.findIndex((c) => c.id === action.payload.id);
+            const requiredProfessionalExpIdx = state.professionalExperience.findIndex((c) => c.id === action.payload.id);
 
             if (requiredProfessionalExpIdx === -1) {
                 return;
@@ -61,13 +65,13 @@ export const resume = createSlice({
 
             const updatedProfessionalExp = _createOrUpdateProfessionalExperience(
                 action.payload,
-                state.professionaExperience[requiredProfessionalExpIdx]
+                state.professionalExperience[requiredProfessionalExpIdx]
             );
 
-            state.professionaExperience = structuredClone([
-                ...state.professionaExperience.slice(0, requiredProfessionalExpIdx),
+            state.professionalExperience = _.cloneDeep([
+                ...state.professionalExperience.slice(0, requiredProfessionalExpIdx),
                 updatedProfessionalExp,
-                ...state.professionaExperience.slice(requiredProfessionalExpIdx + 1),
+                ...state.professionalExperience.slice(requiredProfessionalExpIdx + 1),
             ]);
         },
         // SKILLS
@@ -75,7 +79,7 @@ export const resume = createSlice({
             state.skills.push(_createOrUpdateSkills(action.payload));
         },
         removeSkills: (state, action) => {
-            state.skills = structuredClone(state.skills.filter((c) => c.id !== action.payload.id));
+            state.skills = _.cloneDeep(state.skills.filter((c) => c.id !== action.payload.id));
         },
         resetSkills: (state) => {
             state.skills = initialState.skills;
@@ -83,24 +87,29 @@ export const resume = createSlice({
         updateSkills: (state, action) => {
             const requiredSkillsIdx = state.skills.findIndex((c) => c.id === action.payload.id);
 
+            console.log("REQUIRED SKILLS", requiredSkillsIdx);
+            console.log("PROXY SKILLS", JSON.parse(JSON.stringify(state.skills)));
+
+            state.skills.forEach((c) => console.log("SKILL", JSON.stringify(c)));
+
             if (requiredSkillsIdx === -1) {
+                state.skills = _.cloneDeep(state.skills);
                 return;
             }
 
             const updatedSkills = _createOrUpdateSkills(action.payload, state.skills[requiredSkillsIdx]);
 
-            state.skills = structuredClone([
-                ...state.skills.slice(0, requiredSkillsIdx),
-                updatedSkills,
-                ...state.skills.slice(requiredSkillsIdx + 1),
-            ]);
+            state.skills[requiredSkillsIdx] = updatedSkills;
+
+            console.log("UPDATED REQUIRED SKILLS", JSON.stringify(state.skills));
+            console.log("UPDATED SKILL", JSON.stringify(updatedSkills));
         },
         // LANGUAGES
         addLanguages: (state, action) => {
             state.languages.push(_createOrUpdateLanguages(action.payload));
         },
         removeLanguage: (state, action) => {
-            state.languages = structuredClone(state.languages.filter((c) => c.id !== action.payload.id));
+            state.languages = _.cloneDeep(state.languages.filter((c) => c.id !== action.payload.id));
         },
         resetLanguages: (state) => {
             state.languages = initialState.languages;
@@ -114,7 +123,7 @@ export const resume = createSlice({
 
             const updatedLanguage = _createOrUpdateLanguages(action.payload, state.languages[requiredLanguageIdx]);
 
-            state.languages = structuredClone([
+            state.languages = _.cloneDeep([
                 ...state.languages.slice(0, requiredLanguageIdx),
                 updatedLanguage,
                 ...state.languages.slice(requiredLanguageIdx + 1),
@@ -125,7 +134,7 @@ export const resume = createSlice({
             state.projects.push(_createOrUpdateProject(action.payload));
         },
         removeProject: (state, action) => {
-            state.projects = structuredClone(state.projects.filter((c) => c.id !== action.payload.id));
+            state.projects = _.cloneDeep(state.projects.filter((c) => c.id !== action.payload.id));
         },
         resetProjects: (state) => {
             state.projects = initialState.projects;
@@ -139,7 +148,7 @@ export const resume = createSlice({
 
             const updatedProject = _createOrUpdateProject(action.payload, state.projects[requiredProjectIdx]);
 
-            state.projects = structuredClone([
+            state.projects = _.cloneDeep([
                 ...state.projects.slice(0, requiredProjectIdx),
                 updatedProject,
                 ...state.projects.slice(requiredProjectIdx + 1),
@@ -150,7 +159,7 @@ export const resume = createSlice({
             state.interests.push(_createOrUpdateInterest(action.payload));
         },
         removeInterest: (state, action) => {
-            state.interests = structuredClone(state.interests.filter((c) => c.id !== action.payload.id));
+            state.interests = _.cloneDeep(state.interests.filter((c) => c.id !== action.payload.id));
         },
         resetInterests: (state) => {
             state.interests = initialState.interests;
@@ -164,7 +173,7 @@ export const resume = createSlice({
 
             const updatedInterest = _createOrUpdateInterest(action.payload, state.interests[requiredInterestIdx]);
 
-            state.interests = structuredClone([
+            state.interests = _.cloneDeep([
                 ...state.interests.slice(0, requiredInterestIdx),
                 updatedInterest,
                 ...state.interests.slice(requiredInterestIdx + 1),
@@ -175,7 +184,7 @@ export const resume = createSlice({
             state.education.push(_createOrUpdateEducation(action.payload));
         },
         removeEducation: (state, action) => {
-            state.education = structuredClone(state.education.filter((c) => c.id !== action.payload.id));
+            state.education = _.cloneDeep(state.education.filter((c) => c.id !== action.payload.id));
         },
         resetEducation: (state) => {
             state.education = initialState.education;
@@ -189,7 +198,7 @@ export const resume = createSlice({
 
             const updatedEducation = _createOrUpdateEducation(action.payload, state.interests[requiredEducationIdx]);
 
-            state.interests = structuredClone([
+            state.interests = _.cloneDeep([
                 ...state.interests.slice(0, requiredEducationIdx),
                 updatedEducation,
                 ...state.interests.slice(requiredEducationIdx + 1),
@@ -200,7 +209,7 @@ export const resume = createSlice({
             state.courses.push(_createOrUpdateCourse(action.payload));
         },
         removeCourse: (state, action) => {
-            state.courses = structuredClone(state.courses.filter((c) => c.id !== action.payload.id));
+            state.courses = _.cloneDeep(state.courses.filter((c) => c.id !== action.payload.id));
         },
         resetCourses: (state) => {
             state.courses = initialState.courses;
@@ -214,11 +223,7 @@ export const resume = createSlice({
 
             const updatedCourse = _createOrUpdateCourse(action.payload, state.courses[requiredCourseIdx]);
 
-            state.courses = structuredClone([
-                ...state.courses.slice(0, requiredCourseIdx),
-                updatedCourse,
-                ...state.courses.slice(requiredCourseIdx + 1),
-            ]);
+            state.courses = _.cloneDeep([...state.courses.slice(0, requiredCourseIdx), updatedCourse, ...state.courses.slice(requiredCourseIdx + 1)]);
         },
     },
 });

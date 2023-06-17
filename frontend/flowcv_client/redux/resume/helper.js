@@ -75,7 +75,7 @@ export const _createOrUpdateSkills = (payload = {}, oldData = {}) => {
         skill: payload.skill || oldData.skill || null,
         description: payload.description || oldData.description || null,
         skillLevel: payload.skillLevel || oldData.skillLevel || null,
-        id: !Object.values(oldData).length ? payload.id : null,
+        id: payload.id || oldData.id || null,
     };
 };
 
