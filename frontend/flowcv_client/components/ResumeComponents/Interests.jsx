@@ -1,4 +1,27 @@
+import { useState } from "react";
+import { BsLink45Deg } from "react-icons/bs";
+import LinkPopup from "./minicomponents/LinkPopup";
+
 const Interest = ({ setCurrentComponent }) => {
+    const [data, setData] = useState({
+        interest: "",
+        link: "",
+        info: "",
+    });
+    const [showLink, setShowLink] = useState(false);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setData((prevData) => ({ ...prevData, [name]: value }));
+    };
+
+    const handleSubmit = () => {
+        const payload = {
+            ...data,
+        };
+
+        console.log(payload);
+    };
     return (
         <div className="relative shadow-lg">
             <div className="relative w-full rounded-lg bg-white shadow-card px-5 md:px-7 lg:px-9 py-5 pb-5 md:py-7 md:pb-9 lg:py-9 lg:pb-10">
@@ -19,10 +42,11 @@ const Interest = ({ setCurrentComponent }) => {
                                 name="interest"
                                 id="inputinterest"
                                 type="text"
+                                value={data.interest}
+                                onChange={handleChange}
                                 placeholder="Enter Interest / Hobby"
                                 className="h-10 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid text-inputText p-[10px]"
                                 autocomplete="off"
-                                value=""
                             />
                             <div className="relative">
                                 <button
@@ -33,6 +57,7 @@ const Interest = ({ setCurrentComponent }) => {
                                     <span className="ml-1 whitespace-nowrap">Link</span>
                                 </button>
                             </div>
+                            {showLink && <LinkPopup setData={setData} data={data} setShowLink={setShowLink} />}
                         </div>
                     </div>
                     <div className="mb-4 w-full">
@@ -46,6 +71,8 @@ const Interest = ({ setCurrentComponent }) => {
                             placeholder="Enter additional information"
                             className="m-0 block w-full resize-none appearance-none overflow-hidden rounded-md border border-solid bg-gray-100 p-[10px] font-sans text-base leading-normal text-inputText placeholder-inputPlaceholder shadow-none outline-none md:text-[17px]"
                             rows="1"
+                            value={data.info}
+                            onChange={handleChange}
                         ></textarea>
                     </div>
                 </form>
@@ -63,6 +90,7 @@ const Interest = ({ setCurrentComponent }) => {
                     <button
                         type="submit"
                         className="border-none cursor-pointer appearance-none touch-manipulation flex items-center focus-visible:outline-blue-600 hover:opacity-80 px-7 py-2 rounded-full font-extrabold min-w-[120px] text-white gradient h-12 justify-between pl-4 text-[16px]"
+                        onClick={handleSubmit}
                     >
                         <span className="border-r border-solid border-gray-100 border-opacity-60 pr-3">
                             <img src="/interest3.svg" className="w-8" />

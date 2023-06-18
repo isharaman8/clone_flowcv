@@ -56,7 +56,7 @@ const PersonalInfo = () => {
                             type="button"
                             className="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 min-h-[30px] min-w-[30px] rounded-full text-white gradient absolute top-4 right-4 h-8 w-8"
                         >
-                            <img src="/resume1.svg" alt="resume1" />
+                            <img className="w-[1rem]" src="/resume1.svg" alt="resume1" />
                         </button>
                         <div className="mt-2">
                             <div className=" mb-4 w-16 sm:hidden">

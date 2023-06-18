@@ -36,6 +36,24 @@ const Skills = ({ setCurrentComponent, skill = {} }) => {
         console.log("SKILL", skill);
     }, [skill]);
 
+    const [data, setData] = useState({
+        skill: "",
+        sub_skill: "",
+        level: "",
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setData((prevData) => ({ ...prevData, [name]: value }));
+    };
+
+    const handleSubmit = () => {
+        const payload = {
+            ...data,
+        };
+
+        console.log(payload);
+    };
     return (
         <div className="w-full">
             <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">

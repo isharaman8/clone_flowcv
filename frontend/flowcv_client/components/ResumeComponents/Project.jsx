@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import DatePicker from "./minicomponents/DatePicker";
+import { BsLink45Deg } from "react-icons/bs";
+import LinkPopup from "./minicomponents/LinkPopup";
 
 const ProjectComponent = ({ setCurrentComponent }) => {
     const [subTitle, setSubTitle] = useState("");
@@ -7,6 +9,11 @@ const ProjectComponent = ({ setCurrentComponent }) => {
     const [popupOpen, setPopupOpen] = useState(null);
     const [year, setYear] = useState({ startYear: null, endYear: null });
     const [month, setMonth] = useState({ startMonth: null, endMonth: null });
+    const [showLink, setShowLink] = useState(false);
+    const [data, setData] = useState({
+        title: "",
+        link: "",
+    });
     const [checkboxData, setCheckboxData] = useState({
         start_show: false,
         start_year: false,
@@ -33,6 +40,23 @@ const ProjectComponent = ({ setCurrentComponent }) => {
 
     const handleSubTitle = (e) => setSubTitle(e.target.value);
     const handleDescription = (e) => setDescription(e.target.value);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setData((prevData) => ({ ...prevData, [name]: value }));
+    };
+
+    const handleSubmit = () => {
+        const payload = {
+            ...data,
+            subTitle,
+            description,
+            startDate: `${month.startMonth},${year.startYear}`,
+            endDate: !checkboxData.present ? `${month.endMonth},${year.endYear}` : "Present",
+        };
+
+        console.log(payload);
+    };
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -63,6 +87,31 @@ const ProjectComponent = ({ setCurrentComponent }) => {
                             <span>Project title</span>
                             <span className="gradient min-h-1 min-w-1 ml-[5px] mt-1 inline-block h-1 w-1 rounded-full align-top"></span>
                         </label>
+                        <div className="relative flex items-center">
+                            <input
+                                name="title"
+                                id="inputprojectTitle"
+                                type="text"
+                                placeholder="Enter Project Title"
+                                className="h-10 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid text-inputText p-[10px]"
+                                autocomplete="off"
+                                value={data.title}
+                                onChange={handleChange}
+                            />
+                            <div className="relative">
+                                <button
+                                    type="button"
+                                    className={`flex gap-2 cursor-pointer appearance-none touch-manipulation items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 ${
+                                        data.link ? "bg-blue-50 border-blue-500 text-blue-500" : "bg-white text-gray-400 border-gray-400"
+                                    }  border border-solid ml-1 rounded-xl pl-3 pr-4 py-[.7rem] text-sm`}
+                                    onClick={() => setShowLink(true)}
+                                >
+                                    <BsLink45Deg className="text-2xl" />
+                                    <span className="ml-1 whitespace-nowrap">Link</span>
+                                </button>
+                            </div>
+                            {showLink && <LinkPopup setData={setData} data={data} setShowLink={setShowLink} />}
+                        </div>
                     </div>
                     <div className="mb-4 w-full">
                         <label
@@ -219,6 +268,7 @@ const ProjectComponent = ({ setCurrentComponent }) => {
                     <button
                         type="submit"
                         className="border-none cursor-pointer appearance-none touch-manipulation flex items-center focus-visible:outline-blue-600 hover:opacity-80 px-7 py-2 rounded-full font-extrabold min-w-[120px] text-white gradient h-12 justify-between pl-4 text-[16px]"
+                        onClick={handleSubmit}
                     >
                         <span className="border-r border-solid border-gray-100 border-opacity-60 pr-3">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5">
