@@ -118,7 +118,7 @@ const DropDownComp = ({ list = [], title, handleClick, handleEditObj }) => {
                         <div className="pt-5 pb-5 flex flex-row justify-center items-center bg-white rounded-b-3xl">
                             <button
                                 type="button"
-                                onClick={handleClick}
+                                onClick={() => handleEditObjWrapper(title.toLowerCase(), null)}
                                 className="cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 px-7 py-2 font-extrabold h-10 text-[15px] text-primaryBlack border-4 border-solid border-gray-200 rounded-full min-w-36"
                             >
                                 <span className="flex items-center justify-center mr-2 -ml-1 md:mr-3 md:-ml-[6px]">

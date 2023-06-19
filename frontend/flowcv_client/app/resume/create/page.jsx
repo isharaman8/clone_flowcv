@@ -1,28 +1,31 @@
 "use client";
 
 import Link from "next/link";
+import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 
 import { useAppSelector } from "@redux/hooks";
+import { setEditObj, setPrevObj } from "@redux/resume/features";
 import { AVAILABLE_COMPONENTS } from "@utils/Constants";
 import Skills from "@components/ResumeComponents/Skills";
 import Language from "@components/ResumeComponents/Language";
 import Interest from "@components/ResumeComponents/Interests";
+import { _camelize } from "../../../utils/helpers";
 import AddContent from "@components/ResumeComponents/AddContent";
 import Certificate from "@components/ResumeComponents/Certificate";
 import ProjectComponent from "@components/ResumeComponents/Project";
 import PersonalInfo from "@components/ResumeComponents/PersonalInfo";
 import ProfessionalExperience from "@components/ResumeComponents/ProfessionalExpAndEducation";
 import DropDownComp from "@components/ResumeComponents/minicomponents/DropDownComp/DropDownComp";
-import { _camelize, _getEditObj } from "../../../utils/helpers";
 
 const CreateResume = () => {
     const [addContent, setAddContent] = useState(false);
     const [currentComponent, setCurrentComponent] = useState(AVAILABLE_COMPONENTS.skill);
-    const [editObj, setEditObj] = useState(_getEditObj());
 
     const resumeData = useAppSelector((state) => state.persistedReducer.resume);
+
+    const dispatch = useDispatch();
 
     const handleCurrentComponent = (e) => {
         setCurrentComponent(e.title);
@@ -36,17 +39,16 @@ const CreateResume = () => {
     };
 
     const handleEditObj = (key, value) => {
-        setEditObj((p) => ({ ...p, [key]: value }));
+        console.log("KEY", key);
+        console.log("VLAUE", value);
+
+        dispatch(setEditObj({ key, value }));
+        dispatch(setPrevObj({ key, value: null }));
     };
 
     useEffect(() => {
         console.log("RESUME DATA", resumeData);
     }, []);
-
-    useEffect(() => {
-        console.log("EDITOBJ", editObj);
-        console.log("CURRENT COMPO", currentComponent);
-    }, [editObj]);
 
     return (
         <div className="min-h-[90vh] w-[100vw] flex gap-5 relative bg-[#EEF0F4] px-10">
@@ -108,9 +110,7 @@ const CreateResume = () => {
 
                     {/* resume components */}
                     <div className="w-full max-w-[800px] pb-16">
-                        {currentComponent === AVAILABLE_COMPONENTS.skill && (
-                            <Skills setCurrentComponent={setCurrentComponent} skill={editObj[AVAILABLE_COMPONENTS.skill.toLowerCase()]} />
-                        )}
+                        {currentComponent === AVAILABLE_COMPONENTS.skill && <Skills setCurrentComponent={setCurrentComponent} />}
                         {currentComponent === AVAILABLE_COMPONENTS.language && <Language setCurrentComponent={setCurrentComponent} />}
                         {currentComponent === AVAILABLE_COMPONENTS.interests && <Interest setCurrentComponent={setCurrentComponent} />}
                         {currentComponent === AVAILABLE_COMPONENTS.certificate && <Certificate setCurrentComponent={setCurrentComponent} />}
@@ -153,7 +153,7 @@ const CreateResume = () => {
                             <DropDownComp
                                 list={resumeData.skills.map((c) => ({ ...c, name: c.skill }))}
                                 handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.skill)}
-                                title={_camelize(AVAILABLE_COMPONENTS.skill)}
+                                title={_camelize("Skills")}
                                 handleEditObj={handleEditObj}
                             />
                         )}

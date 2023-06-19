@@ -22,6 +22,26 @@ const initialState = {
         address: null,
         links: {},
     },
+    editObj: {
+        professionalExperience: null,
+        skills: null,
+        languages: null,
+        projects: null,
+        certificates: null,
+        interests: null,
+        education: null,
+        courses: null,
+    },
+    prevObj: {
+        professionalExperience: null,
+        skills: null,
+        languages: null,
+        projects: null,
+        certificates: null,
+        interests: null,
+        education: null,
+        courses: null,
+    },
     professionalExperience: [],
     skills: [],
     languages: [],
@@ -80,6 +100,8 @@ export const resume = createSlice({
         },
         removeSkills: (state, action) => {
             state.skills = _.cloneDeep(state.skills.filter((c) => c.id !== action.payload.id));
+
+            console.log("REMOVED SKILLS", state.skills);
         },
         resetSkills: (state) => {
             state.skills = initialState.skills;
@@ -225,6 +247,38 @@ export const resume = createSlice({
 
             state.courses = _.cloneDeep([...state.courses.slice(0, requiredCourseIdx), updatedCourse, ...state.courses.slice(requiredCourseIdx + 1)]);
         },
+
+        // EDIT OBJ
+        setEditObj: (state, action) => {
+            console.log("PAYLOAD", action.payload);
+
+            const { key, value } = action.payload;
+
+            if (!key || !value) {
+                return;
+            }
+
+            state.editObj[key] = value;
+        },
+
+        resetEditObj: (state) => {
+            state.editObj = initialState.editObj;
+        },
+
+        // PREV OBJ
+        setPrevObj: (state, action) => {
+            const { key, value } = action.payload;
+
+            if (!key || !value) {
+                return;
+            }
+
+            state.prevObj[key] = value;
+        },
+
+        resetPrevObj: (state) => {
+            state.prevObj = initialState.prevObj;
+        },
     },
 });
 
@@ -260,5 +314,9 @@ export const {
     updateProfessionalExperience,
     updateProject,
     updateSkills,
+    setEditObj,
+    resetEditObj,
+    setPrevObj,
+    resetPrevObj,
 } = resume.actions;
 export default resume.reducer;

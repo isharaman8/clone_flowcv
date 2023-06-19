@@ -19,6 +19,7 @@ export const _createOrUpdateProfessionalExperience = (payload = {}, oldData = {}
         link: payload.link || oldData.link || null,
         id: !Object.values(oldData).length ? payload.id : null,
         description: payload.description || oldData.description || null,
+        visible: payload.visible === false ? false : oldData.false ? false : true,
     };
 };
 
@@ -43,6 +44,7 @@ export const _createOrUpdateEducation = (payload = {}, oldData = {}) => {
         link: payload.link || oldData.link || null,
         description: payload.description || oldData.description || null,
         id: !Object.values(oldData).length ? payload.id : null,
+        visible: payload.visible === false ? false : oldData.false ? false : true,
     };
 };
 
@@ -67,6 +69,7 @@ export const _createOrUpdateCourse = (payload = {}, oldData = {}) => {
         link: payload.link || oldData.link || null,
         description: payload.description || oldData.description || null,
         id: !Object.values(oldData).length ? payload.id : null,
+        visible: payload.visible === false ? false : oldData.false ? false : true,
     };
 };
 
@@ -76,6 +79,7 @@ export const _createOrUpdateSkills = (payload = {}, oldData = {}) => {
         description: payload.description || oldData.description || null,
         skillLevel: payload.skillLevel || oldData.skillLevel || null,
         id: payload.id || oldData.id || null,
+        visible: payload.visible === false ? false : oldData.false ? false : true,
     };
 };
 
@@ -85,6 +89,7 @@ export const _createOrUpdateLanguages = (payload = {}, oldData = {}) => {
         description: payload.description || oldData.description || null,
         languageLevel: payload.languageLevel || oldData.languageLevel || null,
         id: !Object.values(oldData).length ? payload.id : null,
+        visible: payload.visible === false ? false : oldData.false ? false : true,
     };
 };
 
@@ -105,6 +110,7 @@ export const _createOrUpdateProject = (payload = {}, oldData = {}) => {
         subTitle: payload.subTitle || oldData.subTitle || null,
         description: payload.description || oldData.description || null,
         id: !Object.values(oldData).length ? payload.id : null,
+        visible: payload.visible === false ? false : oldData.false ? false : true,
     };
 };
 
@@ -113,5 +119,6 @@ export const _createOrUpdateInterest = (payload = {}, oldData = {}) => {
         interest: payload.interest || oldData.interest || null,
         description: payload.description || oldData.description || null,
         id: !Object.values(oldData).length ? payload.id : null,
+        visible: payload.visible === false ? false : oldData.false ? false : true,
     };
 };
