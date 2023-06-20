@@ -46,7 +46,7 @@ const Interest = ({ setCurrentComponent }) => {
                                 onChange={handleChange}
                                 placeholder="Enter Interest / Hobby"
                                 className="h-10 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid text-inputText p-[10px]"
-                                autocomplete="off"
+                                autoComplete="off"
                             />
                             <div className="relative">
                                 <button

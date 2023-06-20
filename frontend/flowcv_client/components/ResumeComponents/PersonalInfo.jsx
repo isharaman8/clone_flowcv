@@ -166,7 +166,7 @@ const PersonalInfo = () => {
                                 <div className="order-2 md:order-1 w-full">
                                     <div className="mb-4 w-full">
                                         <label
-                                            for="inputfullName"
+                                            htmlFor="inputfullName"
                                             className="text-black mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
                                         >
                                             <span>Full name</span>
@@ -178,15 +178,15 @@ const PersonalInfo = () => {
                                                 type="text"
                                                 placeholder="Enter your title, first- and last name"
                                                 className="h-12 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid border-inputBorder text-inputText p-[10px]"
-                                                autocomplete="off"
-                                                value={personalInfoData.fullName}
+                                                autoComplete="off"
+                                                value={personalInfoData.fullName || ""}
                                                 onChange={(e) => dispatchPersonalInfo({ fullName: e.target.value })}
                                             />
                                         </div>
                                     </div>
                                     <div className="mb-4 w-full">
                                         <label
-                                            for="inputjobTitle"
+                                            htmlFor="inputjobTitle"
                                             className="text-black mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
                                         >
                                             <span>Job title</span>
@@ -199,8 +199,8 @@ const PersonalInfo = () => {
                                                 type="text"
                                                 placeholder="Enter Job title"
                                                 className="h-12 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid border-inputBorder text-inputText p-[10px]"
-                                                autocomplete="off"
-                                                value={personalInfoData.jobTitle}
+                                                autoComplete="off"
+                                                value={personalInfoData.jobTitle || ""}
                                                 onChange={(e) => dispatchPersonalInfo({ jobTitle: e.target.value })}
                                             />
                                         </div>
@@ -213,7 +213,7 @@ const PersonalInfo = () => {
                                 <div className="flex w-full space-x-4">
                                     <div className="mb-4 w-1/2">
                                         <label
-                                            for="inputdisplayEmail"
+                                            htmlFor="inputdisplayEmail"
                                             className="text-black mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
                                         >
                                             <span>Email</span>
@@ -226,7 +226,7 @@ const PersonalInfo = () => {
                                                 type="email"
                                                 placeholder="Enter email"
                                                 className="h-12 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid border-inputBorder text-inputText p-[10px]"
-                                                autocomplete="off"
+                                                autoComplete="off"
                                                 value={personalInfoData.email || ""}
                                                 onChange={(e) => dispatchPersonalInfo({ email: e.target.value })}
                                             />
@@ -234,7 +234,7 @@ const PersonalInfo = () => {
                                     </div>
                                     <div className="mb-4 w-1/2">
                                         <label
-                                            for="inputphone"
+                                            htmlFor="inputphone"
                                             className="text-black mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
                                         >
                                             <span>Phone</span>
@@ -247,8 +247,8 @@ const PersonalInfo = () => {
                                                 type="text"
                                                 placeholder="Enter Phone"
                                                 className="h-12 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid border-inputBorder text-inputText p-[10px]"
-                                                autocomplete="off"
-                                                value={personalInfoData.phone}
+                                                autoComplete="off"
+                                                value={personalInfoData.phone || ""}
                                                 onChange={(e) => dispatchPersonalInfo({ phone: e.target.value })}
                                             />
                                         </div>
@@ -256,7 +256,7 @@ const PersonalInfo = () => {
                                 </div>
                                 <div className="mb-4 w-full">
                                     <label
-                                        for="inputaddress"
+                                        htmlFor="inputaddress"
                                         className="text-black mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
                                     >
                                         <span>Address</span>
@@ -269,8 +269,8 @@ const PersonalInfo = () => {
                                             type="text"
                                             placeholder="City, Country"
                                             className="h-12 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid border-inputBorder text-inputText p-[10px]"
-                                            autocomplete="off"
-                                            value={personalInfoData.address}
+                                            autoComplete="off"
+                                            value={personalInfoData.address || ""}
                                             onChange={(e) => dispatchPersonalInfo({ address: e.target.value })}
                                         />
                                     </div>

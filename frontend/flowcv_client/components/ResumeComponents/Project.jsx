@@ -94,7 +94,7 @@ const ProjectComponent = ({ setCurrentComponent }) => {
                                 type="text"
                                 placeholder="Enter Project Title"
                                 className="h-10 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid text-inputText p-[10px]"
-                                autocomplete="off"
+                                autoComplete="off"
                                 value={data.title}
                                 onChange={handleChange}
                             />
@@ -128,7 +128,7 @@ const ProjectComponent = ({ setCurrentComponent }) => {
                                 type="text"
                                 placeholder="Enter sub title"
                                 className="h-10 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid border-inputBorder text-inputText p-[10px]"
-                                autocomplete="off"
+                                autoComplete="off"
                                 value={subTitle}
                                 onInput={handleSubTitle}
                             />

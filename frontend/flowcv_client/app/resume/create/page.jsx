@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 
 import { useAppSelector } from "@redux/hooks";
-import { setEditObj, setPrevObj } from "@redux/resume/features";
+import { _camelize } from "../../../utils/helpers";
 import { AVAILABLE_COMPONENTS } from "@utils/Constants";
 import Skills from "@components/ResumeComponents/Skills";
 import Language from "@components/ResumeComponents/Language";
 import Interest from "@components/ResumeComponents/Interests";
-import { _camelize } from "../../../utils/helpers";
+import { setEditObj, setPrevObj } from "@redux/resume/features";
 import AddContent from "@components/ResumeComponents/AddContent";
 import Certificate from "@components/ResumeComponents/Certificate";
 import ProjectComponent from "@components/ResumeComponents/Project";
@@ -21,7 +21,7 @@ import DropDownComp from "@components/ResumeComponents/minicomponents/DropDownCo
 
 const CreateResume = () => {
     const [addContent, setAddContent] = useState(false);
-    const [currentComponent, setCurrentComponent] = useState(AVAILABLE_COMPONENTS.skill);
+    const [currentComponent, setCurrentComponent] = useState(AVAILABLE_COMPONENTS.professionalExperience);
 
     const resumeData = useAppSelector((state) => state.persistedReducer.resume);
 
@@ -120,24 +120,24 @@ const CreateResume = () => {
                             <ProfessionalExperience
                                 setCurrentComponent={setCurrentComponent}
                                 mainHeading={"Create Professional Experience"}
-                                subOne={"Employer"}
-                                subTwo={"Job Title"}
+                                subOne={"employer"}
+                                subTwo={"jobTitle"}
                             />
                         )}
                         {currentComponent === AVAILABLE_COMPONENTS.education && (
                             <ProfessionalExperience
                                 setCurrentComponent={setCurrentComponent}
                                 mainHeading={"Create Education"}
-                                subOne={"School"}
-                                subTwo={"Degree"}
+                                subOne={"school"}
+                                subTwo={"degree"}
                             />
                         )}
                         {currentComponent === AVAILABLE_COMPONENTS.course && (
                             <ProfessionalExperience
                                 setCurrentComponent={setCurrentComponent}
                                 mainHeading={"Create Course"}
-                                subOne={"Course title"}
-                                subTwo={"Institution"}
+                                subOne={"courseTitle"}
+                                subTwo={"institution"}
                             />
                         )}
 
@@ -145,8 +145,9 @@ const CreateResume = () => {
                         {resumeData.professionalExperience.length > 0 && (
                             <DropDownComp
                                 list={resumeData.professionalExperience.map((c) => ({ ...c, name: c.jobTitle }))}
-                                title={"Professional Experience"}
+                                title={_camelize("professionalExperience")}
                                 handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.professionalExperience)}
+                                handleEditObj={handleEditObj}
                             />
                         )}
                         {resumeData.skills.length > 0 && (

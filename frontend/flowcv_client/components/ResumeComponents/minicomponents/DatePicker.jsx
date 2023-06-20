@@ -1,14 +1,16 @@
 import { MONTHS, YEARS } from "@utils/Constants";
 import Popup from "./Popup";
 
-const DatePicker = ({ mainHeading, year, handleYear, month, handleMonth, popupOpen, handlePopupOpen, prefix, checkboxData }) => {
+const DatePicker = ({ mainHeading, popupOpen, handlePopupOpen, prefix, handleDateData, dateData = {} }) => {
+    const { year, month, dontshow = false, onlyyear = false, presentyear = false } = dateData;
+
     return (
         <div>
             <label htmlFor="startMonth" className="text-sm font-semibold">
                 <span>{mainHeading}</span>
                 <span className="text-[.65rem] pl-2 font-semibold text-gray-400">optional</span>
             </label>
-            {prefix === "end" && checkboxData.present ? (
+            {prefix === "end" && presentyear ? (
                 <button
                     className="m-0 relative md:text-[17px] text-inputPlaceholder rounded-md border-inputBorder bg-gray-100 placeholder-inputPlaceholder flex w-full appearance-none items-center border border-solid p-[10px] font-sans text-base leading-normal shadow-none focus-visible:outline-blue-600"
                     id="headlessui-listbox-button-29"
@@ -17,9 +19,9 @@ const DatePicker = ({ mainHeading, year, handleYear, month, handleMonth, popupOp
                     <span className="truncate">Present</span>
                 </button>
             ) : (
-                !checkboxData[prefix + "_show"] && (
+                !dontshow && (
                     <div className="flex flex-row justify-center items-center gap-2">
-                        {!checkboxData[prefix + "_year"] && (
+                        {!onlyyear && (
                             <div className="mb-4 relative w-full">
                                 <button
                                     className="m-0 relative md:text-[17px] text-inputPlaceholder rounded-md border-inputBorder bg-gray-100 placeholder-inputPlaceholder flex w-full appearance-none items-center border border-solid p-[10px] font-sans text-base leading-normal shadow-none focus-visible:outline-blue-600"
@@ -32,7 +34,7 @@ const DatePicker = ({ mainHeading, year, handleYear, month, handleMonth, popupOp
                                 >
                                     <span className="truncate">{month || "Month"}</span>
                                 </button>
-                                {popupOpen === `${prefix}Month` && <Popup list={MONTHS} handleValue={handleMonth} cols={3} monthType={prefix} />}
+                                {popupOpen === `${prefix}Month` && <Popup list={MONTHS} handleValue={handleDateData} cols={3} monthType={prefix} />}
                             </div>
                         )}
                         <div className="mb-4 static w-full">
@@ -48,7 +50,7 @@ const DatePicker = ({ mainHeading, year, handleYear, month, handleMonth, popupOp
                                 >
                                     <span className="truncate">{year || "Year"}</span>
                                 </button>
-                                {popupOpen === `${prefix}Year` && <Popup list={YEARS} handleValue={handleYear} cols={4} yearType={prefix} />}
+                                {popupOpen === `${prefix}Year` && <Popup list={YEARS} handleValue={handleDateData} cols={4} yearType={prefix} />}
                             </div>
                         </div>
                     </div>
