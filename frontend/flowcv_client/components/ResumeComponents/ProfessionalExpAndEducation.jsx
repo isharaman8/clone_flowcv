@@ -2,8 +2,19 @@ import React, { useEffect, useRef, useState } from "react";
 import { BsLink45Deg, BsCheck2 } from "react-icons/bs";
 import DatePicker from "./minicomponents/DatePicker";
 import LinkPopup from "./minicomponents/LinkPopup";
+import { useDispatch } from "react-redux";
+import { addCourse, addEducation, addProfessionalExperience } from "@redux/resume/features";
+import { useAppSelector } from "@redux/hooks";
 
 const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subTwo }) => {
+    const key = mainHeading.toLowerCase().includes("education")
+        ? "education"
+        : mainHeading.toLowerCase().includes("course")
+        ? "courses"
+        : "professionalExperience";
+
+    const commonData = useAppSelector((state) => state.persistedReducer.resume[key]);
+
     const [data, setData] = useState({
         [subOne]: "",
         [subTwo]: "",
@@ -23,6 +34,18 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
         end_show: false,
         end_year: false,
     });
+
+    const dispatch = useDispatch();
+
+    const dispatchData = (payload = {}) => {
+        if (key === "education") {
+            dispatch(addEducation(payload));
+        } else if (key === "courses") {
+            dispatch(addCourse(payload));
+        } else {
+            dispatch(addProfessionalExperience(payload));
+        }
+    };
 
     const popupRef = useRef(null);
 

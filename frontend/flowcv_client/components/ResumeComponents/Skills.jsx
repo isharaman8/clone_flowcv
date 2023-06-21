@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 const Skills = ({ setCurrentComponent }) => {
     const dispatch = useDispatch();
 
-    const { skills, editObj, prevObj } = useAppSelector((state) => state.persistedReducer.resume);
+    const { skills, editObj = {}, prevObj = {} } = useAppSelector((state) => state.persistedReducer.resume);
 
     const handleAddOrUpdateSkill = (payload = {}) => {
         if (!editObj.skills) {
