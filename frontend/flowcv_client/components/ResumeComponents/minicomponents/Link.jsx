@@ -15,7 +15,7 @@ const Link = ({ heading, value, handleValue, handleLinkDelete }) => {
                     type="text"
                     placeholder="Enter website link"
                     className="h-10 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid border-inputBorder text-inputText p-[10px]"
-                    autocomplete="off"
+                    autoComplete="off"
                     value={value}
                     onInput={handleValue}
                 />

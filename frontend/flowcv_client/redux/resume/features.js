@@ -1,5 +1,5 @@
 // third party imports
-import _ from "lodash";
+import _, { add } from "lodash";
 
 // inner imports
 import { createSlice } from "@reduxjs/toolkit";
@@ -68,7 +68,11 @@ export const resume = createSlice({
         },
         // PROFESSIONAL EXPERIENCE
         addProfessionalExperience: (state, action) => {
+            console.log("ADD PAYLOAD", action.payload);
+
             state.professionalExperience.push(_createOrUpdateProfessionalExperience(action.payload));
+
+            console.log("ADDED STATE", JSON.stringify(state.professionalExperience));
         },
         removeProfessionalExperience: (state, action) => {
             state.professionalExperience = _.cloneDeep(state.professionalExperience.filter((c) => c.id !== action.payload.id));
@@ -77,7 +81,11 @@ export const resume = createSlice({
             state.professionalExperience = initialState.professionalExperience;
         },
         updateProfessionalExperience: (state, action) => {
+            console.log("UPDATE PAYLOAD", action.payload);
+
             const requiredProfessionalExpIdx = state.professionalExperience.findIndex((c) => c.id === action.payload.id);
+
+            console.log("PROFESSIONAL IDX", requiredProfessionalExpIdx);
 
             if (requiredProfessionalExpIdx === -1) {
                 return;
@@ -93,15 +101,17 @@ export const resume = createSlice({
                 updatedProfessionalExp,
                 ...state.professionalExperience.slice(requiredProfessionalExpIdx + 1),
             ]);
+
+            console.log("UPDATED STATE", JSON.stringify(state.professionalExperience));
         },
         // SKILLS
         addSkills: (state, action) => {
             state.skills.push(_createOrUpdateSkills(action.payload));
+
+            console.log("ADDED SKILLS", JSON.stringify(state.skills));
         },
         removeSkills: (state, action) => {
             state.skills = _.cloneDeep(state.skills.filter((c) => c.id !== action.payload.id));
-
-            console.log("REMOVED SKILLS", state.skills);
         },
         resetSkills: (state) => {
             state.skills = initialState.skills;
@@ -109,10 +119,8 @@ export const resume = createSlice({
         updateSkills: (state, action) => {
             const requiredSkillsIdx = state.skills.findIndex((c) => c.id === action.payload.id);
 
-            console.log("REQUIRED SKILLS", requiredSkillsIdx);
-            console.log("PROXY SKILLS", JSON.parse(JSON.stringify(state.skills)));
-
-            state.skills.forEach((c) => console.log("SKILL", JSON.stringify(c)));
+            console.log("SKILLS IDX", requiredSkillsIdx);
+            console.log("SKILLS PAYLOAD", action.payload);
 
             if (requiredSkillsIdx === -1) {
                 state.skills = _.cloneDeep(state.skills);
@@ -123,8 +131,7 @@ export const resume = createSlice({
 
             state.skills[requiredSkillsIdx] = updatedSkills;
 
-            console.log("UPDATED REQUIRED SKILLS", JSON.stringify(state.skills));
-            console.log("UPDATED SKILL", JSON.stringify(updatedSkills));
+            console.log("UPDATED SKILLS", JSON.stringify(state.skills));
         },
         // LANGUAGES
         addLanguages: (state, action) => {
@@ -254,11 +261,39 @@ export const resume = createSlice({
 
             const { key, value } = action.payload;
 
+            let addOrUpdateFunc = null;
+
+            switch (key) {
+                case "professionalExperience":
+                    addOrUpdateFunc = _createOrUpdateProfessionalExperience;
+                    break;
+                case "skills":
+                    addOrUpdateFunc = _createOrUpdateSkills;
+                    break;
+                case "languages":
+                    addOrUpdateFunc = _createOrUpdateLanguages;
+                    break;
+                case "projects":
+                    addOrUpdateFunc = _createOrUpdateProject;
+                    break;
+                case "interests":
+                    addOrUpdateFunc = _createOrUpdateInterest;
+                    break;
+                case "education":
+                    addOrUpdateFunc = _createOrUpdateEducation;
+                    break;
+                case "courses":
+                    addOrUpdateFunc = _createOrUpdateCourse;
+                    break;
+                default:
+                    break;
+            }
+
             if (!key || !value) {
                 return;
             }
 
-            state.editObj[key] = value;
+            state.editObj[key] = addOrUpdateFunc(value || {}, state.editObj[key] || {});
         },
 
         resetEditObj: (state) => {

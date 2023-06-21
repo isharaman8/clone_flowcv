@@ -1,6 +1,7 @@
 import { useAppSelector } from "@redux/hooks";
 import { addSkills, removeSkills, resetEditObj, resetPrevObj, setEditObj, setPrevObj, updateSkills } from "@redux/resume/features";
-import { AVAILABLE_COMPONENTS } from "@utils/Constants";
+import { AVAILABLE_COMPONENTS, NULL_VALUE } from "@utils/Constants";
+import { _parseEditObjPayload } from "@utils/helpers";
 import React, { useEffect, useState } from "react";
 import { BsCheck2 } from "react-icons/bs";
 import { useDispatch } from "react-redux";
@@ -11,12 +12,14 @@ const Skills = ({ setCurrentComponent }) => {
     const { skills, editObj = {}, prevObj = {} } = useAppSelector((state) => state.persistedReducer.resume);
 
     const handleAddOrUpdateSkill = (payload = {}) => {
+        console.log("PAYLOAD 123", payload);
+
         if (!editObj.skills) {
-            dispatch(setEditObj({ key: "skills", value: { ...payload, id: skills.length + 1 } }));
+            dispatch(setEditObj({ key: "skills", value: { ..._parseEditObjPayload(payload), id: skills.length + 1 } }));
             dispatch(addSkills({ ...payload, id: skills.length + 1 }));
         } else {
-            dispatch(setEditObj({ key: "skills", value: { ...(editObj?.skills || {}), ...payload } }));
-            dispatch(updateSkills(editObj?.skills));
+            dispatch(updateSkills({ ...editObj.skills, ...payload }));
+            dispatch(setEditObj({ key: "skills", value: { ...(editObj?.skills || {}), ..._parseEditObjPayload(payload) } }));
         }
     };
 
@@ -50,6 +53,7 @@ const Skills = ({ setCurrentComponent }) => {
     const handleSave = () => {
         setCurrentComponent(AVAILABLE_COMPONENTS.personalInfo);
         dispatch(resetEditObj());
+        dispatch(resetPrevObj());
     };
 
     const handleChange = (e) => {
@@ -64,6 +68,10 @@ const Skills = ({ setCurrentComponent }) => {
 
         console.log(payload);
     };
+
+    useEffect(() => {
+        console.log("SKILLS", skills);
+    }, [skills]);
 
     useEffect(() => {
         dispatch(setPrevObj({ key: "skills", value: editObj.skills }));
@@ -88,7 +96,7 @@ const Skills = ({ setCurrentComponent }) => {
                             id="skill"
                             placeholder="Enter skill"
                             value={editObj.skills?.skill || ""}
-                            onChange={(e) => handleAddOrUpdateSkill({ skill: e.target.value })}
+                            onChange={(e) => handleAddOrUpdateSkill({ skill: e.target.value || NULL_VALUE })}
                         />
                     </div>
                     <div>
@@ -104,7 +112,7 @@ const Skills = ({ setCurrentComponent }) => {
                             id="sub_skill"
                             placeholder="Enter information or sub-skills"
                             value={editObj.skills?.description || ""}
-                            onChange={(e) => handleAddOrUpdateSkill({ description: e.target.value })}
+                            onChange={(e) => handleAddOrUpdateSkill({ description: e.target.value || NULL_VALUE })}
                         />
                     </div>
                     <div>
@@ -117,7 +125,7 @@ const Skills = ({ setCurrentComponent }) => {
                             name="skill_level"
                             id="skill_level"
                             value={editObj.skills?.skillLevel || ""}
-                            onChange={(e) => handleAddOrUpdateSkill({ skillLevel: e.target.value })}
+                            onChange={(e) => handleAddOrUpdateSkill({ skillLevel: e.target.value || NULL_VALUE })}
                         >
                             <option value="novice">Novice</option>
                             <option value="beginner">Beginner</option>
