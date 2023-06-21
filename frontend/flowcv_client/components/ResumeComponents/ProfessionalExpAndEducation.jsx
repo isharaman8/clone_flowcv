@@ -163,7 +163,7 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
 
                 <div>
                     <div>
-                        <label htmlFor={subOne} className="text-sm font-semibold">
+                        <label htmlFor={subOne} className="text-sm font-semibold capitalize">
                             {subOne}
 
                             {subOne === "Course title" && (
@@ -195,7 +195,7 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
                         </div>
                     </div>
                     <div>
-                        <label htmlFor={subTwo} className="text-sm font-semibold">
+                        <label htmlFor={subTwo} className="text-sm font-semibold capitalize">
                             {subTwo}
                         </label>
                         <span className="text-[.65rem] pl-2 font-semibold text-gray-400">optional</span>

@@ -20,6 +20,7 @@ import ProfessionalExperience from "@components/ResumeComponents/ProfessionalExp
 import DropDownComp from "@components/ResumeComponents/minicomponents/DropDownComp/DropDownComp";
 import PersonalData from "@components/ResumeTemplate/PersonalData";
 import Education from "@components/ResumeTemplate/EducationCoursesAndExp";
+import SkillsComponent from "@components/ResumeTemplate/Skills";
 
 const CreateResume = () => {
     const [addContent, setAddContent] = useState(false);
@@ -147,7 +148,7 @@ const CreateResume = () => {
                         {(resumeData.professionalExperience || []).length > 0 && (
                             <DropDownComp
                                 list={resumeData.professionalExperience.map((c) => ({ ...c, name: c.jobTitle }))}
-                                title={_camelize("professionalExperience")}
+                                title={_camelize("Professional Experience")}
                                 handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.professionalExperience)}
                                 handleEditObj={handleEditObj}
                             />
@@ -213,9 +214,10 @@ const CreateResume = () => {
             {/* right */}
             <div className="grow-[4] bg-white h-screen my-[2rem] w-1/4 px-[3rem] overflow-hidden break-words sticky top-8">
                 <PersonalData />
-                {currentComponent === AVAILABLE_COMPONENTS.education && <Education currentComponent={currentComponent} />}
-                {currentComponent === AVAILABLE_COMPONENTS.professionalExperience && <Education currentComponent={currentComponent} />}
-                {currentComponent === AVAILABLE_COMPONENTS.course && <Education currentComponent={currentComponent} />}
+                <Education currentComponent={"education"} />
+                <Education currentComponent={"professional Experience"} />
+                <Education currentComponent={"courses"} />
+                <SkillsComponent />
             </div>
             {addContent && <AddContent setAddContent={setAddContent} handleCurrentComponent={handleCurrentComponent} />}
         </div>

@@ -34,7 +34,9 @@ const DatePicker = ({ mainHeading, popupOpen, handlePopupOpen, prefix, handleDat
                                 >
                                     <span className="truncate">{month || "Month"}</span>
                                 </button>
-                                {popupOpen === `${prefix}Month` && <Popup list={MONTHS} handleValue={handleDateData} cols={3} monthType={prefix} />}
+                                {popupOpen === `${prefix}Month` && (
+                                    <Popup list={Object.keys(MONTHS)} handleValue={handleDateData} cols={3} monthType={prefix} />
+                                )}
                             </div>
                         )}
                         <div className="mb-4 static w-full">

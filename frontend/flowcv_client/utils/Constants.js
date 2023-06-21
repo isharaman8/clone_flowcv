@@ -164,7 +164,28 @@ export const AVAILABLE_COMPONENTS = Object.freeze({
     course: "Course",
 });
 
-export const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+export const MONTHS = {
+    January: "01",
+    February: "02",
+    March: "03",
+    April: "04",
+    May: "05",
+    June: "06",
+    July: "07",
+    August: "08",
+    September: "09",
+    October: "10",
+    November: "11",
+    December: "12",
+};
+
+export const SKILL_LEVELS = {
+    novice: 1,
+    beginner: 2,
+    skillful: 3,
+    experienced: 4,
+    expert: 5,
+};
 
 export const YEARS = Array.from({ length: new Date().getFullYear() - 1944 + 1 }, (_, i) => 1944 + i).reverse();
 
