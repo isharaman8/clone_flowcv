@@ -2,17 +2,8 @@ import { useAppSelector } from "@redux/hooks";
 import { MONTHS } from "@utils/Constants";
 import React from "react";
 
-const Education = ({ currentComponent }) => {
-    const key = currentComponent.toLowerCase().includes("education")
-        ? "education"
-        : currentComponent.toLowerCase().includes("course")
-        ? "courses"
-        : "professionalExperience";
-
-    const subOne = key === "education" ? "school" : key === "courses" ? "courseTitle" : "employer";
-    const subTwo = key === "education" ? "degree" : key === "courses" ? "institution" : "jobTitle";
-
-    const data = useAppSelector((state) => state.persistedReducer.resume[key]) || [];
+const Projects = () => {
+    const data = useAppSelector((state) => state.persistedReducer.resume.projects) || [];
 
     if (!data.length) {
         return;
@@ -20,16 +11,16 @@ const Education = ({ currentComponent }) => {
 
     return (
         <div className="mt-4">
-            <h1 className="font-semibold text-sm border-b-2 border-black capitalize">{currentComponent}</h1>
+            <h1 className="font-semibold text-sm border-b-2 border-black capitalize">Projects</h1>
             {data.map((c) => (
                 <>
                     {c.visible && (
                         <div key={c.id} className="flex justify-between gap-4 w-full text-xs my-2">
                             <div className="w-2/4 break-words">
                                 <div>
-                                    <span className="font-semibold">{c[subTwo]}, </span>
-                                    {c[subOne]}
+                                    <span className="font-semibold">{c.title} </span>
                                 </div>
+                                {c.subTitle && <div>{c.subTitle}</div>}
                                 {c.description && <div>{c.description}</div>}
                             </div>
                             <div className="w-2/4 break-words flex flex-col items-end text-xs">
@@ -49,12 +40,6 @@ const Education = ({ currentComponent }) => {
                                         </span>
                                     )}
                                 </div>
-
-                                {c.city && (
-                                    <div>
-                                        {c.city}, {c.country}
-                                    </div>
-                                )}
                             </div>
                         </div>
                     )}
@@ -64,4 +49,4 @@ const Education = ({ currentComponent }) => {
     );
 };
 
-export default Education;
+export default Projects;

@@ -126,6 +126,7 @@ export const _createOrUpdateProject = (payload = {}, oldData = {}) => {
             presentyear: _getParsedBoolean(_getValue(payload.endDate, oldData.endDate, "presentyear") || false),
         },
         subTitle: _getValue(payload, oldData, "subTitle"),
+        title: _getValue(payload, oldData, "title"),
         description: _getValue(payload, oldData, "description"),
         id: _getValue(payload, oldData, "id"),
         visible: payload.visible === false ? false : oldData.false ? false : true,
@@ -135,6 +136,15 @@ export const _createOrUpdateProject = (payload = {}, oldData = {}) => {
 export const _createOrUpdateInterest = (payload = {}, oldData = {}) => {
     return {
         interest: _getValue(payload, oldData, "interest"),
+        description: _getValue(payload, oldData, "description"),
+        id: _getValue(payload, oldData, "id"),
+        visible: payload.visible === false ? false : oldData.false ? false : true,
+    };
+};
+
+export const _createOrUpdateCertificates = (payload = {}, oldData = {}) => {
+    return {
+        certificate: _getValue(payload, oldData, "certificate"),
         description: _getValue(payload, oldData, "description"),
         id: _getValue(payload, oldData, "id"),
         visible: payload.visible === false ? false : oldData.false ? false : true,

@@ -5,7 +5,7 @@ import { IoMdClose } from "react-icons/io";
 const AddContent = ({ setAddContent, handleCurrentComponent }) => {
     return (
         <>
-            <div className="absolute top-0 left-0 z-[200000] bg-[rgba(0,0,0,0.5)] w-screen min-h-screen">
+            <div className="fixed top-0 left-0 z-[200000] bg-[rgba(0,0,0,0.5)] w-screen min-h-screen">
                 <div className="bg-white w-[94vw] m-auto mt-[14rem] rounded-3xl shadow-xl px-[3.2rem] py-[2.4rem]">
                     <div className="flex justify-between items-center">
                         <h1 className="text-3xl font-bold">Add Content</h1>

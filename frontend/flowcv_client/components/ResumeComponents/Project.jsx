@@ -2,8 +2,53 @@ import { useEffect, useRef, useState } from "react";
 import DatePicker from "./minicomponents/DatePicker";
 import { BsLink45Deg } from "react-icons/bs";
 import LinkPopup from "./minicomponents/LinkPopup";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "@redux/hooks";
+import { addProjects, removeProject, resetEditObj, resetPrevObj, setEditObj, updateProject } from "@redux/resume/features";
+import { _getParsedBoolean, _parseEditObjPayload } from "@utils/helpers";
+import { AVAILABLE_COMPONENTS } from "@utils/Constants";
 
 const ProjectComponent = ({ setCurrentComponent }) => {
+    const dispatch = useDispatch();
+    const { projects, editObj = {}, prevObj = {} } = useAppSelector((state) => state.persistedReducer.resume);
+
+    const handleAddOrUpdateProject = (payload = {}) => {
+        console.log("PAYLOAD", payload);
+
+        if (!editObj.projects) {
+            dispatch(setEditObj({ key: "projects", value: { ..._parseEditObjPayload(payload), id: projects.length + 1 } }));
+            dispatch(addProjects({ ...payload, id: projects.length + 1 }));
+        } else {
+            dispatch(setEditObj({ key: "projects", value: { ...(editObj.projects || {}), ..._parseEditObjPayload(payload) } }));
+            dispatch(updateProject({ ...(editObj.projects || {}), ...payload }));
+        }
+    };
+
+    const handleCancel = () => {
+        if (!editObj.projects) {
+            setCurrentComponent(AVAILABLE_COMPONENTS.personalInfo);
+            return;
+        }
+
+        if (!prevObj.projects) {
+            dispatch(removeProject({ id: editObj.projects?.id }));
+        } else {
+            dispatch(updateProject(prevObj.projects));
+        }
+
+        dispatch(resetEditObj());
+        dispatch(resetPrevObj());
+
+        setCurrentComponent(AVAILABLE_COMPONENTS.personalInfo);
+    };
+
+    const handleSave = () => {
+        setCurrentComponent(AVAILABLE_COMPONENTS.personalInfo);
+
+        dispatch(resetEditObj());
+        dispatch(resetPrevObj());
+    };
+
     const [subTitle, setSubTitle] = useState("");
     const [description, setDescription] = useState("");
     const [popupOpen, setPopupOpen] = useState(null);
@@ -24,6 +69,11 @@ const ProjectComponent = ({ setCurrentComponent }) => {
 
     const popupRef = useRef(null);
 
+    const handleDateData = (payload = {}) => {
+        handleAddOrUpdateProject(payload);
+        setPopupOpen(false);
+    };
+
     const handleMonth = (e) => {
         setMonth((p) => ({ ...p, ...e }));
         setPopupOpen(false);
@@ -36,6 +86,35 @@ const ProjectComponent = ({ setCurrentComponent }) => {
     const handleCheckbox = (e) => {
         const { name, checked } = e.target;
         setCheckboxData((prevData) => ({ ...prevData, [name]: checked }));
+    };
+
+    const handleChecKBoxes = (prefix, key, value) => {
+        console.log("CHECKBOX VLAUE", value);
+
+        if (!["start", "end"].includes(prefix)) {
+            return alert("Invalid prefix value provided");
+        }
+
+        const mainKey = `${prefix}Date`;
+
+        value = _getParsedBoolean(value);
+
+        const payload = {};
+
+        if (key === "dontshow") {
+            payload.year = NULL_VALUE;
+            payload.month = NULL_VALUE;
+            payload.dontshow = value;
+        } else if (key === "onlyyear") {
+            payload.month = NULL_VALUE;
+            payload.onlyyear = value;
+        } else if (key === "presentyear") {
+            payload.month = NULL_VALUE;
+            payload.year = value ? new Date().getFullYear() : NULL_VALUE;
+            payload.presentyear = value;
+        }
+
+        handleAddOrUpdateProject({ [mainKey]: payload });
     };
 
     const handleSubTitle = (e) => setSubTitle(e.target.value);
@@ -95,8 +174,8 @@ const ProjectComponent = ({ setCurrentComponent }) => {
                                 placeholder="Enter Project Title"
                                 className="h-10 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid text-inputText p-[10px]"
                                 autoComplete="off"
-                                value={data.title}
-                                onChange={handleChange}
+                                onChange={(e) => handleAddOrUpdateProject({ title: e.target.value || NULL_VALUE })}
+                                value={editObj.projects?.title || ""}
                             />
                             <div className="relative">
                                 <button
@@ -129,34 +208,30 @@ const ProjectComponent = ({ setCurrentComponent }) => {
                                 placeholder="Enter sub title"
                                 className="h-10 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid border-inputBorder text-inputText p-[10px]"
                                 autoComplete="off"
-                                value={subTitle}
-                                onInput={handleSubTitle}
+                                onChange={(e) => handleAddOrUpdateProject({ subTitle: e.target.value || NULL_VALUE })}
+                                value={editObj.projects?.subTitle || ""}
                             />
                         </div>
                     </div>
                     <div className="mb-4 flex w-full flex-col">
                         <div className="relative grid grid-cols-1 justify-between gap-4 md:grid-cols-[48.5%_48.5%] md:gap-0" ref={popupRef}>
                             <DatePicker
-                                year={year.startYear}
-                                handleYear={handleYear}
-                                month={month.startMonth}
-                                handleMonth={handleMonth}
+                                handleDateData={handleDateData}
                                 popupOpen={popupOpen}
                                 handlePopupOpen={setPopupOpen}
                                 mainHeading={"Start Date"}
                                 prefix="start"
                                 checkboxData={checkboxData}
+                                dateData={(editObj.projects || {})["startDate"]}
                             />
                             <DatePicker
-                                year={year.endYear}
-                                handleYear={handleYear}
-                                month={month.endMonth}
-                                handleMonth={handleMonth}
+                                handleDateData={handleDateData}
                                 popupOpen={popupOpen}
                                 handlePopupOpen={setPopupOpen}
                                 mainHeading={"End Date"}
                                 prefix="end"
                                 checkboxData={checkboxData}
+                                dateData={(editObj.projects || {})["endDate"]}
                             />
                         </div>
                         <div className="flex justify-between">
@@ -167,8 +242,8 @@ const ProjectComponent = ({ setCurrentComponent }) => {
                                         name="start_show"
                                         id="start_show"
                                         className="h-6 w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                        value={checkboxData.start_show}
-                                        onChange={handleCheckbox}
+                                        value={(editObj.projects || {}).startDate?.dontshow}
+                                        onChange={(e) => handleChecKBoxes("start", "dontshow", e.target.checked)}
                                     />
                                     <div className="flex cursor-pointer items-center">
                                         <label htmlFor="start_show" className="text-sm cursor-pointer">
@@ -182,8 +257,8 @@ const ProjectComponent = ({ setCurrentComponent }) => {
                                         name="start_year"
                                         id="start_year"
                                         className="h-6 w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                        value={checkboxData.start_year}
-                                        onChange={handleCheckbox}
+                                        value={(editObj.projects || {}).startDate?.onlyyear}
+                                        onChange={(e) => handleChecKBoxes("start", "onlyyear", e.target.checked)}
                                     />
                                     <div className="flex cursor-pointer items-center">
                                         <label htmlFor="start_year" className="text-sm cursor-pointer">
@@ -199,8 +274,8 @@ const ProjectComponent = ({ setCurrentComponent }) => {
                                         type="checkbox"
                                         name="present"
                                         className="h-6 w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                        value={checkboxData.present}
-                                        onChange={handleCheckbox}
+                                        value={(editObj.projects || {}).endDate?.presentyear}
+                                        onChange={(e) => handleChecKBoxes("end", "presentyear", e.target.checked)}
                                     />
 
                                     <label htmlFor="present" className="text-sm cursor-pointer">
@@ -213,8 +288,8 @@ const ProjectComponent = ({ setCurrentComponent }) => {
                                         name="end_show"
                                         id="show"
                                         className="h-6 w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                        value={checkboxData.end_show}
-                                        onChange={handleCheckbox}
+                                        value={(editObj.projects || {}).endDate?.dontshow}
+                                        onChange={(e) => handleChecKBoxes("end", "dontshow", e.target.checked)}
                                     />
                                     <div className="flex cursor-pointer items-center">
                                         <label htmlFor="show" className="text-sm cursor-pointer">
@@ -228,8 +303,8 @@ const ProjectComponent = ({ setCurrentComponent }) => {
                                         name="end_year"
                                         id="end_year"
                                         className="h-6 w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                        value={checkboxData.end_year}
-                                        onChange={handleCheckbox}
+                                        value={(editObj.projects || {}).endDate?.onlyyear}
+                                        onChange={(e) => handleChecKBoxes("end", "onlyyear", e.target.checked)}
                                     />
                                     <div className="flex cursor-pointer items-center">
                                         <label htmlFor="end_year" className="text-sm cursor-pointer">
@@ -249,8 +324,8 @@ const ProjectComponent = ({ setCurrentComponent }) => {
                             className="w-full bg-gray-100 p-2 rounded-md"
                             placeholder="write something"
                             rows={5}
-                            value={description}
-                            onInput={handleDescription}
+                            value={(editObj.projects || {})["description"] || ""}
+                            onChange={(e) => handleAddOrUpdateProject({ description: e.target.value || NULL_VALUE })}
                         ></textarea>
                     </div>
                 </form>
@@ -261,14 +336,14 @@ const ProjectComponent = ({ setCurrentComponent }) => {
                     <button
                         type="button"
                         className="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 py-2 rounded-full text-primaryBlack font-extrabold h-12 min-w-min px-4 text-[16px]"
-                        onClick={() => setCurrentComponent("personalInfo")}
+                        onClick={handleCancel}
                     >
                         Cancel
                     </button>
                     <button
                         type="submit"
                         className="border-none cursor-pointer appearance-none touch-manipulation flex items-center focus-visible:outline-blue-600 hover:opacity-80 px-7 py-2 rounded-full font-extrabold min-w-[120px] text-white gradient h-12 justify-between pl-4 text-[16px]"
-                        onClick={handleSubmit}
+                        onClick={handleSave}
                     >
                         <span className="border-r border-solid border-gray-100 border-opacity-60 pr-3">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5">

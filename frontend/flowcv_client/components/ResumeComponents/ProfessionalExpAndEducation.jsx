@@ -44,7 +44,7 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
             return;
         }
 
-        if (!prevObj.skills) {
+        if (!prevObj[objKey]) {
             dispatch(_generalRemoveReduxFunc({ id: editObj[objKey]?.id }, subOne));
         } else {
             dispatch(_generalUpdateReduxFunc(prevObj[objKey], subOne));

@@ -1,4 +1,21 @@
-import { removeSkills, updateSkills } from "@redux/resume/features";
+import {
+    removeCertificate,
+    removeCourse,
+    removeEducation,
+    removeInterest,
+    removeLanguage,
+    removeProfessionalExperience,
+    removeProject,
+    removeSkills,
+    updateCertificates,
+    updateCourse,
+    updateEducation,
+    updateInterest,
+    updateLanguages,
+    updateProfessionalExperience,
+    updateProject,
+    updateSkills,
+} from "@redux/resume/features";
 import React from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
@@ -13,6 +30,27 @@ const List = ({ name, onClick, title, editObj }) => {
         switch (title.toLowerCase()) {
             case "skills":
                 toggleFunc = updateSkills;
+                break;
+            case "interests":
+                toggleFunc = updateInterest;
+                break;
+            case "certificates":
+                toggleFunc = updateCertificates;
+                break;
+            case "courses":
+                toggleFunc = updateCourse;
+                break;
+            case "education":
+                toggleFunc = updateEducation;
+                break;
+            case "professional experience":
+                toggleFunc = updateProfessionalExperience;
+                break;
+            case "languages":
+                toggleFunc = updateLanguages;
+                break;
+            case "projects":
+                toggleFunc = updateProject;
                 break;
 
             default:
@@ -32,6 +70,27 @@ const List = ({ name, onClick, title, editObj }) => {
         switch (title.toLowerCase()) {
             case "skills":
                 removeFunc = removeSkills;
+                break;
+            case "interests":
+                toggleFunc = removeInterest;
+                break;
+            case "certificates":
+                toggleFunc = removeCertificate;
+                break;
+            case "courses":
+                toggleFunc = removeCourse;
+                break;
+            case "education":
+                toggleFunc = removeEducation;
+                break;
+            case "professional experience":
+                toggleFunc = removeProfessionalExperience;
+                break;
+            case "languages":
+                toggleFunc = removeLanguage;
+                break;
+            case "projects":
+                toggleFunc = removeProject;
                 break;
 
             default:
