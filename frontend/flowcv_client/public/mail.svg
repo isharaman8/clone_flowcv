@@ -2,7 +2,7 @@
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              class="w-[1.2em] pb-[2px]"
+               className="w-[1.2em] pb-[2px]"
             >
               <path
                 stroke="currentColor"

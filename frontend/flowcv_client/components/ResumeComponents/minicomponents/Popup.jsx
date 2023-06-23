@@ -1,7 +1,25 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 const Popup = ({ handleValue, list, cols = 3, monthType = "", yearType = "" }) => {
-    useEffect(() => {}, []);
+    const handleData = (value) => {
+        const mainKey = monthType ? `${monthType}Date` : `${yearType}Date`;
+        const subKey = monthType ? "month" : "year";
+
+        console.log("MAIN KEY", mainKey);
+        console.log("SUB KEY", subKey);
+
+        console.log("DATE DATA", {
+            [mainKey]: {
+                [subKey]: value,
+            },
+        });
+
+        handleValue({
+            [mainKey]: {
+                [subKey]: value,
+            },
+        });
+    };
 
     return (
         <div
@@ -13,9 +31,7 @@ const Popup = ({ handleValue, list, cols = 3, monthType = "", yearType = "" }) =
                 <p
                     key={c}
                     className="bg-white p-2 border text-xs border-gray-300 rounded-md hover:bg-gray-100 hover:cursor-pointer text-center"
-                    onClick={() => {
-                        monthType ? handleValue({ [`${monthType}Month`]: c }) : handleValue({ [`${yearType}Year`]: c });
-                    }}
+                    onClick={() => handleData(c)}
                 >
                     {c}
                 </p>

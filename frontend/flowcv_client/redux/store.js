@@ -1,20 +1,24 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { persistStore, persistReducer } from "redux-persist";
-import authReducer from "./features";
+// third party imports
 import storage from "redux-persist/lib/storage";
+import { persistStore, persistReducer } from "redux-persist";
+
+// inner imports
+import authReducer from "./auth/features";
+import resumeReducer from "./resume/features";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 const persistConfig = {
-  key: "root",
-  storage,
+    key: "root",
+    storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, authReducer);
+const persistedReducer = persistReducer(persistConfig, combineReducers({ auth: authReducer, resume: resumeReducer }));
 
 export const store = configureStore({
-  reducer: {
-    persistedReducer,
-  },
-  devTools: process.env.NODE_ENV !== "production",
+    reducer: {
+        persistedReducer,
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+    devTools: process.env.NODE_ENV !== "production",
 });
-
 export const persistor = persistStore(store);

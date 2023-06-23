@@ -1,18 +1,78 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BsLink45Deg, BsCheck2 } from "react-icons/bs";
 import DatePicker from "./minicomponents/DatePicker";
+import LinkPopup from "./minicomponents/LinkPopup";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "@redux/hooks";
+import { resetEditObj, resetPrevObj, setEditObj, setPrevObj } from "@redux/resume/features";
+import {
+    _camelize,
+    _generalAddReduxFunc,
+    _generalRemoveReduxFunc,
+    _generalUpdateReduxFunc,
+    _getParsedBoolean,
+    _parseEditObjPayload,
+} from "@utils/helpers";
+import { AVAILABLE_COMPONENTS, NULL_VALUE } from "@utils/Constants";
 
 const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subTwo }) => {
-    const [profExp, setProfExp] = useState({
+    const dispatch = useDispatch();
+    const resume = useAppSelector((state) => state.persistedReducer.resume);
+    const { editObj = {}, prevObj = {} } = resume;
+
+    const [objKey, setObjKey] = useState("");
+
+    const handleAddOrUpdatePE = (payload = {}) => {
+        console.log("PAYLOAD", payload);
+        console.log("OBJKEY", objKey);
+
+        if (!editObj[objKey]) {
+            dispatch(setEditObj({ key: objKey, value: { ...payload, id: resume[objKey].length + 1 } }));
+            dispatch(_generalAddReduxFunc({ ...payload, id: resume[objKey].length + 1 }, subOne));
+        } else {
+            dispatch(setEditObj({ key: objKey, value: { ...(editObj[objKey] || {}), ...payload } }));
+            dispatch(_generalUpdateReduxFunc({ ...(editObj[objKey] || {}), ...payload }, subOne));
+        }
+    };
+
+    const handleCancel = () => {
+        console.log("EDITOBJ", editObj[objKey]);
+        console.log("PREVOBJ", prevObj[objKey]);
+
+        if (!editObj[objKey]) {
+            setCurrentComponent(AVAILABLE_COMPONENTS.personalInfo);
+            return;
+        }
+
+        if (!prevObj[objKey]) {
+            dispatch(_generalRemoveReduxFunc({ id: editObj[objKey]?.id }, subOne));
+        } else {
+            dispatch(_generalUpdateReduxFunc(prevObj[objKey], subOne));
+        }
+
+        dispatch(resetEditObj());
+        dispatch(resetPrevObj());
+
+        setCurrentComponent(AVAILABLE_COMPONENTS.personalInfo);
+    };
+
+    const handleSave = () => {
+        setCurrentComponent(AVAILABLE_COMPONENTS.personalInfo);
+
+        dispatch(resetEditObj());
+        dispatch(resetPrevObj());
+    };
+
+    const [data, setData] = useState({
         [subOne]: "",
         [subTwo]: "",
+        link: "",
         city: "",
         country: "",
+        description: "",
     });
     const [popupOpen, setPopupOpen] = useState(null);
-    const [description, setDescription] = useState("");
-    const [year, setYear] = useState({ startYear: null, endYear: null });
-    const [month, setMonth] = useState({ startMonth: null, endMonth: null });
+    const [showLink, setShowLink] = useState(false);
     const [checkboxData, setCheckboxData] = useState({
         start_show: false,
         start_year: false,
@@ -23,22 +83,39 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
 
     const popupRef = useRef(null);
 
-    const handleMonth = (e) => {
-        setMonth((p) => ({ ...p, ...e }));
-        setPopupOpen(false);
-    };
-    const handleYear = (e) => {
-        setYear((p) => ({ ...p, ...e }));
+    const handleDateData = (payload = {}) => {
+        handleAddOrUpdatePE(payload);
         setPopupOpen(false);
     };
 
-    const handleCheckbox = (e) => {
-        const { name, checked } = e.target;
-        setCheckboxData((prevData) => ({ ...prevData, [name]: checked }));
-    };
+    const handleChecKBoxes = (prefix, key, value) => {
+        console.log("CHECKBOX VLAUE", value);
 
-    const handleSubTitle = (e) => setSubTitle(e.target.value);
-    const handleDescription = (e) => setDescription(e.target.value);
+        if (!["start", "end"].includes(prefix)) {
+            return alert("Invalid prefix value provided");
+        }
+
+        const mainKey = `${prefix}Date`;
+
+        value = _getParsedBoolean(value);
+
+        const payload = {};
+
+        if (key === "dontshow") {
+            payload.year = NULL_VALUE;
+            payload.month = NULL_VALUE;
+            payload.dontshow = value;
+        } else if (key === "onlyyear") {
+            payload.month = NULL_VALUE;
+            payload.onlyyear = value;
+        } else if (key === "presentyear") {
+            payload.month = NULL_VALUE;
+            payload.year = value ? new Date().getFullYear() : NULL_VALUE;
+            payload.presentyear = value;
+        }
+
+        handleAddOrUpdatePE({ [mainKey]: payload });
+    };
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -54,6 +131,26 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
         };
     }, []);
 
+    useEffect(() => {
+        // SET PREV OBJ TO EDITOBJ
+        dispatch(setPrevObj({ key: objKey, value: editObj[objKey] }));
+
+        switch (subOne) {
+            case "employer":
+                setObjKey("professionalExperience");
+                break;
+            case "school":
+                setObjKey("education");
+                break;
+            case "courseTitle":
+                setObjKey("courses");
+                break;
+
+            default:
+                break;
+        }
+    }, []);
+
     return (
         <div className="w-full">
             <div className="bg-white shadow-md rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">
@@ -61,31 +158,39 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
 
                 <div>
                     <div>
-                        <label htmlFor="employer" className="text-sm font-semibold">
+                        <label htmlFor={subOne} className="text-sm font-semibold capitalize">
                             {subOne}
 
                             {subOne === "Course title" && (
-                                <span class="gradient min-h-1 min-w-1 ml-[5px] mt-1 inline-block h-1 w-1 rounded-full align-top"></span>
+                                <span className="gradient min-h-1 min-w-1 ml-[5px] mt-1 inline-block h-1 w-1 rounded-full align-top"></span>
                             )}
                         </label>
                         {subOne !== "Course title" && <span className="text-[.65rem] pl-2 font-semibold text-gray-400">optional</span>}
                         <br />
-                        <div className="flex gap-2 items-center">
+                        <div className="flex gap-2 items-center relative">
                             <input
                                 className="bg-gray-100 w-full rounded-md px-2 py-3 mb-2 mt-1"
                                 type="text"
-                                name="employer"
-                                id="employer"
-                                placeholder={`Enter ${subOne}`}
+                                name={subOne}
+                                id={subOne}
+                                onChange={(e) => handleAddOrUpdatePE({ [subOne]: e.target.value || NULL_VALUE })}
+                                value={(editObj[objKey] || {})[subOne] || ""}
+                                placeholder={`Enter ${_camelize(subOne)}`}
                             />
-                            <button className="flex gap-2 cursor-pointer appearance-none touch-manipulation items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 bg-white text-gray-400 border-gray-400 border border-solid ml-1 h-inputHeight rounded-xl pl-3 pr-4 py-[.7rem] text-sm">
+                            <button
+                                className={`flex gap-2 cursor-pointer appearance-none touch-manipulation items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 ${
+                                    data.link ? "bg-blue-50 border-blue-500 text-blue-500" : "bg-white text-gray-400 border-gray-400"
+                                }  border border-solid ml-1 rounded-xl pl-3 pr-4 py-[.7rem] text-sm`}
+                                onClick={() => setShowLink(true)}
+                            >
                                 <BsLink45Deg className="text-2xl" />
                                 Link
                             </button>
+                            {showLink && <LinkPopup setData={handleAddOrUpdatePE} data={editObj[objKey]} setShowLink={setShowLink} />}
                         </div>
                     </div>
                     <div>
-                        <label htmlFor="title" className="text-sm font-semibold">
+                        <label htmlFor={subTwo} className="text-sm font-semibold capitalize">
                             {subTwo}
                         </label>
                         <span className="text-[.65rem] pl-2 font-semibold text-gray-400">optional</span>
@@ -93,8 +198,10 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
                         <input
                             className="bg-gray-100 w-full rounded-md px-2 py-3 mb-2 mt-1"
                             type="text"
-                            name="title"
-                            id="title"
+                            name={subTwo}
+                            id={subTwo}
+                            onChange={(e) => handleAddOrUpdatePE({ [subTwo]: e.target.value || NULL_VALUE })}
+                            value={(editObj[objKey] || {})[subTwo] || ""}
                             placeholder={`Enter ${subTwo}`}
                         />
                     </div>
@@ -111,6 +218,8 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
                                 type="text"
                                 name="city"
                                 id="city"
+                                value={(editObj[objKey] || {})["city"] || ""}
+                                onChange={(e) => handleAddOrUpdatePE({ city: e.target.value || NULL_VALUE })}
                                 placeholder="Enter city"
                             />
                         </div>
@@ -125,34 +234,30 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
                                 type="text"
                                 name="country"
                                 id="country"
+                                value={(editObj[objKey] || {})["country"] || ""}
+                                onChange={(e) => handleAddOrUpdatePE({ country: e.target.value || NULL_VALUE })}
                                 placeholder="Enter country"
                             />
                         </div>
                     </div>
 
-                    <div class="mb-4 flex w-full flex-col">
-                        <div class="relative grid grid-cols-1 justify-between gap-4 md:grid-cols-[48.5%_48.5%] md:gap-0" ref={popupRef}>
+                    <div className="mb-4 flex w-full flex-col">
+                        <div className="relative grid grid-cols-1 justify-between gap-4 md:grid-cols-[48.5%_48.5%] md:gap-0" ref={popupRef}>
                             <DatePicker
-                                year={year.startYear}
-                                handleYear={handleYear}
-                                month={month.startMonth}
-                                handleMonth={handleMonth}
+                                handleDateData={handleDateData}
                                 popupOpen={popupOpen}
                                 handlePopupOpen={setPopupOpen}
                                 mainHeading={"Start Date"}
                                 prefix="start"
-                                checkboxData={checkboxData}
+                                dateData={(editObj[objKey] || {})["startDate"]}
                             />
                             <DatePicker
-                                year={year.endYear}
-                                handleYear={handleYear}
-                                month={month.endMonth}
-                                handleMonth={handleMonth}
+                                handleDateData={handleDateData}
                                 popupOpen={popupOpen}
                                 handlePopupOpen={setPopupOpen}
                                 mainHeading={"End Date"}
                                 prefix="end"
-                                checkboxData={checkboxData}
+                                dateData={(editObj[objKey] || {})["endDate"]}
                             />
                         </div>
                         <div className="flex justify-between">
@@ -163,8 +268,8 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
                                         name="start_show"
                                         id="start_show"
                                         className="h-6 w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                        value={checkboxData.start_show}
-                                        onChange={handleCheckbox}
+                                        value={(editObj[objKey] || {}).startDate?.dontshow}
+                                        onChange={(e) => handleChecKBoxes("start", "dontshow", e.target.checked)}
                                     />
                                     <div className="flex cursor-pointer items-center">
                                         <label htmlFor="start_show" className="text-sm cursor-pointer">
@@ -178,8 +283,8 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
                                         name="start_year"
                                         id="start_year"
                                         className="h-6 w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                        value={checkboxData.start_year}
-                                        onChange={handleCheckbox}
+                                        value={(editObj[objKey] || {}).startDate?.onlyyear}
+                                        onChange={(e) => handleChecKBoxes("start", "onlyyear", e.target.checked)}
                                     />
                                     <div className="flex cursor-pointer items-center">
                                         <label htmlFor="start_year" className="text-sm cursor-pointer">
@@ -195,8 +300,8 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
                                         type="checkbox"
                                         name="present"
                                         className="h-6 w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                        value={checkboxData.present}
-                                        onChange={handleCheckbox}
+                                        value={(editObj[objKey] || {}).endDate?.presentyear}
+                                        onChange={(e) => handleChecKBoxes("end", "presentyear", e.target.checked)}
                                     />
 
                                     <label htmlFor="present" className="text-sm cursor-pointer">
@@ -209,8 +314,8 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
                                         name="end_show"
                                         id="show"
                                         className="h-6 w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                        value={checkboxData.end_show}
-                                        onChange={handleCheckbox}
+                                        value={(editObj[objKey] || {}).endDate?.dontshow}
+                                        onChange={(e) => handleChecKBoxes("end", "dontshow", e.target.checked)}
                                     />
                                     <div className="flex cursor-pointer items-center">
                                         <label htmlFor="show" className="text-sm cursor-pointer">
@@ -224,8 +329,8 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
                                         name="end_year"
                                         id="end_year"
                                         className="h-6 w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                        value={checkboxData.end_year}
-                                        onChange={handleCheckbox}
+                                        value={(editObj[objKey] || {}).endDate?.onlyyear}
+                                        onChange={(e) => handleChecKBoxes("end", "onlyyear", e.target.checked)}
                                     />
                                     <div className="flex cursor-pointer items-center">
                                         <label htmlFor="end_year" className="text-sm cursor-pointer">
@@ -240,24 +345,28 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
                 <div className="w-full">
                     <label htmlFor="description" className="text-primaryBlack mb-[2.5px]  inline-block w-full text-[14px] font-bold md:text-[15px]">
                         <span>Description</span>
-                        <span class="ml-2 text-[11px]  text-gray-400">optional</span>
+                        <span className="ml-2 text-[11px]  text-gray-400">optional</span>
                     </label>
                     <textarea
                         id="description"
+                        name="description"
                         className="w-full bg-gray-100 p-2 rounded-md"
                         placeholder="write something"
-                        value={description}
-                        onInput={handleDescription}
+                        value={(editObj[objKey] || {})["description"] || ""}
+                        onChange={(e) => handleAddOrUpdatePE({ description: e.target.value || NULL_VALUE })}
                         rows={5}
                     ></textarea>
                 </div>
             </div>
 
             <div className="fixed bottom-0 left-0 right-0 z-[20] flex w-full justify-end gap-2 bg-white p-4 px-5 shadow-card sm:sticky sm:left-auto sm:right-auto sm:mt-6 sm:mb-6 sm:gap-4 sm:rounded-lg md:px-7 lg:px-9">
-                <button className="font-bold" onClick={() => setCurrentComponent("personalInfo")}>
+                <button className="font-bold" onClick={handleCancel}>
                     Cancel
                 </button>
-                <button className="flex gradient border-none cursor-pointer appearance-none touch-manipulation items-center gap-4 outline-none shadow-md rounded-full font-extrabold hover:opacity-80 text-white bg-gradient-to-r from-brandPink to-brandRed py-3 px-[2rem]">
+                <button
+                    className="flex gradient border-none cursor-pointer appearance-none touch-manipulation items-center gap-4 outline-none shadow-md rounded-full font-extrabold hover:opacity-80 text-white bg-gradient-to-r from-brandPink to-brandRed py-3 px-[2rem]"
+                    onClick={handleSave}
+                >
                     <span className="flex items-center gap-2">
                         <BsCheck2 className="text-2xl" />
                         <span className="font-extralight text-xl">|</span>
