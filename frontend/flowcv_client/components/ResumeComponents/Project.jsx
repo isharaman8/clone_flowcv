@@ -4,9 +4,9 @@ import { BsLink45Deg } from "react-icons/bs";
 import LinkPopup from "./minicomponents/LinkPopup";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "@redux/hooks";
-import { addProjects, removeProject, resetEditObj, resetPrevObj, setEditObj, updateProject } from "@redux/resume/features";
+import { addProjects, removeProject, resetEditObj, resetPrevObj, setEditObj, setPrevObj, updateProject } from "@redux/resume/features";
 import { _getParsedBoolean, _parseEditObjPayload } from "@utils/helpers";
-import { AVAILABLE_COMPONENTS } from "@utils/Constants";
+import { AVAILABLE_COMPONENTS, NULL_VALUE } from "@utils/Constants";
 
 const ProjectComponent = ({ setCurrentComponent }) => {
     const dispatch = useDispatch();
@@ -16,15 +16,18 @@ const ProjectComponent = ({ setCurrentComponent }) => {
         console.log("PAYLOAD", payload);
 
         if (!editObj.projects) {
-            dispatch(setEditObj({ key: "projects", value: { ..._parseEditObjPayload(payload), id: projects.length + 1 } }));
+            dispatch(setEditObj({ key: "projects", value: { ...payload, id: projects.length + 1 } }));
             dispatch(addProjects({ ...payload, id: projects.length + 1 }));
         } else {
-            dispatch(setEditObj({ key: "projects", value: { ...(editObj.projects || {}), ..._parseEditObjPayload(payload) } }));
+            dispatch(setEditObj({ key: "projects", value: { ...(editObj.projects || {}), ...payload } }));
             dispatch(updateProject({ ...(editObj.projects || {}), ...payload }));
         }
     };
 
     const handleCancel = () => {
+        console.log("EDIT OBJ CANCEL", editObj.projects);
+        console.log("PREV OBJ CANCEL", prevObj.projects);
+
         if (!editObj.projects) {
             setCurrentComponent(AVAILABLE_COMPONENTS.personalInfo);
             return;
@@ -49,43 +52,14 @@ const ProjectComponent = ({ setCurrentComponent }) => {
         dispatch(resetPrevObj());
     };
 
-    const [subTitle, setSubTitle] = useState("");
-    const [description, setDescription] = useState("");
     const [popupOpen, setPopupOpen] = useState(null);
-    const [year, setYear] = useState({ startYear: null, endYear: null });
-    const [month, setMonth] = useState({ startMonth: null, endMonth: null });
     const [showLink, setShowLink] = useState(false);
-    const [data, setData] = useState({
-        title: "",
-        link: "",
-    });
-    const [checkboxData, setCheckboxData] = useState({
-        start_show: false,
-        start_year: false,
-        present: false,
-        end_show: false,
-        end_year: false,
-    });
 
     const popupRef = useRef(null);
 
     const handleDateData = (payload = {}) => {
         handleAddOrUpdateProject(payload);
         setPopupOpen(false);
-    };
-
-    const handleMonth = (e) => {
-        setMonth((p) => ({ ...p, ...e }));
-        setPopupOpen(false);
-    };
-    const handleYear = (e) => {
-        setYear((p) => ({ ...p, ...e }));
-        setPopupOpen(false);
-    };
-
-    const handleCheckbox = (e) => {
-        const { name, checked } = e.target;
-        setCheckboxData((prevData) => ({ ...prevData, [name]: checked }));
     };
 
     const handleChecKBoxes = (prefix, key, value) => {
@@ -117,26 +91,6 @@ const ProjectComponent = ({ setCurrentComponent }) => {
         handleAddOrUpdateProject({ [mainKey]: payload });
     };
 
-    const handleSubTitle = (e) => setSubTitle(e.target.value);
-    const handleDescription = (e) => setDescription(e.target.value);
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setData((prevData) => ({ ...prevData, [name]: value }));
-    };
-
-    const handleSubmit = () => {
-        const payload = {
-            ...data,
-            subTitle,
-            description,
-            startDate: `${month.startMonth},${year.startYear}`,
-            endDate: !checkboxData.present ? `${month.endMonth},${year.endYear}` : "Present",
-        };
-
-        console.log(payload);
-    };
-
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -151,6 +105,13 @@ const ProjectComponent = ({ setCurrentComponent }) => {
         };
     }, []);
 
+    useEffect(() => {
+        console.log("EDITOBJ", editObj);
+        console.log("PREV OBJ", prevObj);
+
+        dispatch(setPrevObj({ key: "projects", value: editObj["projects"] }));
+    }, []);
+
     return (
         <div className="relative">
             <div className="relative w-full rounded-lg bg-white shadow-card px-5 md:px-7 lg:px-9 py-5 pb-5 md:py-7 md:pb-9 lg:py-9 lg:pb-10">
@@ -160,7 +121,7 @@ const ProjectComponent = ({ setCurrentComponent }) => {
                 <form className="w-full">
                     <div className="mb-4 w-full">
                         <label
-                            for="inputprojectTitle"
+                            htmlFor="inputprojectTitle"
                             className="text-primaryBlack mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
                         >
                             <span>Project title</span>
@@ -181,7 +142,9 @@ const ProjectComponent = ({ setCurrentComponent }) => {
                                 <button
                                     type="button"
                                     className={`flex gap-2 cursor-pointer appearance-none touch-manipulation items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 ${
-                                        data.link ? "bg-blue-50 border-blue-500 text-blue-500" : "bg-white text-gray-400 border-gray-400"
+                                        editObj["projects"]?.link
+                                            ? "bg-blue-50 border-blue-500 text-blue-500"
+                                            : "bg-white text-gray-400 border-gray-400"
                                     }  border border-solid ml-1 rounded-xl pl-3 pr-4 py-[.7rem] text-sm`}
                                     onClick={() => setShowLink(true)}
                                 >
@@ -189,12 +152,12 @@ const ProjectComponent = ({ setCurrentComponent }) => {
                                     <span className="ml-1 whitespace-nowrap">Link</span>
                                 </button>
                             </div>
-                            {showLink && <LinkPopup setData={setData} data={data} setShowLink={setShowLink} />}
+                            {showLink && <LinkPopup setData={handleAddOrUpdateProject} data={editObj["projects"]} setShowLink={setShowLink} />}
                         </div>
                     </div>
                     <div className="mb-4 w-full">
                         <label
-                            for="inputsubTitle"
+                            htmlFor="inputsubTitle"
                             className="text-primaryBlack mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
                         >
                             <span>Sub title</span>
@@ -221,7 +184,6 @@ const ProjectComponent = ({ setCurrentComponent }) => {
                                 handlePopupOpen={setPopupOpen}
                                 mainHeading={"Start Date"}
                                 prefix="start"
-                                checkboxData={checkboxData}
                                 dateData={(editObj.projects || {})["startDate"]}
                             />
                             <DatePicker
@@ -230,7 +192,6 @@ const ProjectComponent = ({ setCurrentComponent }) => {
                                 handlePopupOpen={setPopupOpen}
                                 mainHeading={"End Date"}
                                 prefix="end"
-                                checkboxData={checkboxData}
                                 dateData={(editObj.projects || {})["endDate"]}
                             />
                         </div>
@@ -316,7 +277,7 @@ const ProjectComponent = ({ setCurrentComponent }) => {
                         </div>
                     </div>
                     <div className="w-full">
-                        <label for="" className="text-primaryBlack mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]">
+                        <label htmlFor="" className="text-primaryBlack mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]">
                             <span>Description</span>
                             <span className="ml-2 text-[11px]  text-gray-400">optional</span>
                         </label>

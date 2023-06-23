@@ -14,53 +14,49 @@ const Education = ({ currentComponent }) => {
 
     const data = useAppSelector((state) => state.persistedReducer.resume[key]) || [];
 
-    if (!data.length) {
-        return;
-    }
-
-    return (
+    return data.filter((c) => c.visible).length ? (
         <div className="mt-4">
             <h1 className="font-semibold text-sm border-b-2 border-black capitalize">{currentComponent}</h1>
-            {data.map((c) => (
-                <>
-                    {c.visible && (
-                        <div key={c.id} className="flex justify-between gap-4 w-full text-xs my-2">
-                            <div className="w-2/4 break-words">
-                                <div>
-                                    <span className="font-semibold">{c[subTwo]}, </span>
-                                    {c[subOne]}
-                                </div>
-                                {c.description && <div>{c.description}</div>}
+            {data
+                .filter((c) => c.visible)
+                .map((c) => (
+                    <div key={c.id} className="flex justify-between gap-4 w-full text-xs my-2">
+                        <div className="w-2/4 break-words">
+                            <div>
+                                <span className="font-semibold">{c[subTwo]}, </span>
+                                {c[subOne]}
                             </div>
-                            <div className="w-2/4 break-words flex flex-col items-end text-xs">
-                                <div>
-                                    {!c.startDate.dontshow && c.startDate.month && (
-                                        <span>
-                                            {MONTHS[c.startDate?.month]}/{c.startDate?.year}
-                                        </span>
-                                    )}
-                                    {!c.endDate.dontshow && (
-                                        <span>
-                                            {!c.endDate?.presentyear
-                                                ? c.endDate.month
-                                                    ? " - " + (MONTHS[c.endDate?.month] || "") + "/" + (c.endDate?.year || "")
-                                                    : ""
-                                                : ` - present`}
-                                        </span>
-                                    )}
-                                </div>
-
-                                {c.city && (
-                                    <div>
-                                        {c.city}, {c.country}
-                                    </div>
+                            {c.description && <div>{c.description}</div>}
+                        </div>
+                        <div className="w-2/4 break-words flex flex-col items-end text-xs">
+                            <div>
+                                {!c.startDate.dontshow && c.startDate.month && (
+                                    <span>
+                                        {MONTHS[c.startDate?.month]}/{c.startDate?.year}
+                                    </span>
+                                )}
+                                {!c.endDate.dontshow && (
+                                    <span>
+                                        {!c.endDate?.presentyear
+                                            ? c.endDate.month
+                                                ? " - " + (MONTHS[c.endDate?.month] || "") + "/" + (c.endDate?.year || "")
+                                                : ""
+                                            : ` - present`}
+                                    </span>
                                 )}
                             </div>
+
+                            {c.city && (
+                                <div>
+                                    {c.city}, {c.country}
+                                </div>
+                            )}
                         </div>
-                    )}
-                </>
-            ))}
+                    </div>
+                ))}
         </div>
+    ) : (
+        <></>
     );
 };
 

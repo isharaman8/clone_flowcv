@@ -13,6 +13,7 @@ import {
     _createOrUpdateProject,
     _createOrUpdateSkills,
 } from "./helper";
+import { _getCamelCaseString } from "@utils/helpers";
 
 const initialState = {
     personalInfo: {
@@ -190,7 +191,11 @@ export const resume = createSlice({
         },
         // PROJECTS
         addProjects: (state, action) => {
+            console.log("ADDED PROJECT PAYLOAD", action.payload);
+
             state.projects.push(_createOrUpdateProject(action.payload));
+
+            console.log("UPDATED ADD PROJECT", JSON.stringify(state.projects));
         },
         removeProject: (state, action) => {
             state.projects = _.cloneDeep(state.projects.filter((c) => c.id !== action.payload.id));
@@ -199,6 +204,8 @@ export const resume = createSlice({
             state.projects = initialState.projects;
         },
         updateProject: (state, action) => {
+            console.log("UPDATE PROJECT PAYLOAD", action.payload);
+
             const requiredProjectIdx = state.projects.findIndex((c) => c.id === action.payload.id);
 
             if (requiredProjectIdx === -1) {
@@ -212,6 +219,8 @@ export const resume = createSlice({
                 updatedProject,
                 ...state.projects.slice(requiredProjectIdx + 1),
             ]);
+
+            console.log("UPDATED UPDATE PROJECTS", JSON.stringify(state.projects));
         },
         // INTEREST
         addInterest: (state, action) => {
@@ -303,7 +312,9 @@ export const resume = createSlice({
 
             let addOrUpdateFunc = null;
 
-            switch (key) {
+            console.log("KEY", key);
+
+            switch (_getCamelCaseString(key)) {
                 case "professionalExperience":
                     addOrUpdateFunc = _createOrUpdateProfessionalExperience;
                     break;
@@ -349,11 +360,15 @@ export const resume = createSlice({
         setPrevObj: (state, action) => {
             const { key, value } = action.payload;
 
+            console.log("PREV OBJ SET PAYLOAD", action.payload);
+
             if (!key || !value) {
                 return;
             }
 
             state.prevObj[key] = value;
+
+            console.log("UPDATED PREV OBJ", JSON.stringify(state.prevObj[key]));
         },
 
         resetPrevObj: (state) => {

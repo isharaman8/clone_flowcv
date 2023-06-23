@@ -1,7 +1,9 @@
 import { NULL_VALUE } from "@utils/Constants";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 const LinkPopup = ({ setShowLink, setData, data }) => {
+    console.log("LINK POP UP DATA", data);
+
     const handleCancel = () => {
         setData({ link: NULL_VALUE });
         setShowLink(false);

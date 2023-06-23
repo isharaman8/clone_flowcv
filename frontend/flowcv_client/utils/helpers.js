@@ -1,16 +1,25 @@
 import {
+    addCertificates,
     addCourse,
     addEducation,
+    addInterest,
+    addLanguages,
     addProfessionalExperience,
     addProjects,
     addSkills,
+    removeCertificate,
     removeCourse,
     removeEducation,
+    removeInterest,
+    removeLanguage,
     removeProfessionalExperience,
     removeProject,
     removeSkills,
+    updateCertificates,
     updateCourse,
     updateEducation,
+    updateInterest,
+    updateLanguages,
     updateProfessionalExperience,
     updateProject,
     updateSkills,
@@ -97,6 +106,12 @@ export const _generalAddReduxFunc = (payload = {}, key) => {
             return addSkills(payload);
         case "projects":
             return addProjects(payload);
+        case "langauges":
+            return addLanguages(payload);
+        case "interests":
+            return addInterest(payload);
+        case "certificates":
+            return addCertificates(payload);
 
         default:
             return {};
@@ -118,6 +133,12 @@ export const _generalUpdateReduxFunc = (payload = {}, key) => {
             return updateSkills(payload);
         case "projects":
             return updateProject(payload);
+        case "languages":
+            return updateLanguages(payload);
+        case "interests":
+            return updateInterest(payload);
+        case "certificates":
+            return updateCertificates(payload);
         default:
             return {};
     }
@@ -138,6 +159,12 @@ export const _generalRemoveReduxFunc = (payload = {}, key) => {
             return removeSkills(payload);
         case "projects":
             return removeProject(payload);
+        case "languages":
+            return removeLanguage(payload);
+        case "interests":
+            return removeInterest(payload);
+        case "certificates":
+            return removeCertificate(payload);
         default:
             return {};
     }

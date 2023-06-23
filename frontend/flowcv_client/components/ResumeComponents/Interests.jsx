@@ -87,7 +87,7 @@ const Interest = ({ setCurrentComponent }) => {
                 <form className="flex w-full flex-col justify-between items-stretch">
                     <div className="mb-4 w-full">
                         <label
-                            for="inputinterest"
+                            htmlFor="inputinterest"
                             className="text-primaryBlack mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
                         >
                             <span>Interest</span>
@@ -117,7 +117,10 @@ const Interest = ({ setCurrentComponent }) => {
                         </div>
                     </div>
                     <div className="mb-4 w-full">
-                        <label for="info" className="text-primaryBlack mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]">
+                        <label
+                            htmlFor="info"
+                            className="text-primaryBlack mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
+                        >
                             <span>Additional information</span>
                             <span className="ml-2 text-[11px]  text-gray-400">optional</span>
                         </label>

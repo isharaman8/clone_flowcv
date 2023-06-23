@@ -1,4 +1,3 @@
-import { removeProfessionalExperience, removeSkills, updateProfessionalExperience, updateSkills } from "@redux/resume/features";
 import { _generalRemoveReduxFunc, _generalUpdateReduxFunc, _getCamelCaseString } from "@utils/helpers";
 import React from "react";
 import { AiOutlineDelete } from "react-icons/ai";

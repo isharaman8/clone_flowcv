@@ -175,7 +175,7 @@ const CreateResume = () => {
                         )}
                         {(resumeData.projects || []).length > 0 && (
                             <DropDownComp
-                                list={resumeData.projects.map((c) => ({ ...c, name: c.subTitle }))}
+                                list={resumeData.projects.map((c) => ({ ...c, name: c.title }))}
                                 handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.project)}
                                 title={"Projects"}
                                 handleEditObj={handleEditObj}

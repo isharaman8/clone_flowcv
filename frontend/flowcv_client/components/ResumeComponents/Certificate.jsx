@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useAppSelector } from "@redux/hooks";
 import { _parseEditObjPayload } from "@utils/helpers";
 import { addCertificates, updateCertificates, resetEditObj, resetPrevObj, setEditObj, setPrevObj, removeCertificate } from "@redux/resume/features";
-import { AVAILABLE_COMPONENTS } from "@utils/Constants";
+import { AVAILABLE_COMPONENTS, NULL_VALUE } from "@utils/Constants";
 
 const Certificate = ({ setCurrentComponent }) => {
     const dispatch = useDispatch();
@@ -15,11 +15,11 @@ const Certificate = ({ setCurrentComponent }) => {
         console.log("PAYLOAD 123", payload);
 
         if (!editObj.certificates) {
-            dispatch(setEditObj({ key: "certificates", value: { ..._parseEditObjPayload(payload), id: certificates.length + 1 } }));
+            dispatch(setEditObj({ key: "certificates", value: { ...payload, id: certificates.length + 1 } }));
             dispatch(addCertificates({ ...payload, id: certificates.length + 1 }));
         } else {
             dispatch(updateCertificates({ ...editObj.certificates, ...payload }));
-            dispatch(setEditObj({ key: "certificates", value: { ...(editObj?.certificates || {}), ..._parseEditObjPayload(payload) } }));
+            dispatch(setEditObj({ key: "certificates", value: { ...(editObj?.certificates || {}), ...payload } }));
         }
     };
 
@@ -57,19 +57,6 @@ const Certificate = ({ setCurrentComponent }) => {
     });
     const [showLink, setShowLink] = useState(false);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setData((prevData) => ({ ...prevData, [name]: value }));
-    };
-
-    const handleSubmit = () => {
-        const payload = {
-            ...data,
-        };
-
-        console.log(payload);
-    };
-
     useEffect(() => {
         console.log("Certificates", certificates);
     }, [certificates]);
@@ -88,7 +75,7 @@ const Certificate = ({ setCurrentComponent }) => {
                 <form className="flex w-full flex-col justify-between items-stretch">
                     <div className="mb-4 w-full">
                         <label
-                            for="inputinterest"
+                            htmlFor="inputinterest"
                             className="text-primaryBlack mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
                         >
                             <span>Certificate</span>
@@ -108,17 +95,23 @@ const Certificate = ({ setCurrentComponent }) => {
                             <div className="relative">
                                 <button
                                     type="button"
+                                    onClick={() => setShowLink(true)}
                                     className="cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 bg-white text-[#8f8f8f] border-uncheckedGray border border-solid ml-1 h-10 rounded-md pl-3 pr-4"
                                 >
                                     <img src="/interest2.svg" className="w-5" />
                                     <span className="ml-1 whitespace-nowrap">Link</span>
                                 </button>
                             </div>
-                            {showLink && <LinkPopup setData={setData} data={data} setShowLink={setShowLink} />}
+                            {showLink && (
+                                <LinkPopup setData={handleAddOrUpdateCertificate} data={editObj["certificates"]} setShowLink={setShowLink} />
+                            )}
                         </div>
                     </div>
                     <div className="mb-4 w-full">
-                        <label for="info" className="text-primaryBlack mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]">
+                        <label
+                            htmlFor="info"
+                            className="text-primaryBlack mb-[2.5px] ml-[11px] inline-block w-full text-[14px] font-bold md:text-[15px]"
+                        >
                             <span>Additional information</span>
                             <span className="ml-2 text-[11px]  text-gray-400">optional</span>
                         </label>

@@ -149,5 +149,6 @@ export const _createOrUpdateCertificates = (payload = {}, oldData = {}) => {
         description: _getValue(payload, oldData, "description"),
         id: _getValue(payload, oldData, "id"),
         visible: payload.visible === false ? false : oldData.false ? false : true,
+        link: _getValue(payload, oldData, "link"),
     };
 };
