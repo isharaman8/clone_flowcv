@@ -5,6 +5,7 @@ import {
   Content,
   Customization,
   PersonalDetails,
+  ResumeData,
 } from 'src/shared/interfaces/template.interface';
 import { TEMPLATE_ENUM } from 'src/shared/constants';
 
@@ -30,6 +31,9 @@ export class Template extends Document {
 
   @Prop({ required: true })
   created_by: string;
+
+  @Prop({ type: Object })
+  resume_data: ResumeData;
 }
 
 export const TemplateSchema = SchemaFactory.createForClass(Template);

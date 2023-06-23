@@ -26,6 +26,10 @@ export class CreateTemplateDto {
   @IsNotEmpty()
   @IsOptional()
   created_by?: string;
+
+  @IsObject()
+  @IsOptional()
+  resume_data: object;
 }
 
 export class UpdateTemplateDto extends PartialType(CreateTemplateDto) {}

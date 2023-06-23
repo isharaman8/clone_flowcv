@@ -106,3 +106,13 @@ export const _getCountAggregationQuery = (query: Query) => {
 
   return filter;
 };
+
+export const _getAuthFilter = (user: any = {}) => {
+  const filter = [];
+
+  if (!['admin'].includes(user?.role)) {
+    filter.push({ created_by: user.uid });
+  }
+
+  return filter;
+};

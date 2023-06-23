@@ -4,7 +4,10 @@ import { Model } from 'mongoose';
 import { nanoid } from 'nanoid';
 import { Template } from '../schemas/templates.schema';
 import { CreateTemplateDto, UpdateTemplateDto } from '../dto';
-import { _getIdAggregationFilter } from 'src/shared/helpers/aggregations';
+import {
+  _getAuthFilter,
+  _getIdAggregationFilter,
+} from 'src/shared/helpers/aggregations';
 import { TemplateQuery } from 'src/shared/interfaces';
 import { TEMPLATE_ENUM } from 'src/shared/constants';
 
@@ -23,11 +26,11 @@ export class TemplateService {
     return data;
   }
 
-  async getAllTemplates(query: TemplateQuery) {
+  async getAllTemplates(query: TemplateQuery, user: any = {}) {
     const baseQuery = [
       {
         $match: {
-          $and: [..._getIdAggregationFilter(query)],
+          $and: [..._getIdAggregationFilter(query), ..._getAuthFilter(user)],
         },
       },
     ];

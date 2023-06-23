@@ -10,7 +10,7 @@ export interface PersonalDetails {
   maritalStatus: string;
   nationality: string;
   phone: number;
-  social: object;
+  links: object;
 }
 
 export interface Customization {
@@ -61,4 +61,145 @@ export interface Content {
   reference: contentType;
   declaration: contentType;
   custom: contentType;
+}
+
+export interface ProfessionalExperience {
+  city: string;
+  country: string;
+  employer: string;
+  jobTitle: string;
+  startDate: {
+    year: number;
+    month: number;
+    dontshow: boolean;
+    onlyyear: boolean;
+    presentyear: boolean;
+  };
+  endDate: {
+    year: number;
+    month: number;
+    dontshow: boolean;
+    onlyyear: boolean;
+    presentyear: boolean;
+  };
+  link: string;
+  id: number;
+  description: string;
+  visible: boolean;
+}
+
+export interface Education {
+  city: string;
+  country: string;
+  school: string;
+  degree: string;
+  startDate: {
+    year: number;
+    month: number;
+    dontshow: boolean;
+    onlyyear: boolean;
+    presentyear: boolean;
+  };
+  endDate: {
+    year: number;
+    month: number;
+    dontshow: boolean;
+    onlyyear: boolean;
+    presentyear: boolean;
+  };
+  link: string;
+  id: number;
+  description: string;
+  visible: boolean;
+}
+
+export interface Courses {
+  city: string;
+  country: string;
+  courseTitle: string;
+  institution: string;
+  startDate: {
+    year: number;
+    month: number;
+    dontshow: boolean;
+    onlyyear: boolean;
+    presentyear: boolean;
+  };
+  endDate: {
+    year: number;
+    month: number;
+    dontshow: boolean;
+    onlyyear: boolean;
+    presentyear: boolean;
+  };
+  link: string;
+  id: number;
+  description: string;
+  visible: boolean;
+}
+
+export interface Skills {
+  skill: string;
+  description: string;
+  skillLevel: number;
+  id: number;
+  visible: boolean;
+}
+
+export interface Languages {
+  language: string;
+  description: string;
+  languageLevel: number;
+  id: number;
+  visible: boolean;
+}
+
+export interface Projects {
+  startDate: {
+    year: number;
+    month: number;
+    dontshow: boolean;
+    onlyyear: boolean;
+    presentyear: boolean;
+  };
+  endDate: {
+    year: number;
+    month: number;
+    dontshow: boolean;
+    onlyyear: boolean;
+    presentyear: boolean;
+  };
+  subTitle: string;
+  title: string;
+  description: string;
+  id: number;
+  visible: boolean;
+  projectTitle: string;
+}
+
+export interface Interests {
+  interest: string;
+  description: string;
+  id: number;
+  visible: boolean;
+}
+
+export interface Certificates {
+  certificate: string;
+  description: string;
+  id: number;
+  visible: boolean;
+  link: string;
+}
+
+export interface ResumeData {
+  professionalExperience: ProfessionalExperience[];
+  education: Education[];
+  courses: Courses[];
+  skills: Skills[];
+  languages: Languages[];
+  projects: Projects[];
+  interests: Interests[];
+  certificates: Certificates[];
+  personalDetails;
 }

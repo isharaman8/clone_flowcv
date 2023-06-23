@@ -41,14 +41,21 @@ export class TemplateController {
   }
 
   @Get(['/', '/:uid'])
-  async getTemplates(@Param('uid') uid: string, @Query() query: TemplateQuery) {
+  async getTemplates(
+    @Param('uid') uid: string,
+    @Query() query: TemplateQuery,
+    @Req() req: CustomRequest,
+  ) {
     const parsedQuery = this.templateService.getParsedQuery(query);
 
     if (uid) {
       parsedQuery.uid = [uid];
     }
 
-    const docs = await this.templateService.getAllTemplates(parsedQuery);
+    const docs = await this.templateService.getAllTemplates(
+      parsedQuery,
+      req.user,
+    );
 
     return { templates: docs };
   }
