@@ -1,0 +1,21 @@
+<svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 44 44"
+                   className="w-10"
+                >
+                  <rect
+                    width="41.6"
+                    height="41.6"
+                    x="1.2"
+                    y="1.2"
+                    stroke="#200E32"
+                    stroke-width="1.6"
+                    rx="20.8"
+                  ></rect>
+                  <circle cx="22" cy="16" r="9" fill="#D1D5DB"></circle>
+                  <path
+                    fill="#D1D5DB"
+                    d="M5.263 31c3.208 5.953 9.5 10 16.737 10 6.612 0 13.597-4.878 17-10.001 3-8-8.5-5-17-5-9.114 0-19-2.499-16.737 5z"
+                  ></path>
+                </svg>

@@ -11,7 +11,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import argon from 'argon2';
+import { hash, verify } from 'argon2';
 
 // INNER IMPORTS
 import { CustomRequest } from 'src/shared/interfaces';
@@ -57,7 +57,19 @@ export class AuthController {
     @Body() payload: UpdateUserDto,
   ) {
     if (payload.password) {
-      payload.password = await argon.hash(payload.password);
+      const user = await this.authService.getProfile(req.user.uid);
+      const isPasswordMatch = await verify(user.password, payload.password);
+
+      if (!isPasswordMatch) {
+        throw new BadRequestException('wrong password');
+      }
+
+      if (payload.newPassword) {
+        const newPassword = await hash(payload.newPassword);
+        payload.password = newPassword;
+      } else {
+        delete payload.password;
+      }
     }
 
     const updatedUser = await this.authService.updateUserProfile(
