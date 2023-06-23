@@ -1,10 +1,57 @@
-import { useState } from "react";
-import { BsLink45Deg } from "react-icons/bs";
+import { useEffect, useState } from "react";
 import LinkPopup from "./minicomponents/LinkPopup";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "@redux/hooks";
+import { addInterest, removeInterest, resetEditObj, resetPrevObj, setEditObj, setPrevObj, updateInterest } from "@redux/resume/features";
+import { _parseEditObjPayload } from "@utils/helpers";
+import { AVAILABLE_COMPONENTS } from "@utils/Constants";
 
 const Interest = ({ setCurrentComponent }) => {
+    const dispatch = useDispatch();
+
+    const { interests, editObj = {}, prevObj = {} } = useAppSelector((state) => state.persistedReducer.resume);
+
+    const handleAddOrUpdateInterest = (payload = {}) => {
+        console.log("PAYLOAD 123", payload);
+
+        if (!editObj.interests) {
+            dispatch(setEditObj({ key: "interests", value: { ..._parseEditObjPayload(payload), id: interests.length + 1 } }));
+            dispatch(addInterest({ ...payload, id: interests.length + 1 }));
+        } else {
+            dispatch(updateInterest({ ...editObj.interests, ...payload }));
+            dispatch(setEditObj({ key: "interests", value: { ...(editObj?.interests || {}), ..._parseEditObjPayload(payload) } }));
+        }
+    };
+
+    const handleCancel = () => {
+        console.log("EDITOBJ", editObj.interests);
+        console.log("PREVOBJ", prevObj.interests);
+
+        if (!editObj.interests) {
+            setCurrentComponent(AVAILABLE_COMPONENTS.personalInfo);
+            return;
+        }
+
+        if (!prevObj.interests) {
+            dispatch(removeInterest({ id: editObj.interests?.id }));
+        } else {
+            dispatch(updateInterest(prevObj.interests));
+        }
+
+        dispatch(resetEditObj());
+        dispatch(resetPrevObj());
+
+        setCurrentComponent(AVAILABLE_COMPONENTS.personalInfo);
+    };
+
+    const handleSave = () => {
+        setCurrentComponent(AVAILABLE_COMPONENTS.personalInfo);
+        dispatch(resetEditObj());
+        dispatch(resetPrevObj());
+    };
+
     const [data, setData] = useState({
-        interest: "",
+        certificate: "",
         link: "",
         info: "",
     });
@@ -22,6 +69,15 @@ const Interest = ({ setCurrentComponent }) => {
 
         console.log(payload);
     };
+
+    useEffect(() => {
+        console.log("interests", interests);
+    }, [interests]);
+
+    useEffect(() => {
+        dispatch(setPrevObj({ key: "interests", value: editObj.interests }));
+        console.log("PREVOBJ", prevObj.interests);
+    }, []);
     return (
         <div className="relative shadow-lg">
             <div className="relative w-full rounded-lg bg-white shadow-card px-5 md:px-7 lg:px-9 py-5 pb-5 md:py-7 md:pb-9 lg:py-9 lg:pb-10">
@@ -42,8 +98,8 @@ const Interest = ({ setCurrentComponent }) => {
                                 name="interest"
                                 id="inputinterest"
                                 type="text"
-                                value={data.interest}
-                                onChange={handleChange}
+                                value={editObj.interests?.interest || ""}
+                                onChange={(e) => handleAddOrUpdateInterest({ interest: e.target.value || NULL_VALUE })}
                                 placeholder="Enter Interest / Hobby"
                                 className="h-10 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid text-inputText p-[10px]"
                                 autoComplete="off"
@@ -71,8 +127,8 @@ const Interest = ({ setCurrentComponent }) => {
                             placeholder="Enter additional information"
                             className="m-0 block w-full resize-none appearance-none overflow-hidden rounded-md border border-solid bg-gray-100 p-[10px] font-sans text-base leading-normal text-inputText placeholder-inputPlaceholder shadow-none outline-none md:text-[17px]"
                             rows="1"
-                            value={data.info}
-                            onChange={handleChange}
+                            value={editObj.interests?.description || ""}
+                            onChange={(e) => handleAddOrUpdateInterest({ description: e.target.value || NULL_VALUE })}
                         ></textarea>
                     </div>
                 </form>
@@ -83,14 +139,14 @@ const Interest = ({ setCurrentComponent }) => {
                     <button
                         type="button"
                         className="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 py-2 rounded-full text-primaryBlack font-extrabold h-12 min-w-min px-4 text-[16px]"
-                        onClick={() => setCurrentComponent("personalInfo")}
+                        onClick={handleCancel}
                     >
                         Cancel
                     </button>
                     <button
                         type="submit"
                         className="border-none cursor-pointer appearance-none touch-manipulation flex items-center focus-visible:outline-blue-600 hover:opacity-80 px-7 py-2 rounded-full font-extrabold min-w-[120px] text-white gradient h-12 justify-between pl-4 text-[16px]"
-                        onClick={handleSubmit}
+                        onClick={handleSave}
                     >
                         <span className="border-r border-solid border-gray-100 border-opacity-60 pr-3">
                             <img src="/interest3.svg" className="w-8" />

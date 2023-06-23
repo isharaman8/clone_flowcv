@@ -21,6 +21,10 @@ import DropDownComp from "@components/ResumeComponents/minicomponents/DropDownCo
 import PersonalData from "@components/ResumeTemplate/PersonalData";
 import Education from "@components/ResumeTemplate/EducationCoursesAndExp";
 import SkillsComponent from "@components/ResumeTemplate/Skills";
+import Languages from "@components/ResumeTemplate/Languages";
+import Certificates from "@components/ResumeTemplate/Certificates";
+import InterestComponent from "@components/ResumeTemplate/InterestComponent";
+import Projects from "@components/ResumeTemplate/Projects";
 
 const CreateResume = () => {
     const [addContent, setAddContent] = useState(false);
@@ -166,6 +170,7 @@ const CreateResume = () => {
                                 list={resumeData.languages.map((c) => ({ ...c, name: c.language }))}
                                 handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.language)}
                                 title={"Languages"}
+                                handleEditObj={handleEditObj}
                             />
                         )}
                         {(resumeData.projects || []).length > 0 && (
@@ -173,6 +178,7 @@ const CreateResume = () => {
                                 list={resumeData.projects.map((c) => ({ ...c, name: c.subTitle }))}
                                 handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.project)}
                                 title={"Projects"}
+                                handleEditObj={handleEditObj}
                             />
                         )}
                         {(resumeData.interests || []).length > 0 && (
@@ -180,6 +186,15 @@ const CreateResume = () => {
                                 list={resumeData.interests.map((c) => ({ ...c, name: c.interest }))}
                                 handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.interests)}
                                 title={"Interests"}
+                                handleEditObj={handleEditObj}
+                            />
+                        )}
+                        {(resumeData.certificates || []).length > 0 && (
+                            <DropDownComp
+                                list={resumeData.certificates.map((c) => ({ ...c, name: c.certificate }))}
+                                handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.certificate)}
+                                title={"Certificates"}
+                                handleEditObj={handleEditObj}
                             />
                         )}
                         {(resumeData.education || []).length > 0 && (
@@ -195,6 +210,7 @@ const CreateResume = () => {
                                 list={resumeData.courses.map((c) => ({ ...c, name: c.courseTitle }))}
                                 handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.course)}
                                 title={"Courses"}
+                                handleEditObj={handleEditObj}
                             />
                         )}
                     </div>
@@ -219,6 +235,10 @@ const CreateResume = () => {
                 <Education currentComponent={"professional Experience"} />
                 <Education currentComponent={"courses"} />
                 <SkillsComponent />
+                <Languages />
+                <Certificates />
+                <InterestComponent />
+                <Projects />
             </div>
             {addContent && <AddContent setAddContent={setAddContent} handleCurrentComponent={handleCurrentComponent} />}
         </div>

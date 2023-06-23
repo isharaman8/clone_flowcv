@@ -187,6 +187,14 @@ export const SKILL_LEVELS = {
     expert: 5,
 };
 
+export const LANGUAGE_LEVELS = {
+    beginner: 1,
+    elementary: 2,
+    working: 3,
+    high: 4,
+    native: 5,
+};
+
 export const YEARS = Array.from({ length: new Date().getFullYear() - 1944 + 1 }, (_, i) => 1944 + i).reverse();
 
 export const LINKS = ["Github", "Website", "LinkedIn", "Twitter", "Medium"];

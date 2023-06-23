@@ -1,8 +1,55 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LinkPopup from "./minicomponents/LinkPopup";
-import { BsLink45Deg } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "@redux/hooks";
+import { _parseEditObjPayload } from "@utils/helpers";
+import { addCertificates, updateCertificates, resetEditObj, resetPrevObj, setEditObj, setPrevObj, removeCertificate } from "@redux/resume/features";
+import { AVAILABLE_COMPONENTS } from "@utils/Constants";
 
 const Certificate = ({ setCurrentComponent }) => {
+    const dispatch = useDispatch();
+
+    const { certificates, editObj = {}, prevObj = {} } = useAppSelector((state) => state.persistedReducer.resume);
+
+    const handleAddOrUpdateCertificate = (payload = {}) => {
+        console.log("PAYLOAD 123", payload);
+
+        if (!editObj.certificates) {
+            dispatch(setEditObj({ key: "certificates", value: { ..._parseEditObjPayload(payload), id: certificates.length + 1 } }));
+            dispatch(addCertificates({ ...payload, id: certificates.length + 1 }));
+        } else {
+            dispatch(updateCertificates({ ...editObj.certificates, ...payload }));
+            dispatch(setEditObj({ key: "certificates", value: { ...(editObj?.certificates || {}), ..._parseEditObjPayload(payload) } }));
+        }
+    };
+
+    const handleCancel = () => {
+        console.log("EDITOBJ", editObj.certificates);
+        console.log("PREVOBJ", prevObj.certificates);
+
+        if (!editObj.certificates) {
+            setCurrentComponent(AVAILABLE_COMPONENTS.personalInfo);
+            return;
+        }
+
+        if (!prevObj.certificates) {
+            dispatch(removeCertificate({ id: editObj.certificates?.id }));
+        } else {
+            dispatch(updateCertificates(prevObj.certificates));
+        }
+
+        dispatch(resetEditObj());
+        dispatch(resetPrevObj());
+
+        setCurrentComponent(AVAILABLE_COMPONENTS.personalInfo);
+    };
+
+    const handleSave = () => {
+        setCurrentComponent(AVAILABLE_COMPONENTS.personalInfo);
+        dispatch(resetEditObj());
+        dispatch(resetPrevObj());
+    };
+
     const [data, setData] = useState({
         certificate: "",
         link: "",
@@ -22,6 +69,15 @@ const Certificate = ({ setCurrentComponent }) => {
 
         console.log(payload);
     };
+
+    useEffect(() => {
+        console.log("Certificates", certificates);
+    }, [certificates]);
+
+    useEffect(() => {
+        dispatch(setPrevObj({ key: "certificates", value: editObj.certificates }));
+        console.log("PREVOBJ", prevObj.certificates);
+    }, []);
 
     return (
         <div className="relative shadow-lg">
@@ -46,8 +102,8 @@ const Certificate = ({ setCurrentComponent }) => {
                                 placeholder="Enter Certificate"
                                 className="h-10 w-full appearance-none rounded-md text-base leading-normal shadow-none outline-none md:text-[17px] font-sans m-0 placeholder-inputPlaceholder bg-gray-100 border border-solid text-inputText p-[10px]"
                                 autoComplete="off"
-                                value={data.certificate}
-                                onChange={handleChange}
+                                value={editObj.certificates?.certificate || ""}
+                                onChange={(e) => handleAddOrUpdateCertificate({ certificate: e.target.value || NULL_VALUE })}
                             />
                             <div className="relative">
                                 <button
@@ -72,8 +128,8 @@ const Certificate = ({ setCurrentComponent }) => {
                             placeholder="Enter additional information"
                             className="m-0 block w-full resize-none appearance-none overflow-hidden rounded-md border border-solid bg-gray-100 p-[10px] font-sans text-base leading-normal text-inputText placeholder-inputPlaceholder shadow-none outline-none md:text-[17px]"
                             rows="1"
-                            value={data.info}
-                            onChange={handleChange}
+                            value={editObj.certificates?.description || ""}
+                            onChange={(e) => handleAddOrUpdateCertificate({ description: e.target.value || NULL_VALUE })}
                         ></textarea>
                     </div>
                 </form>
@@ -84,14 +140,14 @@ const Certificate = ({ setCurrentComponent }) => {
                     <button
                         type="button"
                         className="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 py-2 rounded-full text-primaryBlack font-extrabold h-12 min-w-min px-4 text-[16px]"
-                        onClick={() => setCurrentComponent("personalInfo")}
+                        onClick={handleCancel}
                     >
                         Cancel
                     </button>
                     <button
                         type="submit"
                         className="border-none cursor-pointer appearance-none touch-manipulation flex items-center focus-visible:outline-blue-600 hover:opacity-80 px-7 py-2 rounded-full font-extrabold min-w-[120px] text-white gradient h-12 justify-between pl-4 text-[16px]"
-                        onClick={handleSubmit}
+                        onClick={handleSave}
                     >
                         <span className="border-r border-solid border-gray-100 border-opacity-60 pr-3">
                             <img src="/interest3.svg" className="w-8" />

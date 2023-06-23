@@ -4,6 +4,7 @@ import _, { add } from "lodash";
 // inner imports
 import { createSlice } from "@reduxjs/toolkit";
 import {
+    _createOrUpdateCertificates,
     _createOrUpdateCourse,
     _createOrUpdateEducation,
     _createOrUpdateInterest,
@@ -162,6 +163,31 @@ export const resume = createSlice({
                 ...state.languages.slice(requiredLanguageIdx + 1),
             ]);
         },
+        // CERTIFICATES
+        addCertificates: (state, action) => {
+            state.certificates.push(_createOrUpdateCertificates(action.payload));
+        },
+        removeCertificate: (state, action) => {
+            state.certificates = _.cloneDeep(state.certificates.filter((c) => c.id !== action.payload.id));
+        },
+        resetCertificates: (state) => {
+            state.certificates = initialState.certificates;
+        },
+        updateCertificates: (state, action) => {
+            const requiredCertificateIdx = state.certificates.findIndex((c) => c.id === action.payload.id);
+
+            if (requiredCertificateIdx === -1) {
+                return;
+            }
+
+            const updatedCertificate = _createOrUpdateCertificates(action.payload, state.certificates[requiredCertificateIdx]);
+
+            state.certificates = _.cloneDeep([
+                ...state.certificates.slice(0, requiredCertificateIdx),
+                updatedCertificate,
+                ...state.certificates.slice(requiredCertificateIdx + 1),
+            ]);
+        },
         // PROJECTS
         addProjects: (state, action) => {
             state.projects.push(_createOrUpdateProject(action.payload));
@@ -299,6 +325,9 @@ export const resume = createSlice({
                 case "courses":
                     addOrUpdateFunc = _createOrUpdateCourse;
                     break;
+                case "certificates":
+                    addOrUpdateFunc = _createOrUpdateCertificates;
+                    break;
                 default:
                     break;
             }
@@ -369,5 +398,9 @@ export const {
     resetEditObj,
     setPrevObj,
     resetPrevObj,
+    addCertificates,
+    resetCertificates,
+    updateCertificates,
+    removeCertificate,
 } = resume.actions;
 export default resume.reducer;
