@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { BiArrowToTop } from "react-icons/bi";
 
 import List from "./List";
 import { ADD_CONTENT } from "@utils/Constants";

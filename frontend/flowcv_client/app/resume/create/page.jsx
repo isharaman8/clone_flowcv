@@ -24,7 +24,7 @@ import SkillsComponent from "@components/ResumeTemplate/Skills";
 
 const CreateResume = () => {
     const [addContent, setAddContent] = useState(false);
-    const [currentComponent, setCurrentComponent] = useState(AVAILABLE_COMPONENTS.professionalExperience);
+    const [currentComponent, setCurrentComponent] = useState(AVAILABLE_COMPONENTS.project);
 
     const resumeData = useAppSelector((state) => state.persistedReducer.resume);
 
@@ -187,6 +187,7 @@ const CreateResume = () => {
                                 list={resumeData.education.map((c) => ({ ...c, name: c.degree }))}
                                 handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.education)}
                                 title={"Education"}
+                                handleEditObj={handleEditObj}
                             />
                         )}
                         {(resumeData.courses || []).length > 0 && (

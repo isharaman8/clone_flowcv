@@ -1,4 +1,5 @@
-import { removeSkills, updateSkills } from "@redux/resume/features";
+import { removeProfessionalExperience, removeSkills, updateProfessionalExperience, updateSkills } from "@redux/resume/features";
+import { _generalRemoveReduxFunc, _generalUpdateReduxFunc, _getCamelCaseString } from "@utils/helpers";
 import React from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
@@ -10,39 +11,11 @@ const List = ({ name, onClick, title, editObj }) => {
     const dispatch = useDispatch();
 
     const toggleVisibility = () => {
-        switch (title.toLowerCase()) {
-            case "skills":
-                toggleFunc = updateSkills;
-                break;
-
-            default:
-                break;
-        }
-
-        if (!toggleFunc) {
-            return;
-        }
-
-        dispatch(toggleFunc({ id: editObj.id, visible: !editObj.visible }));
+        dispatch(_generalUpdateReduxFunc({ id: editObj.id, visible: !editObj.visible }, _getCamelCaseString(title)));
     };
 
     const removeItem = () => {
-        let removeFunc;
-
-        switch (title.toLowerCase()) {
-            case "skills":
-                removeFunc = removeSkills;
-                break;
-
-            default:
-                break;
-        }
-
-        if (!removeFunc) {
-            return;
-        }
-
-        dispatch(removeFunc({ id: editObj.id }));
+        dispatch(_generalRemoveReduxFunc({ id: editObj.id }, _getCamelCaseString(title)));
     };
 
     return (

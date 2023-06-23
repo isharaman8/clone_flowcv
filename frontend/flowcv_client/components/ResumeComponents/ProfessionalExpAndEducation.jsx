@@ -27,10 +27,10 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
         console.log("OBJKEY", objKey);
 
         if (!editObj[objKey]) {
-            dispatch(setEditObj({ key: objKey, value: { ..._parseEditObjPayload(payload), id: resume[objKey].length + 1 } }));
+            dispatch(setEditObj({ key: objKey, value: { ...payload, id: resume[objKey].length + 1 } }));
             dispatch(_generalAddReduxFunc({ ...payload, id: resume[objKey].length + 1 }, subOne));
         } else {
-            dispatch(setEditObj({ key: objKey, value: { ...(editObj[objKey] || {}), ..._parseEditObjPayload(payload) } }));
+            dispatch(setEditObj({ key: objKey, value: { ...(editObj[objKey] || {}), ...payload } }));
             dispatch(_generalUpdateReduxFunc({ ...(editObj[objKey] || {}), ...payload }, subOne));
         }
     };
@@ -44,7 +44,7 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
             return;
         }
 
-        if (!prevObj.skills) {
+        if (!prevObj[objKey]) {
             dispatch(_generalRemoveReduxFunc({ id: editObj[objKey]?.id }, subOne));
         } else {
             dispatch(_generalUpdateReduxFunc(prevObj[objKey], subOne));
@@ -86,11 +86,6 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
     const handleDateData = (payload = {}) => {
         handleAddOrUpdatePE(payload);
         setPopupOpen(false);
-    };
-
-    const handleCheckbox = (e) => {
-        const { name, checked } = e.target;
-        setCheckboxData((prevData) => ({ ...prevData, [name]: checked }));
     };
 
     const handleChecKBoxes = (prefix, key, value) => {
@@ -254,7 +249,6 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
                                 handlePopupOpen={setPopupOpen}
                                 mainHeading={"Start Date"}
                                 prefix="start"
-                                checkboxData={checkboxData}
                                 dateData={(editObj[objKey] || {})["startDate"]}
                             />
                             <DatePicker
@@ -263,7 +257,6 @@ const ProfessionalExperience = ({ setCurrentComponent, mainHeading, subOne, subT
                                 handlePopupOpen={setPopupOpen}
                                 mainHeading={"End Date"}
                                 prefix="end"
-                                checkboxData={checkboxData}
                                 dateData={(editObj[objKey] || {})["endDate"]}
                             />
                         </div>

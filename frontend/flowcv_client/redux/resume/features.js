@@ -64,7 +64,11 @@ export const resume = createSlice({
             state.personalInfo = initialState.personalInfo;
         },
         addLinks: (state, action) => {
+            console.log("LINKS 1 PAYLOAD", action.payload);
+
             state.personalInfo.links = _.cloneDeep({ ...state.personalInfo.links, ...action.payload });
+
+            console.log("UPDATED LINKS", JSON.stringify(state.personalInfo.links));
         },
         // PROFESSIONAL EXPERIENCE
         addProfessionalExperience: (state, action) => {
@@ -210,7 +214,11 @@ export const resume = createSlice({
         },
         // EDUCATION
         addEducation: (state, action) => {
+            console.log("EDUCATION PAYLOAD", action.payload);
+
             state.education.push(_createOrUpdateEducation(action.payload));
+
+            console.log("UPDATED ADD EDU", JSON.stringify(state.education));
         },
         removeEducation: (state, action) => {
             state.education = _.cloneDeep(state.education.filter((c) => c.id !== action.payload.id));
@@ -219,18 +227,24 @@ export const resume = createSlice({
             state.education = initialState.education;
         },
         updateEducation: (state, action) => {
-            const requiredEducationIdx = state.interests.findIndex((c) => c.id === action.payload.id);
+            console.log("UPDATE EDU PAYLOAD", action.payload);
+
+            const requiredEducationIdx = state.education.findIndex((c) => c.id === action.payload.id);
+
+            console.log("UPDATE REQD IDX", requiredEducationIdx);
 
             if (requiredEducationIdx === -1) {
                 return;
             }
 
-            const updatedEducation = _createOrUpdateEducation(action.payload, state.interests[requiredEducationIdx]);
+            const updatedEducation = _createOrUpdateEducation(action.payload, state.education[requiredEducationIdx]);
 
-            state.interests = _.cloneDeep([
-                ...state.interests.slice(0, requiredEducationIdx),
+            console.log("UPDATED UPDATE EDU", JSON.stringify(state.education));
+
+            state.education = _.cloneDeep([
+                ...state.education.slice(0, requiredEducationIdx),
                 updatedEducation,
-                ...state.interests.slice(requiredEducationIdx + 1),
+                ...state.education.slice(requiredEducationIdx + 1),
             ]);
         },
         // COURSE
@@ -294,6 +308,8 @@ export const resume = createSlice({
             }
 
             state.editObj[key] = addOrUpdateFunc(value || {}, state.editObj[key] || {});
+
+            console.log("UPDATED STATE OBJ", JSON.stringify(state.editObj[key]));
         },
 
         resetEditObj: (state) => {

@@ -2,12 +2,18 @@ import {
     addCourse,
     addEducation,
     addProfessionalExperience,
+    addProjects,
+    addSkills,
     removeCourse,
     removeEducation,
     removeProfessionalExperience,
+    removeProject,
+    removeSkills,
     updateCourse,
     updateEducation,
     updateProfessionalExperience,
+    updateProject,
+    updateSkills,
 } from "@redux/resume/features";
 import { AVAILABLE_COMPONENTS, LINKS, NULL_VALUE } from "./Constants";
 
@@ -49,6 +55,12 @@ export const _camelize = (str = "") => {
         .join(" ");
 };
 
+export const _getCamelCaseString = (str = "") => {
+    const strArray = str.split(" ");
+
+    return strArray.reduce((acc, value, idx) => acc + (idx === 0 ? value.toLowerCase() : _camelize(value)), "");
+};
+
 export const _getValue = (obj1 = {}, obj2 = {}, key = "") => {
     // FOR BOOLEAN VALUES
     if (["dontshow", "onlyyear", "presentyear"].includes(key)) {
@@ -73,11 +85,19 @@ export const _parseEditObjPayload = (payload = {}) => {
 export const _generalAddReduxFunc = (payload = {}, key) => {
     switch (key) {
         case "employer":
+        case "professionalExperience":
             return addProfessionalExperience(payload);
         case "school":
+        case "education":
             return addEducation(payload);
         case "courseTitle":
+        case "courses":
             return addCourse(payload);
+        case "skills":
+            return addSkills(payload);
+        case "projects":
+            return addProjects(payload);
+
         default:
             return {};
     }
@@ -86,11 +106,18 @@ export const _generalAddReduxFunc = (payload = {}, key) => {
 export const _generalUpdateReduxFunc = (payload = {}, key) => {
     switch (key) {
         case "employer":
+        case "professionalExperience":
             return updateProfessionalExperience(payload);
         case "school":
+        case "education":
             return updateEducation(payload);
         case "courseTitle":
+        case "courses":
             return updateCourse(payload);
+        case "skills":
+            return updateSkills(payload);
+        case "projects":
+            return updateProject(payload);
         default:
             return {};
     }
@@ -99,11 +126,18 @@ export const _generalUpdateReduxFunc = (payload = {}, key) => {
 export const _generalRemoveReduxFunc = (payload = {}, key) => {
     switch (key) {
         case "employer":
+        case "professionalExperience":
             return removeProfessionalExperience(payload);
         case "school":
+        case "education":
             return removeEducation(payload);
         case "courseTitle":
+        case "courses":
             return removeCourse(payload);
+        case "skills":
+            return removeSkills(payload);
+        case "projects":
+            return removeProject(payload);
         default:
             return {};
     }
@@ -111,4 +145,16 @@ export const _generalRemoveReduxFunc = (payload = {}, key) => {
 
 export const _getParsedBoolean = (value) => {
     return [true, "true"].includes(value) ? true : false;
+};
+
+export const _getPersonalObjLinks = (linksObj = {}, handleFunc) => {
+    const retArr = [];
+
+    for (const key of LINKS) {
+        if (linksObj[key.toLowerCase()]) {
+            retArr.push({ heading: key.toLowerCase(), value: linksObj[key.toLowerCase()], handleValue: handleFunc });
+        }
+    }
+
+    return retArr;
 };

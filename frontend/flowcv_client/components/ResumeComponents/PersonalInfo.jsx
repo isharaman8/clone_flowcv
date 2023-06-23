@@ -1,9 +1,10 @@
 import { LINKS } from "@utils/Constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "./minicomponents/Link";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "@redux/hooks";
 import { addLinks, addOrUpdatePersonalInfo, resetPersonalInfo } from "@redux/resume/features";
+import { _getPersonalObjLinks } from "@utils/helpers";
 
 const PersonalInfo = () => {
     // VARIABLES
@@ -34,8 +35,10 @@ const PersonalInfo = () => {
         dispatch(addLinks(payload));
     };
 
-    const handleSetLinks = (e) => {
-        dispatchLinks({ [e.target.name]: e.target.value });
+    const handleSetLinks = (e = null, payload = {}) => {
+        console.log("E", e);
+
+        dispatchLinks(e ? { [e.target.name]: e.target.value } : payload);
     };
 
     const handleLink = (heading = "") => {
@@ -46,6 +49,10 @@ const PersonalInfo = () => {
         dispatchLinks({ [heading.toLowerCase()]: null });
         setLinkArray((p) => p.filter((c) => c.heading.toLowerCase() !== heading.toLowerCase()));
     };
+
+    useEffect(() => {
+        setLinkArray(_getPersonalObjLinks(personalInfoData.links, handleSetLinks));
+    }, [personalInfoData.links]);
 
     return (
         <>
@@ -287,6 +294,7 @@ const PersonalInfo = () => {
                                     handleValue={c.handleValue}
                                     key={c.heading}
                                     handleLinkDelete={handleLinkDelete}
+                                    data={personalInfoData}
                                 />
                             ))}
 

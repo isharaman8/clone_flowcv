@@ -15,11 +15,11 @@ const Skills = ({ setCurrentComponent }) => {
         console.log("PAYLOAD 123", payload);
 
         if (!editObj.skills) {
-            dispatch(setEditObj({ key: "skills", value: { ..._parseEditObjPayload(payload), id: skills.length + 1 } }));
+            dispatch(setEditObj({ key: "skills", value: { ...payload, id: skills.length + 1 } }));
             dispatch(addSkills({ ...payload, id: skills.length + 1 }));
         } else {
             dispatch(updateSkills({ ...editObj.skills, ...payload }));
-            dispatch(setEditObj({ key: "skills", value: { ...(editObj?.skills || {}), ..._parseEditObjPayload(payload) } }));
+            dispatch(setEditObj({ key: "skills", value: { ...(editObj?.skills || {}), ...payload } }));
         }
     };
 

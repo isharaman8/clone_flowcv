@@ -129,6 +129,7 @@ export const _createOrUpdateProject = (payload = {}, oldData = {}) => {
         description: _getValue(payload, oldData, "description"),
         id: _getValue(payload, oldData, "id"),
         visible: payload.visible === false ? false : oldData.false ? false : true,
+        projectTitle: _getValue(payload, oldData, "projectTitle"),
     };
 };
 

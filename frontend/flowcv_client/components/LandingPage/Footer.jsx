@@ -9,7 +9,7 @@ const Footer = () => {
                 {/* FEEDBACK */}
                 <div className="flex flex-row items-start justify-between mt-10">
                     <div>
-                        <label for="footerUserFeedback" className="text-xl font-bold">
+                        <label htmlFor="footerUserFeedback" className="text-xl font-bold">
                             Do you have feedback?
                         </label>
                         <div className="mt-2 flex max-w-[500px] items-center border-b-2 border-solid border-gray-300 pb-2">
