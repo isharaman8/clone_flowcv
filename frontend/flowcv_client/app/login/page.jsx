@@ -27,7 +27,7 @@ const LoginPage = () => {
             return alert("Email and password required");
         }
 
-        const url = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000";
+        const url = "https://flow-cv-backend.onrender.com";
 
         setLoading(true);
 

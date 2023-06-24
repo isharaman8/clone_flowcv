@@ -52,7 +52,7 @@ const SideBar = ({ setProfile }) => {
             }
         }
 
-        const url = proces.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000";
+        const url = "https://flow-cv-backend.onrender.com";
         const payload = method === "change_email" ? changeEmail : changePassword;
 
         fetch(`${url}/auth/update`, {
@@ -93,7 +93,7 @@ const SideBar = ({ setProfile }) => {
     };
 
     const handleDelete = () => {
-        const url = proces.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000";
+        const url = "https://flow-cv-backend.onrender.com";
 
         fetch(`${url}/auth/delete`, {
             headers: {

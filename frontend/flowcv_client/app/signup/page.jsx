@@ -27,7 +27,7 @@ const SignUp = () => {
             return alert("Email and password required");
         }
 
-        const url = proces.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000";
+        const url = "https://flow-cv-backend.onrender.com";
         const payload = { email, password, name: "NOT PROVIDED" };
 
         console.log("PAYLOAD", payload);
