@@ -52,10 +52,10 @@ const SideBar = ({ setProfile }) => {
             }
         }
 
-        const url = "http://localhost:3000/auth/update";
+        const url = proces.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000";
         const payload = method === "change_email" ? changeEmail : changePassword;
 
-        fetch(url, {
+        fetch(`${url}/auth/update`, {
             headers: {
                 "content-type": "application/json",
                 Authorization: `Bearer ${userData.access_token}`,
@@ -93,8 +93,9 @@ const SideBar = ({ setProfile }) => {
     };
 
     const handleDelete = () => {
-        const url = "http://localhost:3000/auth/delete";
-        fetch(url, {
+        const url = proces.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000";
+
+        fetch(`${url}/auth/delete`, {
             headers: {
                 "content-type": "application/json",
                 Authorization: `Bearer ${userData.access_token}`,
