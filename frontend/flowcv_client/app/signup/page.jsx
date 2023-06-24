@@ -27,14 +27,14 @@ const SignUp = () => {
             return alert("Email and password required");
         }
 
-        const url = "http://localhost:3000/auth/signup";
+        const url = proces.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000";
         const payload = { email, password, name: "NOT PROVIDED" };
 
         console.log("PAYLOAD", payload);
 
         setLoading(true);
 
-        fetch(url, {
+        fetch(`${url}/auth/signup`, {
             headers: {
                 "content-type": "application/json",
             },

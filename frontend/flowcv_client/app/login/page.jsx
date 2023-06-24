@@ -27,11 +27,11 @@ const LoginPage = () => {
             return alert("Email and password required");
         }
 
-        const url = "http://localhost:3000/auth/login";
+        const url = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000";
 
         setLoading(true);
 
-        fetch(url, {
+        fetch(`${url}/auth/login`, {
             headers: {
                 "content-type": "application/json",
             },
