@@ -25,6 +25,7 @@ import Languages from "@components/ResumeTemplate/Languages";
 import Certificates from "@components/ResumeTemplate/Certificates";
 import InterestComponent from "@components/ResumeTemplate/InterestComponent";
 import Projects from "@components/ResumeTemplate/Projects";
+import Customization from "@components/customization/Customization";
 
 const CreateResume = () => {
     const [addContent, setAddContent] = useState(false);
@@ -62,16 +63,30 @@ const CreateResume = () => {
             {/* left */}
             <div className="flex grow items-start gap-8 relative">
                 {/* left */}
-                <div className="grow-0 sticky top-8 z-[10000] flex flex-col items-center justify-center gap-10 p-5 rounded-xl shadow-lg bg-gray-50">
+                <div className="grow-0 sticky top-8 z-[10000] flex flex-col items-center justify-center gap-10 px-2 py-5 rounded-xl shadow-lg bg-gray-50">
                     <Link href={"/"}>
                         <img src="/flowcv.svg" alt="flow cv" className="w-16" />
                     </Link>
-                    <div className="flex flex-col justify-center items-center">
-                        <img src="/content.svg" alt="content" className="w-10" />
+                    <div
+                        className={`flex flex-col px-4 py-3 justify-center items-center cursor-pointer rounded-xl ${
+                            currentComponent === AVAILABLE_COMPONENTS.personalInfo ? "text-[#FC7E88] bg-gray-100" : ""
+                        }`}
+                        onClick={() => setCurrentComponent(AVAILABLE_COMPONENTS.personalInfo)}
+                    >
+                        <img
+                            src={currentComponent === AVAILABLE_COMPONENTS.personalInfo ? "/content.svg" : "/content1.svg"}
+                            alt="content"
+                            className="w-10"
+                        />
                         <p>Content</p>
                     </div>
-                    <div className="flex flex-col justify-center items-center">
-                        <img src="/customize.svg" alt="customize" className="w-10" />
+                    <div
+                        className={`flex flex-col px-4 py-3 justify-center items-center cursor-pointer rounded-xl ${
+                            currentComponent === "CUSTOMIZE" ? "text-[#FC7E88] bg-gray-100" : ""
+                        } `}
+                        onClick={() => setCurrentComponent("CUSTOMIZE")}
+                    >
+                        <img src={currentComponent === "CUSTOMIZE" ? "/customize1.svg" : "/customize.svg"} alt="customize" className="w-10" />
                         <p>Customize</p>
                     </div>
                     <div className="flex flex-col justify-center items-center">
@@ -118,6 +133,7 @@ const CreateResume = () => {
                     {/* resume components */}
                     <div className="w-full max-w-[800px] pb-16">
                         {currentComponent === AVAILABLE_COMPONENTS.skill && <Skills setCurrentComponent={setCurrentComponent} />}
+                        {currentComponent === "CUSTOMIZE" && <Customization setCurrentComponent={setCurrentComponent} />}
                         {currentComponent === AVAILABLE_COMPONENTS.language && <Language setCurrentComponent={setCurrentComponent} />}
                         {currentComponent === AVAILABLE_COMPONENTS.interests && <Interest setCurrentComponent={setCurrentComponent} />}
                         {currentComponent === AVAILABLE_COMPONENTS.certificate && <Certificate setCurrentComponent={setCurrentComponent} />}
@@ -149,7 +165,7 @@ const CreateResume = () => {
                         )}
 
                         {/* LIST WISE DROPDOWN */}
-                        {(resumeData.professionalExperience || []).length > 0 && (
+                        {currentComponent === "personalInfo" && (resumeData.professionalExperience || []).length > 0 && (
                             <DropDownComp
                                 list={resumeData.professionalExperience.map((c) => ({ ...c, name: c.jobTitle }))}
                                 title={_camelize("Professional Experience")}
@@ -157,7 +173,7 @@ const CreateResume = () => {
                                 handleEditObj={handleEditObj}
                             />
                         )}
-                        {(resumeData.skills.length || []) > 0 && (
+                        {currentComponent === "personalInfo" && (resumeData.skills.length || []) > 0 && (
                             <DropDownComp
                                 list={resumeData.skills.map((c) => ({ ...c, name: c.skill }))}
                                 handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.skill)}
@@ -165,7 +181,7 @@ const CreateResume = () => {
                                 handleEditObj={handleEditObj}
                             />
                         )}
-                        {(resumeData.languages || []).length > 0 && (
+                        {currentComponent === "personalInfo" && (resumeData.languages || []).length > 0 && (
                             <DropDownComp
                                 list={resumeData.languages.map((c) => ({ ...c, name: c.language }))}
                                 handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.language)}
@@ -173,7 +189,7 @@ const CreateResume = () => {
                                 handleEditObj={handleEditObj}
                             />
                         )}
-                        {(resumeData.projects || []).length > 0 && (
+                        {currentComponent === "personalInfo" && (resumeData.projects || []).length > 0 && (
                             <DropDownComp
                                 list={resumeData.projects.map((c) => ({ ...c, name: c.title }))}
                                 handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.project)}
@@ -181,7 +197,7 @@ const CreateResume = () => {
                                 handleEditObj={handleEditObj}
                             />
                         )}
-                        {(resumeData.interests || []).length > 0 && (
+                        {currentComponent === "personalInfo" && (resumeData.interests || []).length > 0 && (
                             <DropDownComp
                                 list={resumeData.interests.map((c) => ({ ...c, name: c.interest }))}
                                 handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.interests)}
@@ -189,7 +205,7 @@ const CreateResume = () => {
                                 handleEditObj={handleEditObj}
                             />
                         )}
-                        {(resumeData.certificates || []).length > 0 && (
+                        {currentComponent === "personalInfo" && (resumeData.certificates || []).length > 0 && (
                             <DropDownComp
                                 list={resumeData.certificates.map((c) => ({ ...c, name: c.certificate }))}
                                 handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.certificate)}
@@ -197,7 +213,7 @@ const CreateResume = () => {
                                 handleEditObj={handleEditObj}
                             />
                         )}
-                        {(resumeData.education || []).length > 0 && (
+                        {currentComponent === "personalInfo" && (resumeData.education || []).length > 0 && (
                             <DropDownComp
                                 list={resumeData.education.map((c) => ({ ...c, name: c.degree }))}
                                 handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.education)}
@@ -205,7 +221,7 @@ const CreateResume = () => {
                                 handleEditObj={handleEditObj}
                             />
                         )}
-                        {(resumeData.courses || []).length > 0 && (
+                        {currentComponent === "personalInfo" && (resumeData.courses || []).length > 0 && (
                             <DropDownComp
                                 list={resumeData.courses.map((c) => ({ ...c, name: c.courseTitle }))}
                                 handleClick={currentComponentWrapper(AVAILABLE_COMPONENTS.course)}

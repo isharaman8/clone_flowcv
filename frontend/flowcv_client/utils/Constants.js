@@ -195,6 +195,59 @@ export const LANGUAGE_LEVELS = {
     native: 5,
 };
 
+export const COLORS = [
+    "#fff",
+    "rgb(73, 89, 99)",
+    "rgb(84, 121, 128)",
+    "rgb(147, 183, 190)",
+    "rgb(52, 138, 167)",
+    "rgb(53, 92, 125)",
+    "rgb(56, 111, 164)",
+    "rgb(103, 152, 192)",
+    "rgb(89, 165, 216)",
+    "rgb(132, 210, 246)",
+    "rgb(67, 35, 113)",
+    "rgb(103, 45, 80)",
+    "rgb(192, 108, 132)",
+    "rgb(199, 65, 123)",
+    "rgb(244, 91, 105)",
+    "picker",
+];
+
+export const FONTS = {
+    serif: [
+        "Vollkorn",
+        "Lora",
+        "PT Serif",
+        "Alegreya",
+        "Aleo",
+        "Crimson Pro",
+        "EB Garamond",
+        "Zilla Slab",
+        "Cormorant Garamond",
+        "Crimson Text",
+        "Noto Serif",
+        "IBM Plex Serif",
+    ],
+    sans: [
+        "Source Sans 3",
+        "Karla",
+        "Mulish",
+        "Lato",
+        "Titillium Web",
+        "Work Sans",
+        "Barlow",
+        "Jost",
+        "Fira Sans",
+        "Roboto",
+        "Rubik",
+        "Nunito",
+        "Open Sans",
+        "Poppins",
+    ],
+    mono: ["Inconsolata", "Source Code Pro", "IBM Plex Mono", "Overpass Mono", "Space Mono", "Courier Prime"],
+};
+
 export const YEARS = Array.from({ length: new Date().getFullYear() - 1944 + 1 }, (_, i) => 1944 + i).reverse();
 
 export const LINKS = ["Github", "Website", "LinkedIn", "Twitter", "Medium"];
