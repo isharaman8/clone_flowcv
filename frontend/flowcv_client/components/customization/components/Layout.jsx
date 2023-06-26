@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ADD_CONTENT } from "@utils/Constants";
 import { CgLayoutGridSmall } from "react-icons/cg";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { AiOutlinePlus } from "react-icons/ai";
 
 const LayoutButton = ({ title, style, selectedLayout, setSelectedLayout }) => {
     return (
@@ -24,24 +25,26 @@ const LayoutButton = ({ title, style, selectedLayout, setSelectedLayout }) => {
     );
 };
 
-const Coulumns = ({ setSelectedColumn, selectedColumn }) => {
+const Coulumns = ({ setSelectedColumn, selectedColumn, selectedLayout }) => {
     return (
         <div className="my-6">
             <h2 className="text-sm font-semibold">Columns</h2>
             <div className="flex items-center gap-[1.4rem] my-2">
-                <div
-                    className="rounded-[.6rem] px-[.4rem] py-[.8rem] grid place-content-center cursor-pointer w-[6rem] hover:opacity-80"
-                    style={{
-                        border: `${selectedColumn === 1 ? "1px solid #4B55DC" : "1px solid #cbcbcb"}`,
-                    }}
-                    onClick={() => setSelectedColumn(1)}
-                >
-                    <svg width="63" height="21" viewBox="0 0 63 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="63" height="4" rx="2" fill={selectedColumn === 1 ? "#4b55dc" : "#C7C7C7"} />
-                        <rect y="8" width="63" height="4" rx="2" fill={selectedColumn === 1 ? "#4b55dc" : "#C7C7C7"} />
-                        <rect y="17" width="63" height="4" rx="2" fill={selectedColumn === 1 ? "#4b55dc" : "#C7C7C7"} />
-                    </svg>
-                </div>
+                {selectedLayout === "top" && (
+                    <div
+                        className="rounded-[.6rem] px-[.4rem] py-[.8rem] grid place-content-center cursor-pointer w-[6rem] hover:opacity-80"
+                        style={{
+                            border: `${selectedColumn === 1 ? "1px solid #4B55DC" : "1px solid #cbcbcb"}`,
+                        }}
+                        onClick={() => setSelectedColumn(1)}
+                    >
+                        <svg width="63" height="21" viewBox="0 0 63 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="63" height="4" rx="2" fill={selectedColumn === 1 ? "#4b55dc" : "#C7C7C7"} />
+                            <rect y="8" width="63" height="4" rx="2" fill={selectedColumn === 1 ? "#4b55dc" : "#C7C7C7"} />
+                            <rect y="17" width="63" height="4" rx="2" fill={selectedColumn === 1 ? "#4b55dc" : "#C7C7C7"} />
+                        </svg>
+                    </div>
+                )}
                 <div
                     className="rounded-[.6rem] px-[.4rem] py-[.8rem] grid place-content-center cursor-pointer w-[6rem] hover:opacity-80"
                     style={{
@@ -119,10 +122,31 @@ const RearrangeSection = ({ sections, handleDragEnd }) => {
     );
 };
 
+const ColumnWidth = ({ title, columnsWidth, handleIncrement }) => {
+    return (
+        <div className="leading-tight" style={{ width: `${columnsWidth[title.toLowerCase()]}%` }}>
+            <p className="text-xs">
+                {title} {columnsWidth[title.toLowerCase()]}%
+            </p>
+            <button
+                className="grid place-content-center p-2 text-gray-400 mt-2 border border-gray-300 rounded-md w-full cursor-pointer hover:text-black"
+                onClick={() => handleIncrement(title)}
+                disabled={columnsWidth[title.toLowerCase()] === 75}
+            >
+                <AiOutlinePlus className="text-xl" />
+            </button>
+        </div>
+    );
+};
+
 const Layout = () => {
     const [selectedLayout, setSelectedLayout] = useState("top");
     const [selectedColumn, setSelectedColumn] = useState(1);
     const [sections, setSections] = useState(ADD_CONTENT);
+    const [columnsWidth, setColumnsWidth] = useState({
+        right: 50,
+        left: 50,
+    });
 
     const handleDragEnd = (result) => {
         if (!result.destination) return;
@@ -132,6 +156,14 @@ const Layout = () => {
         newSections.splice(result.destination.index, 0, reorderedSection);
 
         setSections(newSections);
+    };
+
+    const handleIncrement = (title) => {
+        if (title === "Left") {
+            setColumnsWidth({ left: columnsWidth.left + 1, right: columnsWidth.right - 1 });
+        } else {
+            setColumnsWidth({ left: columnsWidth.left - 1, right: columnsWidth.right + 1 });
+        }
     };
 
     return (
@@ -167,8 +199,22 @@ const Layout = () => {
                     selectedLayout={selectedLayout}
                 />
             </div>
-            <Coulumns setSelectedColumn={setSelectedColumn} selectedColumn={selectedColumn} />
+            <Coulumns setSelectedColumn={setSelectedColumn} selectedColumn={selectedColumn} selectedLayout={selectedLayout} />
             <RearrangeSection sections={sections} handleDragEnd={handleDragEnd} />
+            {selectedLayout !== "top" && (
+                <div>
+                    <p className="text-sm font-semibold my-3">Column width</p>
+                    <div className="flex gap-[2rem] w-full">
+                        <ColumnWidth title={"Left"} columnsWidth={columnsWidth} setColumnsWidth={setColumnsWidth} handleIncrement={handleIncrement} />
+                        <ColumnWidth
+                            title={"Right"}
+                            columnsWidth={columnsWidth}
+                            setColumnsWidth={setColumnsWidth}
+                            handleIncrement={handleIncrement}
+                        />
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
