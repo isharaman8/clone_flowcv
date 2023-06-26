@@ -253,3 +253,5 @@ export const YEARS = Array.from({ length: new Date().getFullYear() - 1944 + 1 },
 export const LINKS = ["Github", "Website", "LinkedIn", "Twitter", "Medium"];
 
 export const NULL_VALUE = "NULL_VALUE";
+
+export const TEMPLATE_BOOLEAN_KEYS = ["dontshow", "onlyyear", "presentyear", "basic", "advanced", "border", "accent", "multicolor"];

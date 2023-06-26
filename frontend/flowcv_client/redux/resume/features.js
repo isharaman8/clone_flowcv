@@ -12,6 +12,10 @@ import {
     _createOrUpdateProfessionalExperience,
     _createOrUpdateProject,
     _createOrUpdateSkills,
+    _setColors,
+    _setFont,
+    _setLayout,
+    _setSpacing,
 } from "./helper";
 import { _getCamelCaseString } from "@utils/helpers";
 
@@ -52,6 +56,34 @@ const initialState = {
     interests: [],
     education: [],
     courses: [],
+    customization: {
+        spacing: {
+            fontSize: null,
+            lineHeight: null,
+            lRMargin: null,
+            tBMargin: null,
+            spaceBtwEntries: null,
+        },
+        layout: {
+            direction: null,
+            columns: null,
+            contentArrangement: [],
+        },
+
+        colors: {
+            basic: false,
+            advanced: false,
+            border: false,
+            accent: false,
+            accentColorValue: null,
+            multicolor: false,
+            multiColorValue: null,
+            applyAccentColorTo: {},
+        },
+        font: {
+            family: null,
+        },
+    },
 };
 
 export const resume = createSlice({
@@ -374,6 +406,34 @@ export const resume = createSlice({
         resetPrevObj: (state) => {
             state.prevObj = initialState.prevObj;
         },
+
+        // CUSTOMIZATION
+        updateCustomization: (state, action) => {
+            const { key, value } = action;
+
+            switch (key) {
+                case "spacing":
+                    state.customization.spacing = _setSpacing(value, state.customization.spacing);
+                    break;
+
+                case "layout":
+                    state.customization.layout = _setLayout(value, state.customization.layout);
+                    break;
+
+                case "colors":
+                case "color":
+                    state.customization.colors = _setColors(value, state.customization.layout);
+                    break;
+
+                case "font":
+                case "fonts":
+                    state.customization.font = _setFont(value, state.customization.font);
+                    break;
+
+                default:
+                    break;
+            }
+        },
     },
 });
 
@@ -417,5 +477,6 @@ export const {
     resetCertificates,
     updateCertificates,
     removeCertificate,
+    updateCustomization,
 } = resume.actions;
 export default resume.reducer;

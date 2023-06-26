@@ -24,7 +24,7 @@ import {
     updateProject,
     updateSkills,
 } from "@redux/resume/features";
-import { AVAILABLE_COMPONENTS, LINKS, NULL_VALUE } from "./Constants";
+import { AVAILABLE_COMPONENTS, LINKS, NULL_VALUE, TEMPLATE_BOOLEAN_KEYS } from "./Constants";
 
 export const _getYears = () => {
     const year = new Date().getFullYear();
@@ -72,7 +72,7 @@ export const _getCamelCaseString = (str = "") => {
 
 export const _getValue = (obj1 = {}, obj2 = {}, key = "") => {
     // FOR BOOLEAN VALUES
-    if (["dontshow", "onlyyear", "presentyear"].includes(key)) {
+    if (TEMPLATE_BOOLEAN_KEYS.includes(key) && [true, "true", false, "false"].includes(obj1[key])) {
         return obj1[key];
     }
 

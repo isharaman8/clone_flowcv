@@ -152,3 +152,40 @@ export const _createOrUpdateCertificates = (payload = {}, oldData = {}) => {
         link: _getValue(payload, oldData, "link"),
     };
 };
+
+export const _setSpacing = (payload = {}, oldData = {}) => {
+    return {
+        fontSize: _getValue(payload, oldData, "fontSize"),
+        lineHeight: _getValue(payload, oldData, "lineHeight"),
+        lRMargin: _getValue(payload, oldData, "lRMargin"),
+        tBMargin: _getValue(payload, oldData, "tBMargin"),
+        spaceBtwEntries: _getValue(payload, oldData, "spaceBtwEntries"),
+    };
+};
+
+export const _setLayout = (payload = {}, oldData = {}) => {
+    return {
+        direction: _getValue(payload, oldData, "direction"),
+        columns: _getValue(payload, oldData, "columns"),
+        contentArrangement: _getValue(payload, oldData, "contentArrangement"),
+    };
+};
+
+export const _setColors = (payload = {}, oldData = {}) => {
+    return {
+        basic: _getParsedBoolean(_getValue(payload, oldData, "direction")),
+        advanced: _getParsedBoolean(_getValue(payload, oldData, "direction")),
+        border: _getParsedBoolean(_getValue(payload, oldData, "direction")),
+        accent: _getParsedBoolean(_getValue(payload, oldData, "direction")),
+        accentColorValue: _getValue(payload, oldData, "direction"),
+        multicolor: _getParsedBoolean(_getValue(payload, oldData, "direction")),
+        multiColorValue: _getValue(payload, oldData, "direction"),
+        applyAccentColorTo: _getValue(payload, oldData, "direction"),
+    };
+};
+
+export const _setFont = (payload = {}, oldData = {}) => {
+    return {
+        family: _getValue(payload, oldData, "family"),
+    };
+};
