@@ -53,7 +53,7 @@ const HeadersElement = ({ heading, setHeading }) => {
                     <div
                         key={c}
                         className={`border ${
-                            heading.style === i ? "border-blue-700 bg-blue-50" : "border-gray-300"
+                            heading.style === i ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         } rounded-md w-[8rem] h-[2.4rem] p-2 grid place-content-center cursor-pointer hover:opacity-80`}
                         onClick={() => setHeading({ ...heading, style: i })}
                     >
@@ -84,7 +84,7 @@ const Heading = () => {
                 <div className="flex gap-2">
                     <div
                         className={`py-2 px-[4rem] text-sm border  ${
-                            heading.textTransform === "Capitalize" ? "border-blue-700 bg-blue-50" : "border-gray-300"
+                            heading.textTransform === "Capitalize" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                         onClick={() => setHeading({ ...heading, textTransform: "Capitalize" })}
                     >
@@ -92,7 +92,7 @@ const Heading = () => {
                     </div>
                     <div
                         className={`py-2 px-[4rem] text-sm border ${
-                            heading.textTransform === "Uppercase" ? "border-blue-700 bg-blue-50" : "border-gray-300"
+                            heading.textTransform === "Uppercase" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                         onClick={() => setHeading({ ...heading, textTransform: "Uppercase" })}
                     >
@@ -105,7 +105,7 @@ const Heading = () => {
                 <div className="flex gap-4">
                     <div
                         className={`h-[2.4rem] w-[2.4rem] grid place-content-center text-sm border ${
-                            heading.size === "S" ? "border-blue-700 bg-blue-50" : "border-gray-300"
+                            heading.size === "S" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                         onClick={() => setHeading({ ...heading, size: "S" })}
                     >
@@ -113,7 +113,7 @@ const Heading = () => {
                     </div>
                     <div
                         className={`h-[2.4rem] w-[2.4rem] grid place-content-center text-sm border ${
-                            heading.size === "M" ? "border-blue-700 bg-blue-50" : "border-gray-300"
+                            heading.size === "M" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                         onClick={() => setHeading({ ...heading, size: "M" })}
                     >
@@ -121,7 +121,7 @@ const Heading = () => {
                     </div>
                     <div
                         className={`h-[2.4rem] w-[2.4rem] grid place-content-center text-sm border ${
-                            heading.size === "L" ? "border-blue-700 bg-blue-50" : "border-gray-300"
+                            heading.size === "L" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                         onClick={() => setHeading({ ...heading, size: "L" })}
                     >
@@ -129,7 +129,7 @@ const Heading = () => {
                     </div>
                     <div
                         className={`h-[2.4rem] w-[2.4rem] grid place-content-center text-sm border ${
-                            heading.size === "XL" ? "border-blue-700 bg-blue-50" : "border-gray-300"
+                            heading.size === "XL" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                         onClick={() => setHeading({ ...heading, size: "XL" })}
                     >
@@ -142,7 +142,7 @@ const Heading = () => {
                 <div className="flex gap-4">
                     <div
                         className={`py-2 px-[4rem] text-sm border ${
-                            !heading.icons ? "border-blue-700 bg-blue-50" : "border-gray-300"
+                            !heading.icons ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                         onClick={() => setHeading({ ...heading, icons: false })}
                     >
@@ -150,7 +150,7 @@ const Heading = () => {
                     </div>
                     <div
                         className={`py-2 px-[4rem] text-sm border ${
-                            heading.icons ? "border-blue-700 bg-blue-50" : "border-gray-300"
+                            heading.icons ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                         onClick={() => setHeading({ ...heading, icons: true })}
                     >
