@@ -27,6 +27,7 @@ const initialState = {
         phone: null,
         address: null,
         links: {},
+        image: {},
     },
     editObj: {
         professionalExperience: null,

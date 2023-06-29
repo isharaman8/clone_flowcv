@@ -10,7 +10,7 @@ const Name = () => {
     });
     return (
         <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">
-            <h1 className="text-xl font-bold mb-5">Header</h1>
+            <h1 className="text-xl font-bold mb-5">Name</h1>
             <div>
                 <p className="font-semibold text-sm">Size</p>
                 <div className="flex gap-4">
