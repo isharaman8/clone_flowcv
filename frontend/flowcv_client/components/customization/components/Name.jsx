@@ -1,13 +1,29 @@
+import { useAppSelector } from "@redux/hooks";
+import { updateCustomization } from "@redux/resume/features";
 import { CREATIVE_FONTS } from "@utils/Constants";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Name = () => {
+    const { name: storeName } = useAppSelector((state) => state.persistedReducer.resume.customization);
+
+    const dispatch = useDispatch();
+
     const [name, setName] = useState({
-        size: "",
-        bold: false,
-        creativeFont: false,
-        fontFamily: "",
+        size: storeName.size || "",
+        bold: storeName.bold || false,
+        creativeFont: storeName.creativeFont || false,
+        fontFamily: storeName.fontFamily || "",
     });
+
+    const handleCustomization = () => {
+        dispatch(updateCustomization({ key: "name", value: name }));
+    };
+
+    useEffect(() => {
+        handleCustomization();
+    }, [name]);
+
     return (
         <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">
             <h1 className="text-xl font-bold mb-5">Name</h1>

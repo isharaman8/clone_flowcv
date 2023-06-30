@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import { useAppSelector } from "@redux/hooks";
+import { updateCustomization } from "@redux/resume/features";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Skills = () => {
+    const { skills: storeSkills } = useAppSelector((state) => state.persistedReducer.resume.customization);
+
+    const dispatch = useDispatch();
+
     const [skills, setSkills] = useState({
-        type: "",
-        level: "",
-        separator: "",
+        type: storeSkills.type || "",
+        level: storeSkills.level || "",
+        separator: storeSkills.separator || "",
     });
+
+    const handleCustomization = () => {
+        dispatch(updateCustomization({ key: "skills", value: skills }));
+    };
+
+    useEffect(() => {
+        handleCustomization();
+    }, [skills]);
 
     if (!skills.type) {
         return (

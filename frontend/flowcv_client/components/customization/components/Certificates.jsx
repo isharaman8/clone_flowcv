@@ -1,10 +1,25 @@
-import React, { useState } from "react";
+import { useAppSelector } from "@redux/hooks";
+import { updateCustomization } from "@redux/resume/features";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Certificate = () => {
+    const { certificate: storeCertificate } = useAppSelector((state) => state.persistedReducer.resume.customization);
+
+    const dispatch = useDispatch();
+
     const [certificate, setCertificate] = useState({
-        type: "",
-        separator: "",
+        type: storeCertificate.type || "",
+        separator: storeCertificate.separator || "",
     });
+
+    const handleCustomization = () => {
+        dispatch(updateCustomization({ key: "certificate", value: certificate }));
+    };
+
+    useEffect(() => {
+        handleCustomization();
+    }, [certificate]);
 
     if (!certificate.type) {
         return (

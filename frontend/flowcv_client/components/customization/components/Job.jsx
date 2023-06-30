@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import { useAppSelector } from "@redux/hooks";
+import { updateCustomization } from "@redux/resume/features";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Job = () => {
+    const { job: storeJob } = useAppSelector((state) => state.persistedReducer.resume.customization);
+
+    const dispatch = useDispatch();
+
     const [job, setJob] = useState({
-        size: "",
-        position: "",
-        style: "",
+        size: storeJob.size || "",
+        position: storeJob.position || "",
+        style: storeJob.style || "",
     });
+
+    const handleCustomization = () => {
+        dispatch(updateCustomization({ key: "job", value: job }));
+    };
+
+    useEffect(() => {
+        handleCustomization();
+    }, [job]);
 
     if (!job.size) {
         return (

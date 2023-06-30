@@ -1,9 +1,24 @@
-import React, { useState } from "react";
+import { useAppSelector } from "@redux/hooks";
+import { updateCustomization } from "@redux/resume/features";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Education = () => {
+    const { education: storeEducation } = useAppSelector((state) => state.persistedReducer.resume.customization);
+
+    const dispatch = useDispatch();
+
     const [education, setEducation] = useState({
-        type: "",
+        type: storeEducation.type || "",
     });
+
+    const handleCustomization = () => {
+        dispatch(updateCustomization({ key: "education", value: education }));
+    };
+
+    useEffect(() => {
+        handleCustomization();
+    }, [education]);
 
     if (!education.type) {
         return (

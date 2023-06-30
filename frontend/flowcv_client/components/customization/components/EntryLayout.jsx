@@ -1,12 +1,28 @@
-import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+
+import { useAppSelector } from "@redux/hooks";
+import { updateCustomization } from "@redux/resume/features";
 
 const EntryLayout = () => {
+    const { entryLayout: storeEntryLayout } = useAppSelector((state) => state.persistedReducer.resume.customization);
+
+    const dispatch = useDispatch();
+
     const [entryLayout, setEntryLayout] = useState({
-        size: "",
-        subtitleStyle: "",
-        subtitlePlacement: "",
-        listStyle: "",
+        size: storeEntryLayout.size || "",
+        subtitleStyle: storeEntryLayout.subtitleStyle || "",
+        subtitlePlacement: storeEntryLayout.subtitlePlacement || "",
+        listStyle: storeEntryLayout.listStyle || "",
     });
+
+    const handleCustomization = () => {
+        dispatch(updateCustomization({ key: "entryLayout", value: entryLayout }));
+    };
+
+    useEffect(() => {
+        handleCustomization();
+    }, [entryLayout]);
 
     return (
         <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">

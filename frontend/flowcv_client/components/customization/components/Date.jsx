@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import { useAppSelector } from "@redux/hooks";
+import { updateCustomization } from "@redux/resume/features";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Date = () => {
+    const { date: storeDate } = useAppSelector((state) => state.persistedReducer.resume.customization);
+
+    const dispatch = useDispatch();
+
     const [date, setDate] = useState({
-        format: "",
-        month: "",
-        delimiter: "",
+        format: storeDate.format || "",
+        month: storeDate.month || "",
+        delimiter: storeDate.delimiter || "",
     });
+
+    const handleCustomization = () => {
+        dispatch(updateCustomization({ key: "date", value: date }));
+    };
+
+    useEffect(() => {
+        handleCustomization();
+    }, [date]);
 
     return (
         <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">

@@ -1,6 +1,9 @@
-import { PROFILE_ICONS } from "@utils/Constants";
-import React, { useState } from "react";
+import { useAppSelector } from "@redux/hooks";
+import { updateCustomization } from "@redux/resume/features";
+import { ICONS_OBJ, PROFILE_ICONS } from "@utils/Constants";
+import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
 
 const HeaderOne = ({ header, setHeader }) => {
     return (
@@ -61,22 +64,26 @@ const RearrangeSection = ({ sections, handleDragEnd }) => {
                     <Droppable droppableId="sections" direction="horizontal">
                         {(provided) => (
                             <div {...provided.droppableProps} ref={provided.innerRef} className="flex gap-3">
-                                {sections.map((section, index) => (
-                                    <Draggable key={section.id.toString()} draggableId={section.id.toString()} index={index}>
-                                        {(provided) => (
-                                            <div
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                                className="grid place-content-center bg-gray-100 rounded-xl my-3 gap-3 py-2 px-3 cursor-grab"
-                                            >
-                                                <h1 className="flex gap-3 items-center font-semibold text-sm">
-                                                    <span className="text-lg">{section.icon()}</span>
-                                                </h1>
-                                            </div>
-                                        )}
-                                    </Draggable>
-                                ))}
+                                {sections.map((section, index) => {
+                                    console.log("BIG SECTION", section);
+
+                                    return (
+                                        <Draggable key={section.id.toString()} draggableId={section.id.toString()} index={index}>
+                                            {(provided) => (
+                                                <div
+                                                    ref={provided.innerRef}
+                                                    {...provided.draggableProps}
+                                                    {...provided.dragHandleProps}
+                                                    className="grid place-content-center bg-gray-100 rounded-xl my-3 gap-3 py-2 px-3 cursor-grab"
+                                                >
+                                                    <h1 className="flex gap-3 items-center font-semibold text-sm">
+                                                        <span className="text-lg">{section.icon()}</span>
+                                                    </h1>
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    );
+                                })}
                                 {provided.placeholder}
                             </div>
                         )}
@@ -88,9 +95,13 @@ const RearrangeSection = ({ sections, handleDragEnd }) => {
 };
 
 const Header = () => {
+    const { header: storeHeader } = useAppSelector((state) => state.persistedReducer.resume.customization);
+
+    const dispatch = useDispatch();
+
     const [header, setHeader] = useState({
-        type: "",
-        details: "",
+        type: storeHeader.type || "",
+        details: storeHeader.details || "",
     });
     const [sections, setSections] = useState(PROFILE_ICONS);
 
@@ -103,6 +114,14 @@ const Header = () => {
 
         setSections(newSections);
     };
+
+    const handleCustomization = () => {
+        dispatch(updateCustomization({ key: "header", value: { ...header, sections } }));
+    };
+
+    useEffect(() => {
+        handleCustomization();
+    }, [header, sections]);
 
     return (
         <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">

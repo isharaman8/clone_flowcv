@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import { useAppSelector } from "@redux/hooks";
+import { updateCustomization } from "@redux/resume/features";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Language = () => {
+    const { language: storeLanguage } = useAppSelector((state) => state.persistedReducer.resume.customization);
+
+    const dispatch = useDispatch();
+
     const [language, setLanguage] = useState({
-        type: "",
-        level: "",
-        separator: "",
+        type: storeLanguage.type || "",
+        level: storeLanguage.level || "",
+        separator: storeLanguage.separator || "",
     });
+
+    const handleCustomization = () => {
+        dispatch(updateCustomization({ key: "language", value: language }));
+    };
+
+    useEffect(() => {
+        handleCustomization();
+    }, [language]);
 
     if (!language.type) {
         return (

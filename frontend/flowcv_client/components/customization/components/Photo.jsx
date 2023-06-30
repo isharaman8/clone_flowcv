@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import { useAppSelector } from "@redux/hooks";
+import { updateCustomization } from "@redux/resume/features";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Photo = () => {
+    const { photo: storePhoto } = useAppSelector((state) => state.persistedReducer.resume.customization);
+
+    const dispatch = useDispatch();
+
     const [photo, setPhoto] = useState({
-        size: "",
-        show: true,
-        grayscale: false,
+        size: storePhoto.size || "",
+        show: storePhoto.show || true,
+        grayscale: storePhoto.grayscale || false,
     });
+
+    const handleCustomization = () => {
+        dispatch(updateCustomization({ key: "photo", value: photo }));
+    };
+
+    useEffect(() => {
+        handleCustomization();
+    }, [photo]);
 
     if (!photo.size) {
         return (

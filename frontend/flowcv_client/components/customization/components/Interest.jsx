@@ -1,10 +1,25 @@
-import React, { useState } from "react";
+import { useAppSelector } from "@redux/hooks";
+import { updateCustomization } from "@redux/resume/features";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Interest = () => {
+    const { interest: storeInterest } = useAppSelector((state) => state.persistedReducer.resume.customization);
+
+    const dispatch = useDispatch();
+
     const [interest, setInterest] = useState({
-        type: "",
-        separator: "",
+        type: storeInterest.type || "",
+        separator: storeInterest.separator || "",
     });
+
+    const handleCustomization = () => {
+        dispatch(updateCustomization({ key: "interest", value: interest }));
+    };
+
+    useEffect(() => {
+        handleCustomization();
+    }, [interest]);
 
     if (!interest.type) {
         return (

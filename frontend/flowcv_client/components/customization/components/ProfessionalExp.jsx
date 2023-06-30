@@ -1,9 +1,24 @@
-import React, { useState } from "react";
+import { useAppSelector } from "@redux/hooks";
+import { updateCustomization } from "@redux/resume/features";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const ProfessionalExperience = () => {
+    const { professionalExperience: storeExperience } = useAppSelector((state) => state.persistedReducer.resume.customization);
+
+    const dispatch = useDispatch();
+
     const [experience, setExperience] = useState({
-        type: "",
+        type: storeExperience.type || "",
     });
+
+    const handleCustomization = () => {
+        dispatch(updateCustomization({ key: "experience", value: experience }));
+    };
+
+    useEffect(() => {
+        handleCustomization();
+    }, [experience]);
 
     if (!experience.type) {
         return (

@@ -526,8 +526,8 @@ export const resume = createSlice({
                     state.customization.footer = CustomizationHelpers.footer(value, state.customization.footer);
                     break;
 
-                case "data":
-                    state.customization.data = CustomizationHelpers.data(value, state.customization.data);
+                case "date":
+                    state.customization.date = CustomizationHelpers.date(value, state.customization.date);
                     break;
 
                 case "skills":

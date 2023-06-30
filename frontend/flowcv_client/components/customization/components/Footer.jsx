@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import { useAppSelector } from "@redux/hooks";
+import { updateCustomization } from "@redux/resume/features";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Footer = () => {
+    const { footer: storeFooter } = useAppSelector((state) => state.persistedReducer.resume.customization);
+
+    const dispatch = useDispatch();
+
     const [footer, setFooter] = useState({
-        page: false,
-        name: false,
-        email: false,
+        page: storeFooter.page || false,
+        name: storeFooter.name || false,
+        email: storeFooter.email || false,
     });
+
+    const handleCustomization = () => {
+        dispatch(updateCustomization({ key: "footer", value: footer }));
+    };
+
+    useEffect(() => {
+        handleCustomization();
+    }, [footer]);
 
     return (
         <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">
