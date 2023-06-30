@@ -128,7 +128,7 @@ const ColorsComponent = ({ selectedType, setSelectedType, selectedColor, setSele
             {selectedType === "accent" && (
                 <div className="flex gap-4 flex-wrap justify-center my-3 w-[30rem]">
                     {COLORS.map((c, i) => (
-                        <ColorPicker c={c} i={i} setSelectedColor={setSelectedColor} selectedColor={selectedColor} />
+                        <ColorPicker c={c} i={i} setSelectedColor={setSelectedColor} selectedColor={selectedColor} key={c} />
                     ))}
                 </div>
             )}

@@ -1,7 +1,9 @@
-import { FaFolderOpen, FaGraduationCap, FaGuitar, FaSuitcase } from "react-icons/fa";
+import { FaFolderOpen, FaGraduationCap, FaGuitar, FaSuitcase, FaLinkedinIn, FaPhoneAlt } from "react-icons/fa";
 import { GiEarthAmerica, GiSkills } from "react-icons/gi";
 import { GrCertificate } from "react-icons/gr";
 import { ImBooks } from "react-icons/im";
+import { BsGithub, BsGlobe, BsMedium, BsTwitter } from "react-icons/bs";
+import { MdEmail, MdLocationPin } from "react-icons/md";
 
 export const ADD_CONTENT = [
     {
@@ -57,6 +59,40 @@ export const ADD_CONTENT = [
 export const ICONS_OBJ = Object.freeze({
     ...ADD_CONTENT.reduce((acc, val) => ({ ...acc, [val.title]: val.icon }), {}),
 });
+export const PROFILE_ICONS = [
+    {
+        id: 1,
+        icon: MdEmail,
+    },
+    {
+        id: 2,
+        icon: FaPhoneAlt,
+    },
+    {
+        id: 3,
+        icon: MdLocationPin,
+    },
+    {
+        id: 4,
+        icon: BsGithub,
+    },
+    {
+        id: 5,
+        icon: BsGlobe,
+    },
+    {
+        id: 6,
+        icon: FaLinkedinIn,
+    },
+    {
+        id: 7,
+        icon: BsTwitter,
+    },
+    {
+        id: 8,
+        icon: BsMedium,
+    },
+];
 
 export const cardsData = [
     {
@@ -251,6 +287,20 @@ export const FONTS = {
     ],
     mono: ["Inconsolata", "Source Code Pro", "IBM Plex Mono", "Overpass Mono", "Space Mono", "Courier Prime"],
 };
+
+export const CREATIVE_FONTS = [
+    "Abril Fatface",
+    "Amatic SC",
+    "Bungee Shade",
+    "Caveat",
+    "Caveat Brush",
+    "Comfortaa",
+    "Elsie",
+    "Lobster",
+    "Pacifico",
+    "Parisienne",
+    "Vibur",
+];
 
 export const YEARS = Array.from({ length: new Date().getFullYear() - 1944 + 1 }, (_, i) => 1944 + i).reverse();
 

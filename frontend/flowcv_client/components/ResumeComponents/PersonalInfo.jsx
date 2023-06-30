@@ -1,10 +1,11 @@
 import { LINKS } from "@utils/Constants";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "./minicomponents/Link";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "@redux/hooks";
 import { addLinks, addOrUpdatePersonalInfo, resetPersonalInfo } from "@redux/resume/features";
 import { _getPersonalObjLinks } from "@utils/helpers";
+import { BsCameraFill } from "react-icons/bs";
 
 const PersonalInfo = () => {
     // VARIABLES
@@ -12,6 +13,7 @@ const PersonalInfo = () => {
 
     const [open, setOpen] = useState(false);
     const [linkArray, setLinkArray] = useState([]);
+    const fileInputRef = useRef();
 
     const dispatch = useDispatch();
 
@@ -33,6 +35,22 @@ const PersonalInfo = () => {
 
     const dispatchLinks = (payload = {}) => {
         dispatch(addLinks(payload));
+    };
+
+    const handleUpload = (e) => {
+        const file = e.target.files[0];
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const convertedPayload = {};
+        for (let [key, value] of formData) {
+            convertedPayload[key] = value;
+        }
+
+        console.log(convertedPayload["file"]);
+
+        dispatchPersonalInfo({ image: convertedPayload["file"] });
     };
 
     const handleSetLinks = (e = null, payload = {}) => {
@@ -212,6 +230,58 @@ const PersonalInfo = () => {
                                             />
                                         </div>
                                     </div>
+                                </div>
+                                <div className="order-1 mb-4  flex justify-center md:order-2  md:mb-0 md:pt-2">
+                                    <div className="w-30 relative cursor-pointer hover:opacity-80" onClick={() => fileInputRef.current.click()}>
+                                        <div
+                                            className="flex h-[8rem] w-[8rem] items-center justify-center overflow-hidden rounded-full bg-gray-100 hover:opacity-80"
+                                            role="button"
+                                        >
+                                            {Object.keys(personalInfoData.image).length ? (
+                                                <img
+                                                    src={URL.createObjectURL(personalInfoData.image)}
+                                                    alt="Selected"
+                                                    className="w-full h-full object-cover rounded-md"
+                                                />
+                                            ) : (
+                                                <BsCameraFill className="text-6xl text-white" />
+                                            )}
+                                        </div>
+                                        <div className="gradient from-brandPink to-brandRed absolute bottom-[-1px] right-[-1px] flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r text-white ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" className="w-4">
+                                                <path
+                                                    stroke="currentColor"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth="1.5"
+                                                    d="M6.704 1.627H4.523c-1.794 0-2.919 1.27-2.919 3.068v4.85c0 1.797 1.12 3.067 2.919 3.067H9.67c1.8 0 2.92-1.27 2.92-3.068v-2.35"
+                                                ></path>
+                                                <path
+                                                    stroke="currentColor"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth="1.5"
+                                                    d="M5.15 6.37l4.36-4.359a1.391 1.391 0 011.966 0l.71.71a1.39 1.39 0 010 1.967l-4.38 4.38c-.238.237-.56.37-.896.37H4.725l.054-2.204c.009-.324.141-.634.37-.864z"
+                                                    clipRule="evenodd"
+                                                ></path>
+                                                <path
+                                                    stroke="currentColor"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth="1.5"
+                                                    d="M8.847 2.685l2.663 2.663"
+                                                ></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="file"
+                                        name="file"
+                                        accept="image/png,image/jpeg,image/webp,image/tiff"
+                                        className="hidden"
+                                        ref={fileInputRef}
+                                        onChange={handleUpload}
+                                    />
                                 </div>
                             </div>
                         </div>
