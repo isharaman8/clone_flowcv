@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import { useAppSelector } from "@redux/hooks";
+import { updateCustomization } from "@redux/resume/features";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const HeadersElement = ({ heading, setHeading }) => {
     const HeaderOne = (i) => {
@@ -66,12 +69,24 @@ const HeadersElement = ({ heading, setHeading }) => {
 };
 
 const Heading = () => {
+    const { heading: storeHeading } = useAppSelector((state) => state.persistedReducer.resume.customization);
+
+    const dispatch = useDispatch();
+
     const [heading, setHeading] = useState({
-        style: "",
-        textTransform: "",
-        size: "",
-        icons: false,
+        size: storeHeading.size || "",
+        style: storeHeading.style || "",
+        icons: storeHeading.icons || false,
+        textTransform: storeHeading.textTransform || "",
     });
+
+    const handleCustomization = () => {
+        dispatch(updateCustomization({ key: "heading", value: heading }));
+    };
+
+    useEffect(() => {
+        handleCustomization();
+    }, [heading]);
 
     return (
         <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">

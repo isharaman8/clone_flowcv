@@ -1,6 +1,6 @@
 import { _getParsedBoolean, _getValue } from "@utils/helpers";
 
-export const _createOrUpdateProfessionalExperience = (payload = {}, oldData = {}) => {
+const _createOrUpdateProfessionalExperience = (payload = {}, oldData = {}) => {
     console.log("payload", payload);
     console.log("olddata", JSON.stringify(oldData));
 
@@ -23,18 +23,18 @@ export const _createOrUpdateProfessionalExperience = (payload = {}, oldData = {}
             onlyyear: _getParsedBoolean(_getValue(payload.endDate, oldData.endDate, "onlyyear") || false),
             presentyear: _getParsedBoolean(_getValue(payload.endDate, oldData.endDate, "presentyear") || false),
         },
-        link: _getValue(payload, oldData, "link"),
         id: _getValue(payload, oldData, "id"),
+        link: _getValue(payload, oldData, "link"),
         description: _getValue(payload, oldData, "description"),
         visible: payload.visible === false ? false : oldData.false ? false : true,
     };
 };
 
-export const _createOrUpdateEducation = (payload = {}, oldData = {}) => {
+const _createOrUpdateEducation = (payload = {}, oldData = {}) => {
     return {
+        city: _getValue(payload, oldData, "city"),
         school: _getValue(payload, oldData, "school"),
         degree: _getValue(payload, oldData, "degree"),
-        city: _getValue(payload, oldData, "city"),
         country: _getValue(payload, oldData, "country"),
         startDate: {
             year: _getValue(payload.startDate, oldData.startDate, "year"),
@@ -50,19 +50,19 @@ export const _createOrUpdateEducation = (payload = {}, oldData = {}) => {
             onlyyear: _getParsedBoolean(_getValue(payload.endDate, oldData.endDate, "onlyyear") || false),
             presentyear: _getParsedBoolean(_getValue(payload.endDate, oldData.endDate, "presentyear") || false),
         },
-        link: _getValue(payload, oldData, "link"),
         id: _getValue(payload, oldData, "id"),
+        link: _getValue(payload, oldData, "link"),
         description: _getValue(payload, oldData, "description"),
         visible: payload.visible === false ? false : oldData.false ? false : true,
     };
 };
 
-export const _createOrUpdateCourse = (payload = {}, oldData = {}) => {
+const _createOrUpdateCourse = (payload = {}, oldData = {}) => {
     return {
+        city: _getValue(payload, oldData, "city"),
+        country: _getValue(payload, oldData, "country"),
         courseTitle: _getValue(payload, oldData, "courseTitle"),
         institution: _getValue(payload, oldData, "institution"),
-        city: _getValue(payload, oldData, "city"),
-        country: _getValue(payload, oldData, "country"),
         startDate: {
             year: _getValue(payload.startDate, oldData.startDate, "year"),
             month: _getValue(payload.startDate, oldData.startDate, "month"),
@@ -77,39 +77,39 @@ export const _createOrUpdateCourse = (payload = {}, oldData = {}) => {
             onlyyear: _getParsedBoolean(_getValue(payload.endDate, oldData.endDate, "onlyyear") || false),
             presentyear: _getParsedBoolean(_getValue(payload.endDate, oldData.endDate, "presentyear") || false),
         },
-        link: _getValue(payload, oldData, "link"),
         id: _getValue(payload, oldData, "id"),
+        link: _getValue(payload, oldData, "link"),
         description: _getValue(payload, oldData, "description"),
         visible: payload.visible === false ? false : oldData.false ? false : true,
     };
 };
 
-export const _createOrUpdateSkills = (payload = {}, oldData = {}) => {
+const _createOrUpdateSkills = (payload = {}, oldData = {}) => {
     console.log("PREV SKILL", oldData.skill);
     console.log("PAYLOAD SKILL", payload.skill);
 
     console.log("GET VALUE", _getValue(payload, oldData, "skill"));
 
     return {
-        skill: _getValue(payload, oldData, "skill"),
-        description: _getValue(payload, oldData, "description"),
-        skillLevel: _getValue(payload, oldData, "skillLevel"),
         id: _getValue(payload, oldData, "id"),
+        skill: _getValue(payload, oldData, "skill"),
+        skillLevel: _getValue(payload, oldData, "skillLevel"),
+        description: _getValue(payload, oldData, "description"),
         visible: payload.visible === false ? false : oldData.false ? false : true,
     };
 };
 
-export const _createOrUpdateLanguages = (payload = {}, oldData = {}) => {
+const _createOrUpdateLanguages = (payload = {}, oldData = {}) => {
     return {
+        id: _getValue(payload, oldData, "id"),
         language: _getValue(payload, oldData, "language"),
         description: _getValue(payload, oldData, "description"),
         languageLevel: _getValue(payload, oldData, "languageLevel"),
-        id: _getValue(payload, oldData, "id"),
         visible: payload.visible === false ? false : oldData.false ? false : true,
     };
 };
 
-export const _createOrUpdateProject = (payload = {}, oldData = {}) => {
+const _createOrUpdateProject = (payload = {}, oldData = {}) => {
     return {
         startDate: {
             year: _getValue(payload.startDate, oldData.startDate, "year"),
@@ -125,48 +125,48 @@ export const _createOrUpdateProject = (payload = {}, oldData = {}) => {
             onlyyear: _getParsedBoolean(_getValue(payload.endDate, oldData.endDate, "onlyyear") || false),
             presentyear: _getParsedBoolean(_getValue(payload.endDate, oldData.endDate, "presentyear") || false),
         },
-        subTitle: _getValue(payload, oldData, "subTitle"),
-        title: _getValue(payload, oldData, "title"),
-        description: _getValue(payload, oldData, "description"),
         id: _getValue(payload, oldData, "id"),
-        visible: payload.visible === false ? false : oldData.false ? false : true,
+        title: _getValue(payload, oldData, "title"),
+        subTitle: _getValue(payload, oldData, "subTitle"),
+        description: _getValue(payload, oldData, "description"),
         projectTitle: _getValue(payload, oldData, "projectTitle"),
+        visible: payload.visible === false ? false : oldData.false ? false : true,
     };
 };
 
-export const _createOrUpdateInterest = (payload = {}, oldData = {}) => {
+const _createOrUpdateInterest = (payload = {}, oldData = {}) => {
     return {
+        id: _getValue(payload, oldData, "id"),
         interest: _getValue(payload, oldData, "interest"),
         description: _getValue(payload, oldData, "description"),
-        id: _getValue(payload, oldData, "id"),
         visible: payload.visible === false ? false : oldData.false ? false : true,
     };
 };
 
-export const _createOrUpdateCertificates = (payload = {}, oldData = {}) => {
+const _createOrUpdateCertificates = (payload = {}, oldData = {}) => {
     return {
+        id: _getValue(payload, oldData, "id"),
+        link: _getValue(payload, oldData, "link"),
         certificate: _getValue(payload, oldData, "certificate"),
         description: _getValue(payload, oldData, "description"),
-        id: _getValue(payload, oldData, "id"),
         visible: payload.visible === false ? false : oldData.false ? false : true,
-        link: _getValue(payload, oldData, "link"),
     };
 };
 
-export const _setSpacing = (payload = {}, oldData = {}) => {
+const _setSpacing = (payload = {}, oldData = {}) => {
     return {
         fontSize: _getValue(payload, oldData, "fontSize"),
-        lineHeight: _getValue(payload, oldData, "lineHeight"),
         lRMargin: _getValue(payload, oldData, "lRMargin"),
         tBMargin: _getValue(payload, oldData, "tBMargin"),
+        lineHeight: _getValue(payload, oldData, "lineHeight"),
         spaceBtwEntries: _getValue(payload, oldData, "spaceBtwEntries"),
     };
 };
 
-export const _setLayout = (payload = {}, oldData = {}) => {
+const _setLayout = (payload = {}, oldData = {}) => {
     return {
-        direction: _getValue(payload, oldData, "direction"),
         columns: _getValue(payload, oldData, "columns"),
+        direction: _getValue(payload, oldData, "direction"),
         contentArrangement: _getValue(payload, oldData, "contentArrangement"),
         columnWidth: {
             left: _getValue(payload.columnWidth, oldData.columnWidth, "left"),
@@ -175,22 +175,163 @@ export const _setLayout = (payload = {}, oldData = {}) => {
     };
 };
 
-export const _setColors = (payload = {}, oldData = {}) => {
+const _setColors = (payload = {}, oldData = {}) => {
     return {
         basic: _getParsedBoolean(_getValue(payload, oldData, "basic")),
-        advanced: _getParsedBoolean(_getValue(payload, oldData, "advanced")),
+        multiColorValue: _getValue(payload, oldData, "multiColorValue"),
         border: _getParsedBoolean(_getValue(payload, oldData, "border")),
         accent: _getParsedBoolean(_getValue(payload, oldData, "accent")),
         accentColorValue: _getValue(payload, oldData, "accentColorValue"),
-        multicolor: _getParsedBoolean(_getValue(payload, oldData, "multicolor")),
-        multiColorValue: _getValue(payload, oldData, "multiColorValue"),
+        advanced: _getParsedBoolean(_getValue(payload, oldData, "advanced")),
         applyAccentColorTo: _getValue(payload, oldData, "applyAccentColorTo"),
+        multicolor: _getParsedBoolean(_getValue(payload, oldData, "multicolor")),
     };
 };
 
-export const _setFont = (payload = {}, oldData = {}) => {
+const _setFont = (payload = {}, oldData = {}) => {
     return {
-        family: _getValue(payload, oldData, "family"),
         font: _getValue(payload, oldData, "font"),
+        family: _getValue(payload, oldData, "family"),
     };
 };
+
+const _setHeading = (payload = {}, oldData = {}) => {
+    return {
+        size: _getValue(payload, oldData, "size"),
+        icons: _getValue(payload, oldData, "icons"),
+        style: _getValue(payload, oldData, "style"),
+        textTransform: _getValue(payload, oldData, "textTransform"),
+    };
+};
+
+const _setEntryLayout = (payload = {}, oldData = {}) => {
+    return {
+        size: _getValue(payload, oldData, "size"),
+        subtitlesStyle: _getValue(payload, oldData, "subtitlesStyle"),
+        subtitlePlacement: _getValue(payload, oldData, "subtitlePlacement"),
+        listStyle: _getValue(payload, oldData, "listStyle"),
+    };
+};
+
+const _setHeader = (payload = {}, oldData = {}) => {
+    return {
+        type: _getValue(payload, oldData, "type"),
+        details: _getValue(payload, oldData, "details"),
+        sections: _getValue(payload, oldData, "sections"),
+    };
+};
+
+const _setName = (payload = {}, oldData = {}) => {
+    return {
+        size: _getValue(payload, oldData, "size"),
+        bold: _getValue(payload, oldData, "bold"),
+        creativeFont: _getValue(payload, oldData, "creativeFont"),
+        fontFamily: _getValue(payload, oldData, "fontFamily"),
+    };
+};
+
+const _setJob = (payload = {}, oldData = {}) => {
+    return {
+        size: _getValue(payload, oldData, "size"),
+        style: _getValue(payload, oldData, "style"),
+        position: _getValue(payload, oldData, "position"),
+    };
+};
+
+const _setPhoto = (payload = {}, oldData = {}) => {
+    return {
+        size: _getValue(payload, oldData, "size"),
+        show: _getValue(payload, oldData, "show"),
+        grayscale: _getValue(payload, oldData, "grayscale"),
+    };
+};
+
+const _setFooter = (payload = {}, oldData = {}) => {
+    return {
+        page: _getValue(payload, oldData, "page"),
+        name: _getValue(payload, oldData, "name"),
+        email: _getValue(payload, oldData, "email"),
+    };
+};
+
+const _setDate = (payload = {}, oldData = {}) => {
+    return {
+        month: _getValue(payload, oldData, "month"),
+        format: _getValue(payload, oldData, "format"),
+        delimeter: _getValue(payload, oldData, "delimeter"),
+    };
+};
+
+const _setSkills = (payload = {}, oldData = {}) => {
+    return {
+        type: _getValue(payload, oldData, "type"),
+        level: _getValue(payload, oldData, "level"),
+        separator: _getValue(payload, oldData, "separator"),
+    };
+};
+
+const _setLanguage = (payload = {}, oldData = {}) => {
+    return {
+        type: _getValue(payload, oldData, "type"),
+        level: _getValue(payload, oldData, "level"),
+        separator: _getValue(payload, oldData, "separator"),
+    };
+};
+
+const _setInterest = (payload = {}, oldData = {}) => {
+    return {
+        type: _getValue(payload, oldData, "type"),
+        separator: _getValue(payload, oldData, "separator"),
+    };
+};
+
+const _setCertificate = (payload = {}, oldData = {}) => {
+    return {
+        type: _getValue(payload, oldData, "type"),
+        separator: _getValue(payload, oldData, "separator"),
+    };
+};
+
+const _setEducation = (payload = {}, oldData = {}) => {
+    return {
+        type: _getValue(payload, oldData, "type"),
+    };
+};
+
+const _setProfessionalExp = (payload = {}, oldData = {}) => {
+    return {
+        type: _getValue(payload, oldData, "type"),
+    };
+};
+
+export const CustomizationHelpers = Object.freeze({
+    spacing: _setSpacing,
+    layout: _setLayout,
+    colors: _setColors,
+    fonts: _setFont,
+    heading: _setHeading,
+    entryLayout: _setEntryLayout,
+    header: _setHeader,
+    name: _setName,
+    job: _setJob,
+    photo: _setPhoto,
+    footer: _setFooter,
+    date: _setDate,
+    skills: _setSkills,
+    language: _setLanguage,
+    interest: _setInterest,
+    certificate: _setCertificate,
+    education: _setEducation,
+    professionalExp: _setProfessionalExp,
+});
+
+export const ResumeData = Object.freeze({
+    professionalExp: _createOrUpdateProfessionalExperience,
+    skills: _createOrUpdateSkills,
+    languages: _createOrUpdateLanguages,
+    projects: _createOrUpdateProject,
+    certificates: _createOrUpdateCertificates,
+    interests: _createOrUpdateInterest,
+    education: _createOrUpdateEducation,
+    courses: _createOrUpdateCourse,
+});

@@ -1,22 +1,9 @@
 // third party imports
-import _, { add } from "lodash";
+import _ from "lodash";
 
 // inner imports
 import { createSlice } from "@reduxjs/toolkit";
-import {
-    _createOrUpdateCertificates,
-    _createOrUpdateCourse,
-    _createOrUpdateEducation,
-    _createOrUpdateInterest,
-    _createOrUpdateLanguages,
-    _createOrUpdateProfessionalExperience,
-    _createOrUpdateProject,
-    _createOrUpdateSkills,
-    _setColors,
-    _setFont,
-    _setLayout,
-    _setSpacing,
-} from "./helper";
+import { ResumeData, CustomizationHelpers } from "./helper";
 import { _getCamelCaseString } from "@utils/helpers";
 
 const initialState = {
@@ -89,6 +76,73 @@ const initialState = {
             family: null,
             font: null,
         },
+        heading: {
+            style: null,
+            textTransform: null,
+            size: null,
+            icons: null,
+        },
+        entryLayout: {
+            size: null,
+            subtitleStyle: null,
+            subtitlePlacement: null,
+            listStyle: null,
+        },
+        header: {
+            type: null,
+            details: null,
+            sections: [],
+        },
+        name: {
+            size: null,
+            bold: null,
+            creativeFont: null,
+            fontFamily: null,
+        },
+        job: {
+            size: null,
+            position: null,
+            style: null,
+        },
+        photo: {
+            size: null,
+            show: null,
+            grayscale: null,
+        },
+        footer: {
+            page: null,
+            name: null,
+            email: null,
+        },
+        date: {
+            format: null,
+            month: null,
+            delimeter: null,
+        },
+        skills: {
+            type: null,
+            level: null,
+            separator: null,
+        },
+        language: {
+            type: null,
+            level: null,
+            separator: null,
+        },
+        interest: {
+            type: null,
+            separator: null,
+        },
+        certificate: {
+            type: null,
+            separator: null,
+        },
+        education: {
+            type: null,
+        },
+        professionalExperience: {
+            type: null,
+        },
     },
 };
 
@@ -114,7 +168,7 @@ export const resume = createSlice({
         addProfessionalExperience: (state, action) => {
             console.log("ADD PAYLOAD", action.payload);
 
-            state.professionalExperience.push(_createOrUpdateProfessionalExperience(action.payload));
+            state.professionalExperience.push(ResumeData.professionalExp(action.payload));
 
             console.log("ADDED STATE", JSON.stringify(state.professionalExperience));
         },
@@ -135,10 +189,7 @@ export const resume = createSlice({
                 return;
             }
 
-            const updatedProfessionalExp = _createOrUpdateProfessionalExperience(
-                action.payload,
-                state.professionalExperience[requiredProfessionalExpIdx]
-            );
+            const updatedProfessionalExp = ResumeData.professionalExp(action.payload, state.professionalExperience[requiredProfessionalExpIdx]);
 
             state.professionalExperience = _.cloneDeep([
                 ...state.professionalExperience.slice(0, requiredProfessionalExpIdx),
@@ -150,7 +201,7 @@ export const resume = createSlice({
         },
         // SKILLS
         addSkills: (state, action) => {
-            state.skills.push(_createOrUpdateSkills(action.payload));
+            state.skills.push(ResumeData.skills(action.payload));
 
             console.log("ADDED SKILLS", JSON.stringify(state.skills));
         },
@@ -171,7 +222,7 @@ export const resume = createSlice({
                 return;
             }
 
-            const updatedSkills = _createOrUpdateSkills(action.payload, state.skills[requiredSkillsIdx]);
+            const updatedSkills = ResumeData.skills(action.payload, state.skills[requiredSkillsIdx]);
 
             state.skills[requiredSkillsIdx] = updatedSkills;
 
@@ -179,7 +230,7 @@ export const resume = createSlice({
         },
         // LANGUAGES
         addLanguages: (state, action) => {
-            state.languages.push(_createOrUpdateLanguages(action.payload));
+            state.languages.push(ResumeData.languages(action.payload));
         },
         removeLanguage: (state, action) => {
             state.languages = _.cloneDeep(state.languages.filter((c) => c.id !== action.payload.id));
@@ -194,7 +245,7 @@ export const resume = createSlice({
                 return;
             }
 
-            const updatedLanguage = _createOrUpdateLanguages(action.payload, state.languages[requiredLanguageIdx]);
+            const updatedLanguage = ResumeData.languages(action.payload, state.languages[requiredLanguageIdx]);
 
             state.languages = _.cloneDeep([
                 ...state.languages.slice(0, requiredLanguageIdx),
@@ -204,7 +255,7 @@ export const resume = createSlice({
         },
         // CERTIFICATES
         addCertificates: (state, action) => {
-            state.certificates.push(_createOrUpdateCertificates(action.payload));
+            state.certificates.push(ResumeData.certificates(action.payload));
         },
         removeCertificate: (state, action) => {
             state.certificates = _.cloneDeep(state.certificates.filter((c) => c.id !== action.payload.id));
@@ -219,7 +270,7 @@ export const resume = createSlice({
                 return;
             }
 
-            const updatedCertificate = _createOrUpdateCertificates(action.payload, state.certificates[requiredCertificateIdx]);
+            const updatedCertificate = ResumeData.certificates(action.payload, state.certificates[requiredCertificateIdx]);
 
             state.certificates = _.cloneDeep([
                 ...state.certificates.slice(0, requiredCertificateIdx),
@@ -231,7 +282,7 @@ export const resume = createSlice({
         addProjects: (state, action) => {
             console.log("ADDED PROJECT PAYLOAD", action.payload);
 
-            state.projects.push(_createOrUpdateProject(action.payload));
+            state.projects.push(ResumeData.projects(action.payload));
 
             console.log("UPDATED ADD PROJECT", JSON.stringify(state.projects));
         },
@@ -250,7 +301,7 @@ export const resume = createSlice({
                 return;
             }
 
-            const updatedProject = _createOrUpdateProject(action.payload, state.projects[requiredProjectIdx]);
+            const updatedProject = ResumeData.projects(action.payload, state.projects[requiredProjectIdx]);
 
             state.projects = _.cloneDeep([
                 ...state.projects.slice(0, requiredProjectIdx),
@@ -262,7 +313,7 @@ export const resume = createSlice({
         },
         // INTEREST
         addInterest: (state, action) => {
-            state.interests.push(_createOrUpdateInterest(action.payload));
+            state.interests.push(ResumeData.interests(action.payload));
         },
         removeInterest: (state, action) => {
             state.interests = _.cloneDeep(state.interests.filter((c) => c.id !== action.payload.id));
@@ -277,7 +328,7 @@ export const resume = createSlice({
                 return;
             }
 
-            const updatedInterest = _createOrUpdateInterest(action.payload, state.interests[requiredInterestIdx]);
+            const updatedInterest = ResumeData.interests(action.payload, state.interests[requiredInterestIdx]);
 
             state.interests = _.cloneDeep([
                 ...state.interests.slice(0, requiredInterestIdx),
@@ -289,7 +340,7 @@ export const resume = createSlice({
         addEducation: (state, action) => {
             console.log("EDUCATION PAYLOAD", action.payload);
 
-            state.education.push(_createOrUpdateEducation(action.payload));
+            state.education.push(ResumeData.education(action.payload));
 
             console.log("UPDATED ADD EDU", JSON.stringify(state.education));
         },
@@ -310,7 +361,7 @@ export const resume = createSlice({
                 return;
             }
 
-            const updatedEducation = _createOrUpdateEducation(action.payload, state.education[requiredEducationIdx]);
+            const updatedEducation = ResumeData.education(action.payload, state.education[requiredEducationIdx]);
 
             console.log("UPDATED UPDATE EDU", JSON.stringify(state.education));
 
@@ -322,7 +373,7 @@ export const resume = createSlice({
         },
         // COURSE
         addCourse: (state, action) => {
-            state.courses.push(_createOrUpdateCourse(action.payload));
+            state.courses.push(ResumeData.courses(action.payload));
         },
         removeCourse: (state, action) => {
             state.courses = _.cloneDeep(state.courses.filter((c) => c.id !== action.payload.id));
@@ -337,7 +388,7 @@ export const resume = createSlice({
                 return;
             }
 
-            const updatedCourse = _createOrUpdateCourse(action.payload, state.courses[requiredCourseIdx]);
+            const updatedCourse = ResumeData.courses(action.payload, state.courses[requiredCourseIdx]);
 
             state.courses = _.cloneDeep([...state.courses.slice(0, requiredCourseIdx), updatedCourse, ...state.courses.slice(requiredCourseIdx + 1)]);
         },
@@ -355,28 +406,28 @@ export const resume = createSlice({
             switch (_getCamelCaseString(key)) {
                 case "professionalExperience":
                 case "professionalexperience":
-                    addOrUpdateFunc = _createOrUpdateProfessionalExperience;
+                    addOrUpdateFunc = ResumeData.professionalExp;
                     break;
                 case "skills":
-                    addOrUpdateFunc = _createOrUpdateSkills;
+                    addOrUpdateFunc = ResumeData.skills;
                     break;
                 case "languages":
-                    addOrUpdateFunc = _createOrUpdateLanguages;
+                    addOrUpdateFunc = ResumeData.languages;
                     break;
                 case "projects":
-                    addOrUpdateFunc = _createOrUpdateProject;
+                    addOrUpdateFunc = ResumeData.projects;
                     break;
                 case "interests":
-                    addOrUpdateFunc = _createOrUpdateInterest;
+                    addOrUpdateFunc = ResumeData.interests;
                     break;
                 case "education":
-                    addOrUpdateFunc = _createOrUpdateEducation;
+                    addOrUpdateFunc = ResumeData.education;
                     break;
                 case "courses":
-                    addOrUpdateFunc = _createOrUpdateCourse;
+                    addOrUpdateFunc = ResumeData.courses;
                     break;
                 case "certificates":
-                    addOrUpdateFunc = _createOrUpdateCertificates;
+                    addOrUpdateFunc = ResumeData.certificates;
                     break;
                 default:
                     break;
@@ -427,24 +478,83 @@ export const resume = createSlice({
                 case "spacing":
                     console.log("SPACING PAYLOAD", value);
 
-                    state.customization.spacing = _setSpacing(value, state.customization.spacing);
+                    state.customization.spacing = CustomizationHelpers.spacing(value, state.customization.spacing);
                     break;
 
                 case "layout":
-                    state.customization.layout = _setLayout(value, state.customization.layout);
+                    state.customization.layout = CustomizationHelpers.layout(value, state.customization.layout);
 
                     console.log("UPDATED LAYOUT", JSON.stringify(state.customization.layout));
                     break;
 
                 case "colors":
                 case "color":
-                    state.customization.colors = _setColors(value, state.customization.layout);
+                    state.customization.colors = CustomizationHelpers.colors(value, state.customization.layout);
 
                     break;
 
                 case "font":
                 case "fonts":
-                    state.customization.font = _setFont(value, state.customization.font);
+                    state.customization.font = CustomizationHelpers.fonts(value, state.customization.font);
+                    break;
+
+                case "heading":
+                    state.customization.heading = CustomizationHelpers.heading(value, state.customization.heading);
+                    break;
+
+                case "entryLayout":
+                    state.customization.entryLayout = CustomizationHelpers.entryLayout(value, state.customization.entryLayout);
+                    break;
+
+                case "header":
+                    state.customization.header = CustomizationHelpers.header(value, state.customization.header);
+                    break;
+
+                case "name":
+                    state.customization.name = CustomizationHelpers.name(value, state.customization.name);
+                    break;
+
+                case "job":
+                    state.customization.job = CustomizationHelpers.job(value, state.customization.job);
+                    break;
+
+                case "photo":
+                    state.customization.photo = CustomizationHelpers.photo(value, state.customization.photo);
+                    break;
+
+                case "footer":
+                    state.customization.footer = CustomizationHelpers.footer(value, state.customization.footer);
+                    break;
+
+                case "data":
+                    state.customization.data = CustomizationHelpers.data(value, state.customization.data);
+                    break;
+
+                case "skills":
+                    state.customization.skills = CustomizationHelpers.skills(value, state.customization.skills);
+                    break;
+
+                case "language":
+                    state.customization.language = CustomizationHelpers.language(value, state.customization.language);
+                    break;
+
+                case "interest":
+                    state.customization.interest = CustomizationHelpers.interest(value, state.customization.interest);
+                    break;
+
+                case "certificate":
+                    state.customization.certificate = CustomizationHelpers.certificate(value, state.customization.certificate);
+                    break;
+
+                case "education":
+                    state.customization.education = CustomizationHelpers.education(value, state.customization.education);
+                    break;
+
+                case "professionalExperience":
+                    state.customization.professionalExperience = CustomizationHelpers.professionalExp(
+                        value,
+                        state.customization.professionalExperience
+                    );
                     break;
 
                 default:
