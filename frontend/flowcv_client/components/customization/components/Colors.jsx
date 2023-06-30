@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { COLORS } from "@utils/Constants";
 import { FiCheck } from "react-icons/fi";
 import { SlBan } from "react-icons/sl";
+import { useAppSelector } from "@redux/hooks";
+import { useDispatch } from "react-redux";
+import { updateCustomization } from "@redux/resume/features";
 
 const ColorsElement = ({ style, title, selectedColors, setSelectedColors }) => {
     return (
@@ -152,6 +155,62 @@ const ColorsComponent = ({ selectedType, setSelectedType, selectedColor, setSele
 };
 
 const Colors = () => {
+    const { customization } = useAppSelector((state) => state.persistedReducer.resume);
+
+    const { colors } = customization;
+
+    const dispatch = useDispatch();
+
+    const handleCustomization = (payload = {}) => {
+        console.log("COLORS PAYLOAD", payload);
+
+        dispatch(updateCustomization({ key: "colors", value: { ...colors, ...payload } }));
+    };
+
+    const handleColorsCustomization = (title = "") => {
+        const colorPayload = {
+            basic: false,
+            advanced: false,
+            border: false,
+        };
+
+        switch (title.toLowerCase()) {
+            case "basic":
+                colorPayload.basic = true;
+                break;
+            case "advanced":
+                colorPayload.advanced = true;
+                break;
+            case "border":
+                colorPayload.border = true;
+                break;
+            default:
+                break;
+        }
+
+        handleCustomization(colorPayload);
+    };
+
+    const handleColorType = (title = "") => {
+        const typePayload = {
+            accent: false,
+            multicolor: false,
+        };
+
+        switch (title.toLowerCase()) {
+            case "accent":
+                typePayload.accent = true;
+                break;
+            case "multicolor":
+                typePayload.multicolor = true;
+                break;
+            default:
+                break;
+        }
+
+        handleCustomization(typePayload);
+    };
+
     const [selectedColors, setSelectedColors] = useState("Basic");
     const [selectedType, setSelectedType] = useState("accent");
     const [selectedColor, setSelectedColor] = useState({
@@ -160,11 +219,36 @@ const Colors = () => {
     });
 
     useEffect(() => {
+        const title = selectedType.toLowerCase();
+
+        handleColorType(title);
+
         setSelectedColor({
             accent: selectedType === "accent" ? "#111" : "#cbcbcb",
             multicolor: selectedType === "multicolor" ? "#111" : "#cbcbcb",
         });
-    }, [selectedType]);
+
+        const payload = {
+            accent: selectedType === "accent",
+            multicolor: selectedType === "multicolor",
+        };
+
+        if (payload.accent) {
+            payload.accentColorValue = selectedColor;
+        }
+
+        if (payload.multicolor) {
+            payload.multiColorValue = selectedColor;
+        }
+
+        handleCustomization(payload);
+    }, []);
+
+    useEffect(() => {
+        const color = colors.basic ? "Basic" : colors.advanced ? "Advanced" : colors.border ? "Border" : "Basic";
+
+        setSelectedColors(color);
+    }, []);
 
     return (
         <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">
@@ -177,7 +261,7 @@ const Colors = () => {
                         backgroundColor: `${selectedColors === "Basic" ? "#4b55dc46" : "#fff"}`,
                     }}
                     title={"Basic"}
-                    setSelectedColors={setSelectedColors}
+                    setSelectedColors={handleColorsCustomization}
                     selectedColors={selectedColors}
                 />
                 <ColorsElement
@@ -188,7 +272,7 @@ const Colors = () => {
                         height: "50%",
                     }}
                     title={"Advanced"}
-                    setSelectedColors={setSelectedColors}
+                    setSelectedColors={handleColorsCustomization}
                     selectedColors={selectedColors}
                 />
                 <ColorsElement
@@ -196,7 +280,7 @@ const Colors = () => {
                         border: `${selectedColors === "Border" ? "14px solid #4B55DC" : "14px solid #cbcbcb"}`,
                     }}
                     title={"Border"}
-                    setSelectedColors={setSelectedColors}
+                    setSelectedColors={handleColorsCustomization}
                     selectedColors={selectedColors}
                 />
             </div>

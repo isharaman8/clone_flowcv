@@ -68,6 +68,10 @@ const initialState = {
             direction: null,
             columns: null,
             contentArrangement: [],
+            columnWidth: {
+                left: null,
+                right: null,
+            },
         },
 
         colors: {
@@ -344,10 +348,11 @@ export const resume = createSlice({
 
             let addOrUpdateFunc = null;
 
-            console.log("KEY", key);
+            console.log("KEY", _getCamelCaseString(key));
 
             switch (_getCamelCaseString(key)) {
                 case "professionalExperience":
+                case "professionalexperience":
                     addOrUpdateFunc = _createOrUpdateProfessionalExperience;
                     break;
                 case "skills":
@@ -379,6 +384,8 @@ export const resume = createSlice({
                 return;
             }
 
+            console.log("ADD OR UPDATE FUNC", addOrUpdateFunc);
+
             state.editObj[key] = addOrUpdateFunc(value || {}, state.editObj[key] || {});
 
             console.log("UPDATED STATE OBJ", JSON.stringify(state.editObj[key]));
@@ -409,7 +416,10 @@ export const resume = createSlice({
 
         // CUSTOMIZATION
         updateCustomization: (state, action) => {
-            const { key, value } = action;
+            const { key, value } = action.payload;
+
+            console.log("CUSTOMIZATION KEY", key);
+            console.log("CUSTOMIZATION VALUE", value);
 
             switch (key) {
                 case "spacing":
@@ -418,11 +428,14 @@ export const resume = createSlice({
 
                 case "layout":
                     state.customization.layout = _setLayout(value, state.customization.layout);
+
+                    console.log("UPDATED LAYOUT", JSON.stringify(state.customization.layout));
                     break;
 
                 case "colors":
                 case "color":
                     state.customization.colors = _setColors(value, state.customization.layout);
+
                     break;
 
                 case "font":

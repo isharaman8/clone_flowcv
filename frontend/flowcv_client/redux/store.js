@@ -21,4 +21,9 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
     devTools: process.env.NODE_ENV !== "production",
 });
+
+store.subscribe(() => {
+    console.log("STORE CHANGED", store.getState().persistedReducer.resume.customization.colors);
+});
+
 export const persistor = persistStore(store);

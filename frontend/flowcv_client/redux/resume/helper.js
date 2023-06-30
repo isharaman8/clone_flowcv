@@ -34,8 +34,8 @@ export const _createOrUpdateEducation = (payload = {}, oldData = {}) => {
     return {
         school: _getValue(payload, oldData, "school"),
         degree: _getValue(payload, oldData, "degree"),
-        city: payload.city || oldData.city || null,
-        country: payload.country || oldData.country || null,
+        city: _getValue(payload, oldData, "city"),
+        country: _getValue(payload, oldData, "country"),
         startDate: {
             year: _getValue(payload.startDate, oldData.startDate, "year"),
             month: _getValue(payload.startDate, oldData.startDate, "month"),
@@ -168,19 +168,23 @@ export const _setLayout = (payload = {}, oldData = {}) => {
         direction: _getValue(payload, oldData, "direction"),
         columns: _getValue(payload, oldData, "columns"),
         contentArrangement: _getValue(payload, oldData, "contentArrangement"),
+        columnWidth: {
+            left: _getValue(payload.columnWidth, oldData.columnWidth, "left"),
+            right: _getValue(payload.columnWidth, oldData.columnWidth, "right"),
+        },
     };
 };
 
 export const _setColors = (payload = {}, oldData = {}) => {
     return {
-        basic: _getParsedBoolean(_getValue(payload, oldData, "direction")),
-        advanced: _getParsedBoolean(_getValue(payload, oldData, "direction")),
-        border: _getParsedBoolean(_getValue(payload, oldData, "direction")),
-        accent: _getParsedBoolean(_getValue(payload, oldData, "direction")),
-        accentColorValue: _getValue(payload, oldData, "direction"),
-        multicolor: _getParsedBoolean(_getValue(payload, oldData, "direction")),
-        multiColorValue: _getValue(payload, oldData, "direction"),
-        applyAccentColorTo: _getValue(payload, oldData, "direction"),
+        basic: _getParsedBoolean(_getValue(payload, oldData, "basic")),
+        advanced: _getParsedBoolean(_getValue(payload, oldData, "advanced")),
+        border: _getParsedBoolean(_getValue(payload, oldData, "border")),
+        accent: _getParsedBoolean(_getValue(payload, oldData, "accent")),
+        accentColorValue: _getValue(payload, oldData, "accentColorValue"),
+        multicolor: _getParsedBoolean(_getValue(payload, oldData, "multicolor")),
+        multiColorValue: _getValue(payload, oldData, "multiColorValue"),
+        applyAccentColorTo: _getValue(payload, oldData, "applyAccentColorTo"),
     };
 };
 

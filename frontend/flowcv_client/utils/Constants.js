@@ -42,7 +42,7 @@ export const ADD_CONTENT = [
     },
     {
         id: 7,
-        title: "Project",
+        title: "Projects",
         description: "Worked on a particular challenging project in the past? Mention it here.",
         icon: FaFolderOpen,
     },
@@ -53,6 +53,10 @@ export const ADD_CONTENT = [
         icon: ImBooks,
     },
 ];
+
+export const ICONS_OBJ = Object.freeze({
+    ...ADD_CONTENT.reduce((acc, val) => ({ ...acc, [val.title]: val.icon }), {}),
+});
 
 export const cardsData = [
     {

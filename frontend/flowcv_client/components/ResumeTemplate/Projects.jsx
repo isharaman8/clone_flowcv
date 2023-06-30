@@ -32,6 +32,8 @@ const Projects = () => {
                                         {MONTHS[c.startDate?.month]}/{c.startDate?.year}
                                     </span>
                                 )}
+                                {c.startDate.onlyyear && <span>{c.startDate?.year}</span>}
+
                                 {!c.startDate.dontshow && " - "}
                                 {!c.endDate.dontshow && (
                                     <span>
@@ -42,6 +44,7 @@ const Projects = () => {
                                             : ` - present`}
                                     </span>
                                 )}
+                                {c.endDate.onlyyear && <span>{c.endDate?.year}</span>}
                             </div>
                         </div>
                     </div>

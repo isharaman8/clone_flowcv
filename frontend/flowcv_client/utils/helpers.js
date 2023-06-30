@@ -24,7 +24,7 @@ import {
     updateProject,
     updateSkills,
 } from "@redux/resume/features";
-import { AVAILABLE_COMPONENTS, LINKS, NULL_VALUE, TEMPLATE_BOOLEAN_KEYS } from "./Constants";
+import { ADD_CONTENT, AVAILABLE_COMPONENTS, LINKS, NULL_VALUE, TEMPLATE_BOOLEAN_KEYS } from "./Constants";
 
 export const _getYears = () => {
     const year = new Date().getFullYear();
@@ -75,6 +75,9 @@ export const _getValue = (obj1 = {}, obj2 = {}, key = "") => {
     if (TEMPLATE_BOOLEAN_KEYS.includes(key) && [true, "true", false, "false"].includes(obj1[key])) {
         return obj1[key];
     }
+
+    console.log("KEY: - ", key);
+    console.log("GET VALUE", obj1[key] === NULL_VALUE ? null : obj1[key] || obj2[key] || null);
 
     return obj1[key] === NULL_VALUE ? null : obj1[key] || obj2[key] || null;
 };
@@ -184,4 +187,40 @@ export const _getPersonalObjLinks = (linksObj = {}, handleFunc) => {
     }
 
     return retArr;
+};
+
+export const _getComponentsArrangement = (resume = {}) => {
+    const retArray = [];
+
+    if (resume.contentArrangement?.length) {
+        return resume.contentArrangement;
+    }
+
+    const compObj = {
+        professionalExperience: Boolean(resume.professionalExperience?.length),
+        skills: Boolean(resume.skills?.length),
+        languages: Boolean(resume.languages?.length),
+        projects: Boolean(resume.projects?.length),
+        certificates: Boolean(resume.certificates?.length),
+        interests: Boolean(resume.interests?.length),
+        education: Boolean(resume.education?.length),
+        courses: Boolean(resume.courses?.length),
+    };
+
+    console.log("COMPOBJ", compObj);
+
+    for (const key in compObj) {
+        if (compObj[key]) {
+            const reqdContent = ADD_CONTENT.find((c) => _getCamelCaseString(key).toLowerCase() === _getCamelCaseString(c.title).toLowerCase());
+
+            console.log("REQD CONTENT", reqdContent);
+            console.log("KEY", key);
+
+            if (reqdContent) {
+                retArray.push(reqdContent);
+            }
+        }
+    }
+
+    return retArray;
 };

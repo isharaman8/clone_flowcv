@@ -1,23 +1,31 @@
-import React, { useState } from "react";
-import { ADD_CONTENT } from "@utils/Constants";
+import React, { useEffect, useState } from "react";
 import { CgLayoutGridSmall } from "react-icons/cg";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { AiOutlinePlus } from "react-icons/ai";
+import { useAppSelector } from "@redux/hooks";
+import { useDispatch } from "react-redux";
+import { updateCustomization } from "@redux/resume/features";
+import { _getComponentsArrangement } from "@utils/helpers";
+import { ICONS_OBJ } from "@utils/Constants";
 
 const LayoutButton = ({ title, style, selectedLayout, setSelectedLayout }) => {
+    console.log("TITLE", title);
+    console.log("STYLE", style);
+    console.log("SELECTED LAYOUT", selectedLayout);
+
     return (
         <>
             <div className="text-center cursor-pointer hover:opacity-80" onClick={() => setSelectedLayout(title)}>
                 <div
                     style={{
-                        border: `${selectedLayout === title ? "1px solid #4B55DC" : "1px solid #cbcbcb"}`,
+                        border: `${selectedLayout === title.toLowerCase() ? "1px solid #4B55DC" : "1px solid #cbcbcb"}`,
                         borderRadius: ".6rem",
                         width: "4.2rem",
                         height: "4.2rem",
                         overflow: "hidden",
                     }}
                 >
-                    <div style={{ ...style, backgroundColor: `${selectedLayout === title ? "#4B55DC" : "#cbcbcb"}` }}></div>
+                    <div style={{ ...style, backgroundColor: `${selectedLayout === title.toLowerCase() ? "#4B55DC" : "#cbcbcb"}` }}></div>
                 </div>
                 <p className="capitalize text-sm mt-1">{title}</p>
             </div>
@@ -81,6 +89,8 @@ const Coulumns = ({ setSelectedColumn, selectedColumn, selectedLayout }) => {
 };
 
 const RearrangeSection = ({ sections, handleDragEnd }) => {
+    console.log("SECTION", sections);
+
     return (
         <div className="relative">
             <h2 className="text-sm font-semibold">Rearrange sections</h2>
@@ -107,7 +117,7 @@ const RearrangeSection = ({ sections, handleDragEnd }) => {
                                         >
                                             <CgLayoutGridSmall className="text-3xl text-gray-400" />
                                             <h1 className="flex gap-3 items-center font-semibold text-sm">
-                                                <span className="text-lg">{section.icon()}</span> {section.title}
+                                                <span className="text-lg">{ICONS_OBJ[section.title]()}</span> {section.title}
                                             </h1>
                                         </div>
                                     )}
@@ -124,7 +134,7 @@ const RearrangeSection = ({ sections, handleDragEnd }) => {
 
 const ColumnWidth = ({ title, columnsWidth, handleIncrement }) => {
     return (
-        <div className="leading-tight" style={{ width: `${columnsWidth[title.toLowerCase()]}%` }}>
+        <div className="leading-tight" style={{ width: `${_.defaultTo(columnsWidth[title.toLowerCase()], 50)}%` }}>
             <p className="text-xs">
                 {title} {columnsWidth[title.toLowerCase()]}%
             </p>
@@ -140,13 +150,41 @@ const ColumnWidth = ({ title, columnsWidth, handleIncrement }) => {
 };
 
 const Layout = () => {
-    const [selectedLayout, setSelectedLayout] = useState("top");
-    const [selectedColumn, setSelectedColumn] = useState(1);
-    const [sections, setSections] = useState(ADD_CONTENT);
-    const [columnsWidth, setColumnsWidth] = useState({
-        right: 50,
-        left: 50,
-    });
+    const { professionalExperience, skills, languages, projects, certificates, interests, education, courses, customization } = useAppSelector(
+        (state) => state.persistedReducer.resume
+    );
+
+    const dispatch = useDispatch();
+
+    const { layout } = customization || {};
+
+    const handleCustomization = (payload = {}) => {
+        console.log("LAYOUT PAYLOAD", payload);
+
+        dispatch(updateCustomization({ key: "layout", value: payload }));
+    };
+
+    const handleSelectedLayout = (value) => {
+        handleCustomization({ direction: value });
+    };
+
+    const handleSelectedColumn = (value) => {
+        handleCustomization({ columns: value });
+    };
+
+    const [sections, setSections] = useState(
+        _getComponentsArrangement({
+            professionalExperience,
+            skills,
+            languages,
+            projects,
+            certificates,
+            interests,
+            education,
+            courses,
+            contentArrangement: layout.contentArrangement,
+        })
+    );
 
     const handleDragEnd = (result) => {
         if (!result.destination) return;
@@ -156,15 +194,28 @@ const Layout = () => {
         newSections.splice(result.destination.index, 0, reorderedSection);
 
         setSections(newSections);
+        handleCustomization({ contentArrangement: newSections });
     };
 
-    const handleIncrement = (title) => {
+    const handleIncrement = (title = "") => {
         if (title === "Left") {
-            setColumnsWidth({ left: columnsWidth.left + 1, right: columnsWidth.right - 1 });
+            handleCustomization({
+                columnWidth: {
+                    left: _.defaultTo(layout?.columnWidth?.left, 50) + 1,
+                    right: _.defaultTo(layout?.columnWidth?.right, 50) - 1,
+                },
+            });
         } else {
-            setColumnsWidth({ left: columnsWidth.left - 1, right: columnsWidth.right + 1 });
+            handleCustomization({
+                columnWidth: {
+                    left: _.defaultTo(layout?.columnWidth?.left, 50) - 1,
+                    right: _.defaultTo(layout?.columnWidth?.right, 50) + 1,
+                },
+            });
         }
     };
+
+    console.log("SECTIONS", sections);
 
     return (
         <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">
@@ -176,8 +227,8 @@ const Layout = () => {
                         width: "100%",
                         height: "50%",
                     }}
-                    setSelectedLayout={setSelectedLayout}
-                    selectedLayout={selectedLayout}
+                    setSelectedLayout={handleSelectedLayout}
+                    selectedLayout={layout?.direction || "top"}
                 />
                 <LayoutButton
                     title={"left"}
@@ -185,8 +236,8 @@ const Layout = () => {
                         width: "52%",
                         height: "100%",
                     }}
-                    setSelectedLayout={setSelectedLayout}
-                    selectedLayout={selectedLayout}
+                    setSelectedLayout={handleSelectedLayout}
+                    selectedLayout={layout?.direction}
                 />
                 <LayoutButton
                     title={"right"}
@@ -195,23 +246,18 @@ const Layout = () => {
                         height: "100%",
                         float: "right",
                     }}
-                    setSelectedLayout={setSelectedLayout}
-                    selectedLayout={selectedLayout}
+                    setSelectedLayout={handleSelectedLayout}
+                    selectedLayout={layout?.direction}
                 />
             </div>
-            <Coulumns setSelectedColumn={setSelectedColumn} selectedColumn={selectedColumn} selectedLayout={selectedLayout} />
+            <Coulumns setSelectedColumn={handleSelectedColumn} selectedColumn={layout?.columns} selectedLayout={handleSelectedLayout} />
             <RearrangeSection sections={sections} handleDragEnd={handleDragEnd} />
-            {selectedLayout !== "top" && (
+            {layout?.direction !== "top" && (
                 <div>
                     <p className="text-sm font-semibold my-3">Column width</p>
                     <div className="flex gap-[2rem] w-full">
-                        <ColumnWidth title={"Left"} columnsWidth={columnsWidth} setColumnsWidth={setColumnsWidth} handleIncrement={handleIncrement} />
-                        <ColumnWidth
-                            title={"Right"}
-                            columnsWidth={columnsWidth}
-                            setColumnsWidth={setColumnsWidth}
-                            handleIncrement={handleIncrement}
-                        />
+                        <ColumnWidth title={"Left"} columnsWidth={layout.columnWidth} handleIncrement={handleIncrement} />
+                        <ColumnWidth title={"Right"} columnsWidth={layout.columnWidth} handleIncrement={handleIncrement} />
                     </div>
                 </div>
             )}
