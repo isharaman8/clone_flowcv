@@ -72,7 +72,7 @@ export const _getCamelCaseString = (str = "") => {
 
 export const _getValue = (obj1 = {}, obj2 = {}, key = "") => {
     // FOR BOOLEAN VALUES
-    if (TEMPLATE_BOOLEAN_KEYS.includes(key) && [true, "true", false, "false"].includes(obj1[key])) {
+    if ((TEMPLATE_BOOLEAN_KEYS.includes(key) && [true, "true", false, "false"].includes(obj1[key])) || Number.isInteger(+obj1[key])) {
         return obj1[key];
     }
 

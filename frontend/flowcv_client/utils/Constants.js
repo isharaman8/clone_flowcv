@@ -309,3 +309,5 @@ export const LINKS = ["Github", "Website", "LinkedIn", "Twitter", "Medium"];
 export const NULL_VALUE = "NULL_VALUE";
 
 export const TEMPLATE_BOOLEAN_KEYS = ["dontshow", "onlyyear", "presentyear", "basic", "advanced", "border", "accent", "multicolor"];
+
+export const COLOR_CHECK_BOXES = ["Name", "Dots/Bars/Bubbles", "Headings", "Dates", "Header icons", "Link icons"];

@@ -87,6 +87,7 @@ const initialState = {
         },
         font: {
             family: null,
+            font: null,
         },
     },
 };
@@ -424,6 +425,8 @@ export const resume = createSlice({
 
             switch (key) {
                 case "spacing":
+                    console.log("SPACING PAYLOAD", value);
+
                     state.customization.spacing = _setSpacing(value, state.customization.spacing);
                     break;
 

@@ -191,5 +191,6 @@ export const _setColors = (payload = {}, oldData = {}) => {
 export const _setFont = (payload = {}, oldData = {}) => {
     return {
         family: _getValue(payload, oldData, "family"),
+        font: _getValue(payload, oldData, "font"),
     };
 };

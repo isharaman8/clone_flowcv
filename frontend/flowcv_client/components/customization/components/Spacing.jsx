@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import { useAppSelector } from "@redux/hooks";
+import { updateCustomization } from "@redux/resume/features";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const SpacingComponents = ({ title, transform, handleDecrement, handleIncrement, handleChange, value }) => {
     return (
@@ -210,12 +213,14 @@ const SpacingComponents = ({ title, transform, handleDecrement, handleIncrement,
 };
 
 const Spacing = () => {
+    const { spacing } = useAppSelector((state) => state.persistedReducer.resume.customization);
+
     const [transform, setTransform] = useState({
-        fontSize: 0,
-        lineHeight: 0,
-        leftRightMargin: 0,
-        topBottomMargin: 0,
-        space: 0,
+        fontSize: spacing.fontSize || 0,
+        lineHeight: spacing.lineHeight || 0,
+        leftRightMargin: spacing.lRMargin || 0,
+        topBottomMargin: spacing.tBMargin || 0,
+        space: spacing.spaceBtwEntries || 0,
     });
 
     const [value, setValue] = useState({
@@ -225,6 +230,8 @@ const Spacing = () => {
         topBottomMargin: 10,
         space: 1,
     });
+
+    const dispatch = useDispatch();
 
     const handleChange = (title, val) => {
         setTransform({ ...transform, [title]: val.transform });
@@ -254,6 +261,28 @@ const Spacing = () => {
 
         setValue({ ...value, [title]: result });
     };
+
+    const handleSpacingCustomization = () => {
+        dispatch(
+            updateCustomization({
+                key: "spacing",
+                value: {
+                    fontSize: transform.fontSize,
+                    lineHeight: transform.lineHeight,
+                    lRMargin: transform.leftRightMargin,
+                    tBMargin: transform.topBottomMargin,
+                    spaceBtwEntries: transform.space,
+                },
+            })
+        );
+    };
+
+    useEffect(() => {
+        console.log("SPACING STORE obj", spacing);
+        console.log("SPACING STATE", transform);
+
+        handleSpacingCustomization();
+    }, [transform]);
 
     return (
         <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">

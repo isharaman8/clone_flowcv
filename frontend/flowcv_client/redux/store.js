@@ -23,7 +23,7 @@ export const store = configureStore({
 });
 
 store.subscribe(() => {
-    console.log("STORE CHANGED", store.getState().persistedReducer.resume.customization.colors);
+    console.log("FONT STORE CHANGED", store.getState().persistedReducer.resume.customization.font);
 });
 
 export const persistor = persistStore(store);

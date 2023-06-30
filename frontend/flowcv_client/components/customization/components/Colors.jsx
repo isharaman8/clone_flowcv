@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { COLORS } from "@utils/Constants";
+import { COLORS, COLOR_CHECK_BOXES } from "@utils/Constants";
 import { FiCheck } from "react-icons/fi";
 import { SlBan } from "react-icons/sl";
 import { useAppSelector } from "@redux/hooks";
@@ -92,7 +92,11 @@ const MultiColorComponent = ({ c, selectedColor, setSelectedColor }) => {
     );
 };
 
-const ColorsComponent = ({ selectedType, setSelectedType, selectedColor, setSelectedColor }) => {
+const ColorsComponent = ({ selectedType, setSelectedType, selectedColor, setSelectedColor, handleApplyAccentColor, applyAccentColor = {} }) => {
+    const handleApplyColorWrapper = (e, key) => {
+        handleApplyAccentColor((p) => ({ ...p, [key]: e.target.checked }));
+    };
+
     return (
         <>
             <div className="flex text-center gap-[2rem] mt-5">
@@ -142,9 +146,14 @@ const ColorsComponent = ({ selectedType, setSelectedType, selectedColor, setSele
             <div className="mt-8">
                 <label className="font-semibold text-sm">Apply Accent color</label>
                 <div className="mt-4 grid grid-cols-2 gap-2">
-                    {["Name", "Dots/Bars/Bubbles", "Headings", "Dates", "Header icons", "Link icons"].map((c) => (
+                    {COLOR_CHECK_BOXES.map((c) => (
                         <div key={c} className="flex items-center text-sm">
-                            <input type="checkbox" className="h-6 w-6 rounded border-gray-200 border-1 text-indigo-600 focus:ring-indigo-600 mr-2" />
+                            <input
+                                checked={applyAccentColor[c] || false}
+                                type="checkbox"
+                                className="h-6 w-6 rounded border-gray-200 border-1 text-indigo-600 focus:ring-indigo-600 mr-2"
+                                onChange={(e) => handleApplyColorWrapper(e, c)}
+                            />
                             <label>{c}</label>
                         </div>
                     ))}
@@ -162,8 +171,6 @@ const Colors = () => {
     const dispatch = useDispatch();
 
     const handleCustomization = (payload = {}) => {
-        console.log("COLORS PAYLOAD", payload);
-
         dispatch(updateCustomization({ key: "colors", value: { ...colors, ...payload } }));
     };
 
@@ -191,64 +198,39 @@ const Colors = () => {
         handleCustomization(colorPayload);
     };
 
-    const handleColorType = (title = "") => {
-        const typePayload = {
-            accent: false,
-            multicolor: false,
-        };
-
-        switch (title.toLowerCase()) {
-            case "accent":
-                typePayload.accent = true;
-                break;
-            case "multicolor":
-                typePayload.multicolor = true;
-                break;
-            default:
-                break;
-        }
-
-        handleCustomization(typePayload);
-    };
-
-    const [selectedColors, setSelectedColors] = useState("Basic");
-    const [selectedType, setSelectedType] = useState("accent");
+    const [selectedType, setSelectedType] = useState(colors.accent ? "accent" : colors.multicolor ? "multicolor" : "accent");
+    const [applyAccentColor, setApplyAccentColor] = useState(Object.values(colors.applyAccentColorTo || {}).length ? colors.applyAccentColorTo : {});
+    const [selectedColors, setSelectedColors] = useState(colors.basic ? "Basic" : colors.advanced ? "Advanced" : colors.border ? "Border" : "Basic");
     const [selectedColor, setSelectedColor] = useState({
-        accent: selectedType === "accent" ? "#111" : "#cbcbcb",
-        multicolor: selectedType === "multicolor" ? "#111" : "#cbcbcb",
+        accent: colors.accentColorValue ? colors.accentColorValue : selectedType === "accent" ? "#111" : "#cbcbcb",
+        multicolor: colors.multiColorValue ? colors.multiColorValue : selectedType === "multicolor" ? "#111" : "#cbcbcb",
     });
 
     useEffect(() => {
-        const title = selectedType.toLowerCase();
+        const isAccent = selectedType === "accent";
+        const accentColorValue = isAccent ? selectedColor.accent : null;
+        const multiColorValue = !isAccent ? selectedColor.multicolor : null;
 
-        handleColorType(title);
-
-        setSelectedColor({
-            accent: selectedType === "accent" ? "#111" : "#cbcbcb",
-            multicolor: selectedType === "multicolor" ? "#111" : "#cbcbcb",
-        });
-
-        const payload = {
-            accent: selectedType === "accent",
-            multicolor: selectedType === "multicolor",
-        };
-
-        if (payload.accent) {
-            payload.accentColorValue = selectedColor;
-        }
-
-        if (payload.multicolor) {
-            payload.multiColorValue = selectedColor;
-        }
-
-        handleCustomization(payload);
-    }, []);
+        handleCustomization({ accent: isAccent, multicolor: !isAccent, accentColorValue, multiColorValue });
+    }, [selectedType]);
 
     useEffect(() => {
-        const color = colors.basic ? "Basic" : colors.advanced ? "Advanced" : colors.border ? "Border" : "Basic";
+        const isAccent = selectedType === "accent";
+        const accentColorValue = isAccent ? selectedColor.accent : null;
+        const multiColorValue = !isAccent ? selectedColor.multicolor : null;
 
-        setSelectedColors(color);
-    }, []);
+        handleCustomization({ accentColorValue, multiColorValue });
+    }, [selectedColor]);
+
+    useEffect(() => {
+        const color = selectedColors;
+
+        handleColorsCustomization(color);
+    }, [selectedColors]);
+
+    useEffect(() => {
+        handleCustomization({ applyAccentColorTo: applyAccentColor });
+    }, [applyAccentColor]);
 
     return (
         <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">
@@ -261,7 +243,7 @@ const Colors = () => {
                         backgroundColor: `${selectedColors === "Basic" ? "#4b55dc46" : "#fff"}`,
                     }}
                     title={"Basic"}
-                    setSelectedColors={handleColorsCustomization}
+                    setSelectedColors={setSelectedColors}
                     selectedColors={selectedColors}
                 />
                 <ColorsElement
@@ -272,7 +254,7 @@ const Colors = () => {
                         height: "50%",
                     }}
                     title={"Advanced"}
-                    setSelectedColors={handleColorsCustomization}
+                    setSelectedColors={setSelectedColors}
                     selectedColors={selectedColors}
                 />
                 <ColorsElement
@@ -280,7 +262,7 @@ const Colors = () => {
                         border: `${selectedColors === "Border" ? "14px solid #4B55DC" : "14px solid #cbcbcb"}`,
                     }}
                     title={"Border"}
-                    setSelectedColors={handleColorsCustomization}
+                    setSelectedColors={setSelectedColors}
                     selectedColors={selectedColors}
                 />
             </div>
@@ -289,6 +271,8 @@ const Colors = () => {
                 setSelectedType={setSelectedType}
                 selectedColor={selectedColor}
                 setSelectedColor={setSelectedColor}
+                applyAccentColor={applyAccentColor}
+                handleApplyAccentColor={setApplyAccentColor}
             />
         </div>
     );
