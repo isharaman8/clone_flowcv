@@ -57,7 +57,7 @@ export const ADD_CONTENT = [
 ];
 
 export const ICONS_OBJ = Object.freeze({
-    ...ADD_CONTENT.reduce((acc, val) => ({ ...acc, [val.title]: val.icon }), {}),
+    ...ADD_CONTENT.reduce((acc, val) => ({ ...acc, [val.title]: val.icon, [val.id]: val.icon }), {}),
 });
 export const PROFILE_ICONS = [
     {

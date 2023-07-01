@@ -44,7 +44,7 @@ const Interest = () => {
                             className={`py-2 px-[2rem] text-sm border  ${
                                 interest.type === "grid" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             } my-2 rounded-lg cursor-pointer hover:opacity-80`}
-                            onClick={() => setInterest({ ...interest, type: "grid" })}
+                            onClick={() => setInterest({ ...interest, type: "grid", separator: null })}
                         >
                             Grid
                         </div>
@@ -53,7 +53,7 @@ const Interest = () => {
                             className={`py-2 px-[2rem] text-sm border ${
                                 interest.type === "text" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
-                            onClick={() => setInterest({ ...interest, type: "text" })}
+                            onClick={() => setInterest({ ...interest, type: "text", separator: null })}
                         >
                             Text
                         </div>
@@ -61,7 +61,7 @@ const Interest = () => {
                             className={`py-2 px-[2rem] text-sm border ${
                                 interest.type === "bubble" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
-                            onClick={() => setInterest({ ...interest, type: "bubble" })}
+                            onClick={() => setInterest({ ...interest, type: "bubble", separator: null })}
                         >
                             Bubble
                         </div>

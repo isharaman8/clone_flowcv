@@ -23,7 +23,7 @@ export const store = configureStore({
 });
 
 store.subscribe(() => {
-    console.log("CUSTOMIZATION STORE CHANGED", store.getState().persistedReducer.resume.customization.language);
+    console.log("CUSTOMIZATION STORE CHANGED", store.getState().persistedReducer.resume.customization.skills);
 });
 
 export const persistor = persistStore(store);

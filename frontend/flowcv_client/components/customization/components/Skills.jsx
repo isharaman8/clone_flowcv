@@ -45,7 +45,7 @@ const Skills = () => {
                             className={`py-2 px-[2rem] text-sm border  ${
                                 skills.type === "grid" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             } my-2 rounded-lg cursor-pointer hover:opacity-80`}
-                            onClick={() => setSkills({ ...skills, type: "grid" })}
+                            onClick={() => setSkills({ ...skills, type: "grid", separator: null, level: null })}
                         >
                             Grid
                         </div>
@@ -53,7 +53,7 @@ const Skills = () => {
                             className={`py-2 px-[2rem] text-sm border ${
                                 skills.type === "level" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
-                            onClick={() => setSkills({ ...skills, type: "level" })}
+                            onClick={() => setSkills({ ...skills, type: "level", separator: null, level: null })}
                         >
                             Level
                         </div>
@@ -61,7 +61,7 @@ const Skills = () => {
                             className={`py-2 px-[2rem] text-sm border ${
                                 skills.type === "text" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
-                            onClick={() => setSkills({ ...skills, type: "text" })}
+                            onClick={() => setSkills({ ...skills, type: "text", separator: null, level: null })}
                         >
                             Text
                         </div>
@@ -69,7 +69,7 @@ const Skills = () => {
                             className={`py-2 px-[2rem] text-sm border ${
                                 skills.type === "bubble" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
-                            onClick={() => setSkills({ ...skills, type: "bubble" })}
+                            onClick={() => setSkills({ ...skills, type: "bubble", separator: null, level: null })}
                         >
                             Bubble
                         </div>

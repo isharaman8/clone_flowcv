@@ -44,7 +44,7 @@ const Certificate = () => {
                             className={`py-2 px-[2rem] text-sm border  ${
                                 certificate.type === "grid" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             } my-2 rounded-lg cursor-pointer hover:opacity-80`}
-                            onClick={() => setCertificate({ ...certificate, type: "grid" })}
+                            onClick={() => setCertificate({ ...certificate, type: "grid", separator: null })}
                         >
                             Grid
                         </div>
@@ -53,7 +53,7 @@ const Certificate = () => {
                             className={`py-2 px-[2rem] text-sm border ${
                                 certificate.type === "text" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
-                            onClick={() => setCertificate({ ...certificate, type: "text" })}
+                            onClick={() => setCertificate({ ...certificate, type: "text", separator: null })}
                         >
                             Text
                         </div>
@@ -61,7 +61,7 @@ const Certificate = () => {
                             className={`py-2 px-[2rem] text-sm border ${
                                 certificate.type === "bubble" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
-                            onClick={() => setCertificate({ ...certificate, type: "bubble" })}
+                            onClick={() => setCertificate({ ...certificate, type: "bubble", separator: null })}
                         >
                             Bubble
                         </div>

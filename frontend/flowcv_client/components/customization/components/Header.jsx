@@ -77,7 +77,7 @@ const RearrangeSection = ({ sections, handleDragEnd }) => {
                                                     className="grid place-content-center bg-gray-100 rounded-xl my-3 gap-3 py-2 px-3 cursor-grab"
                                                 >
                                                     <h1 className="flex gap-3 items-center font-semibold text-sm">
-                                                        <span className="text-lg">{section.icon()}</span>
+                                                        <span className="text-lg">{ICONS_OBJ[section.id]()}</span>
                                                     </h1>
                                                 </div>
                                             )}
@@ -103,7 +103,7 @@ const Header = () => {
         type: storeHeader.type || "",
         details: storeHeader.details || "",
     });
-    const [sections, setSections] = useState(PROFILE_ICONS);
+    const [sections, setSections] = useState(storeHeader.sections.length ? storeHeader.sections : PROFILE_ICONS);
 
     const handleDragEnd = (result) => {
         if (!result.destination) return;

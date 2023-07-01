@@ -45,7 +45,7 @@ const Language = () => {
                             className={`py-2 px-[2rem] text-sm border  ${
                                 language.type === "grid" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             } my-2 rounded-lg cursor-pointer hover:opacity-80`}
-                            onClick={() => setLanguage({ ...language, type: "grid" })}
+                            onClick={() => setLanguage({ ...language, type: "grid", separator: null, level: null })}
                         >
                             Grid
                         </div>
@@ -53,7 +53,7 @@ const Language = () => {
                             className={`py-2 px-[2rem] text-sm border ${
                                 language.type === "level" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
-                            onClick={() => setLanguage({ ...language, type: "level" })}
+                            onClick={() => setLanguage({ ...language, type: "level", separator: null, level: null })}
                         >
                             Level
                         </div>
@@ -61,7 +61,7 @@ const Language = () => {
                             className={`py-2 px-[2rem] text-sm border ${
                                 language.type === "text" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
-                            onClick={() => setLanguage({ ...language, type: "text" })}
+                            onClick={() => setLanguage({ ...language, type: "text", separator: null, level: null })}
                         >
                             Text
                         </div>
@@ -69,7 +69,7 @@ const Language = () => {
                             className={`py-2 px-[2rem] text-sm border ${
                                 language.type === "bubble" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
-                            onClick={() => setLanguage({ ...language, type: "bubble" })}
+                            onClick={() => setLanguage({ ...language, type: "bubble", separator: null, level: null })}
                         >
                             Bubble
                         </div>
