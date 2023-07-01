@@ -207,7 +207,7 @@ const _setHeading = (payload = {}, oldData = {}) => {
 const _setEntryLayout = (payload = {}, oldData = {}) => {
     return {
         size: _getValue(payload, oldData, "size"),
-        subtitlesStyle: _getValue(payload, oldData, "subtitlesStyle"),
+        subtitleStyle: _getValue(payload, oldData, "subtitleStyle"),
         subtitlePlacement: _getValue(payload, oldData, "subtitlePlacement"),
         listStyle: _getValue(payload, oldData, "listStyle"),
     };
@@ -258,7 +258,7 @@ const _setDate = (payload = {}, oldData = {}) => {
     return {
         month: _getValue(payload, oldData, "month"),
         format: _getValue(payload, oldData, "format"),
-        delimeter: _getValue(payload, oldData, "delimeter"),
+        delimiter: _getValue(payload, oldData, "delimiter"),
     };
 };
 

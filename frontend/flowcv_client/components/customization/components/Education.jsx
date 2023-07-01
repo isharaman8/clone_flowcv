@@ -4,7 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 const Education = () => {
-    const { education: storeEducation } = useAppSelector((state) => state.persistedReducer.resume.customization);
+    const {
+        customization: { education: storeEducation },
+        education: educationReduxData,
+    } = useAppSelector((state) => state.persistedReducer.resume);
 
     const dispatch = useDispatch();
 
@@ -20,7 +23,7 @@ const Education = () => {
         handleCustomization();
     }, [education]);
 
-    if (!education.type) {
+    if (!educationReduxData.length) {
         return (
             <>
                 <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">

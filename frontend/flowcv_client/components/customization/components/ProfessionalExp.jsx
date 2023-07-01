@@ -4,7 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 const ProfessionalExperience = () => {
-    const { professionalExperience: storeExperience } = useAppSelector((state) => state.persistedReducer.resume.customization);
+    const {
+        customization: { professionalExperience: storeExperience },
+        professionalExperience: professionalExperienceReduxData,
+    } = useAppSelector((state) => state.persistedReducer.resume);
 
     const dispatch = useDispatch();
 
@@ -13,14 +16,14 @@ const ProfessionalExperience = () => {
     });
 
     const handleCustomization = () => {
-        dispatch(updateCustomization({ key: "experience", value: experience }));
+        dispatch(updateCustomization({ key: "professionalExperience", value: experience }));
     };
 
     useEffect(() => {
         handleCustomization();
     }, [experience]);
 
-    if (!experience.type) {
+    if (!professionalExperienceReduxData.length) {
         return (
             <>
                 <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">

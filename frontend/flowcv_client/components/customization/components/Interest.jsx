@@ -4,7 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 const Interest = () => {
-    const { interest: storeInterest } = useAppSelector((state) => state.persistedReducer.resume.customization);
+    const {
+        customization: { interest: storeInterest },
+        interests: interestReduxData,
+    } = useAppSelector((state) => state.persistedReducer.resume);
 
     const dispatch = useDispatch();
 
@@ -21,7 +24,7 @@ const Interest = () => {
         handleCustomization();
     }, [interest]);
 
-    if (!interest.type) {
+    if (!interestReduxData.length) {
         return (
             <>
                 <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">

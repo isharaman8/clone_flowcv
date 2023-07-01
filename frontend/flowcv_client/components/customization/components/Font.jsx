@@ -11,7 +11,7 @@ const FontElement = ({ title, setFontFamily, fontFamily }) => {
                 className={`border ${
                     fontFamily.family === title ? "border-blue-700 bg-blue-100" : "border-gray-300 bg-white"
                 }  rounded-xl w-[5rem] h-[5rem] cursor-pointer hover:opacity-80`}
-                onClick={() => setFontFamily({ ...fontFamily, family: title })}
+                onClick={() => setFontFamily({ font: null, family: title })}
             >
                 <div className={`${fontFamily.family === title ? "text-blue-700" : "text-black"} h-full flex flex-col items-center justify-center`}>
                     <span className="text-2xl font-semibold">Aa</span>

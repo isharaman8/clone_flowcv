@@ -117,7 +117,7 @@ const initialState = {
         date: {
             format: null,
             month: null,
-            delimeter: null,
+            delimiter: null,
         },
         skills: {
             type: null,

@@ -4,7 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 const Skills = () => {
-    const { skills: storeSkills } = useAppSelector((state) => state.persistedReducer.resume.customization);
+    const {
+        customization: { skills: storeSkills },
+        skills: reduxDataSkills,
+    } = useAppSelector((state) => state.persistedReducer.resume);
 
     const dispatch = useDispatch();
 
@@ -22,7 +25,7 @@ const Skills = () => {
         handleCustomization();
     }, [skills]);
 
-    if (!skills.type) {
+    if (!reduxDataSkills.length) {
         return (
             <>
                 <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">

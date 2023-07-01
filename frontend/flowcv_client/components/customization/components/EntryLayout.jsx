@@ -21,6 +21,8 @@ const EntryLayout = () => {
     };
 
     useEffect(() => {
+        console.log("CUSTOMIZATION ENTRY LAYOUT", entryLayout);
+
         handleCustomization();
     }, [entryLayout]);
 

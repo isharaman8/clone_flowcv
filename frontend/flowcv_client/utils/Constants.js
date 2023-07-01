@@ -20,25 +20,25 @@ export const ADD_CONTENT = [
     },
     {
         id: 3,
-        title: "Skill",
+        title: "Skills",
         description: "List your technical, managerial or soft skills in this section.",
         icon: GiSkills,
     },
     {
         id: 4,
-        title: "Language",
+        title: "Languages",
         description: "You speak more than one language? Make sure to list them here.",
         icon: GiEarthAmerica,
     },
     {
         id: 5,
-        title: "Certificate",
+        title: "Certificates",
         description: "Drivers licenses and other industry-specific certificates you have belong here.",
         icon: GrCertificate,
     },
     {
         id: 6,
-        title: "Interest",
+        title: "Interests",
         description: "Do you have interests that align with your career aspiration?",
         icon: FaGuitar,
     },
@@ -50,7 +50,7 @@ export const ADD_CONTENT = [
     },
     {
         id: 8,
-        title: "Course",
+        title: "Courses",
         description: "Did you complete MOOCs or an evening course? Show them off in this section.",
         icon: ImBooks,
     },
@@ -193,15 +193,15 @@ export const faqData = [
 
 export const AVAILABLE_COMPONENTS = Object.freeze({
     personalInfo: "personalInfo",
-    skill: "Skill",
-    certificate: "Certificate",
-    project: "Project",
+    skill: "Skills",
+    certificate: "Certificates",
+    project: "Projects",
     achievements: "Achievements",
-    language: "Language",
+    language: "Languages",
     professionalExperience: "Professional Experience",
-    interests: "Interest",
+    interests: "Interests",
     education: "Education",
-    course: "Course",
+    course: "Courses",
 });
 
 export const MONTHS = {

@@ -211,7 +211,12 @@ export const _getComponentsArrangement = (resume = {}) => {
 
     for (const key in compObj) {
         if (compObj[key]) {
-            const reqdContent = ADD_CONTENT.find((c) => _getCamelCaseString(key).toLowerCase() === _getCamelCaseString(c.title).toLowerCase());
+            const reqdContent = ADD_CONTENT.find((c) => {
+                console.log("KEY", _getLowerCaseStr(key));
+                console.log("C.TITLE", _getLowerCaseStr(c.title));
+
+                return _getLowerCaseStr(key) === _getLowerCaseStr(c.title);
+            });
 
             console.log("REQD CONTENT", reqdContent);
             console.log("KEY", key);
@@ -222,5 +227,13 @@ export const _getComponentsArrangement = (resume = {}) => {
         }
     }
 
+    console.log("RESUME ARRAY", retArray);
+    console.log("RESUME", resume);
+    console.log("RESUME COMPOBJ", compObj);
+
     return retArray;
+};
+
+export const _getLowerCaseStr = (str = "") => {
+    return str.split(" ").join("").toLowerCase();
 };

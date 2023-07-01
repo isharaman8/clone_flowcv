@@ -37,6 +37,9 @@ const CreateResume = () => {
 
     const handleCurrentComponent = (e) => {
         setCurrentComponent(e.title);
+
+        console.log("TITLE", e.title);
+
         setAddContent(false);
     };
 
