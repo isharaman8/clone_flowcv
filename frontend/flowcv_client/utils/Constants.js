@@ -1,11 +1,19 @@
-import { FaFolderOpen, FaGraduationCap, FaGuitar, FaSuitcase, FaLinkedinIn, FaPhoneAlt } from "react-icons/fa";
+import { FaFolderOpen, FaGraduationCap, FaGuitar, FaSuitcase, FaLinkedinIn, FaPhoneAlt, FaInfo } from "react-icons/fa";
 import { GiEarthAmerica, GiSkills } from "react-icons/gi";
 import { GrCertificate } from "react-icons/gr";
 import { ImBooks } from "react-icons/im";
 import { BsGithub, BsGlobe, BsMedium, BsTwitter } from "react-icons/bs";
 import { MdEmail, MdLocationPin } from "react-icons/md";
 
+export const PERSONAL_INFO_ID = "PERSONAL_INFO";
+
 export const ADD_CONTENT = [
+    {
+        id: PERSONAL_INFO_ID,
+        title: "Personal Info",
+        description: "Write your personal information",
+        icon: FaInfo,
+    },
     {
         id: 1,
         title: "Education",

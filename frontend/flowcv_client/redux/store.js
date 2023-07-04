@@ -23,7 +23,7 @@ export const store = configureStore({
 });
 
 store.subscribe(() => {
-    console.log("CUSTOMIZATION STORE CHANGED", store.getState().persistedReducer.resume.customization.skills);
+    console.log("CUSTOMIZATION STORE CHANGED", store.getState().persistedReducer.resume.customization.layout);
 });
 
 export const persistor = persistStore(store);

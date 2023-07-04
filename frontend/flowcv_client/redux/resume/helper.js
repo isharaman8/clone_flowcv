@@ -172,6 +172,10 @@ const _setLayout = (payload = {}, oldData = {}) => {
             left: _getValue(payload.columnWidth, oldData.columnWidth, "left"),
             right: _getValue(payload.columnWidth, oldData.columnWidth, "right"),
         },
+        columnsArrangement: {
+            left: _getValue(payload.columnsArrangement, oldData.columnsArrangement, "left"),
+            right: _getValue(payload.columnsArrangement, oldData.columnsArrangement, "right"),
+        },
     };
 };
 

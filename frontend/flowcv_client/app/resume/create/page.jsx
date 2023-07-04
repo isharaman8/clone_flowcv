@@ -33,6 +33,8 @@ const CreateResume = () => {
 
     const resumeData = useAppSelector((state) => state.persistedReducer.resume);
 
+    console.log("CUSTOMIZATION OBJ", resumeData.customization.layout.contentArrangement);
+
     const dispatch = useDispatch();
 
     const handleCurrentComponent = (e) => {
@@ -234,9 +236,9 @@ const CreateResume = () => {
                         )}
                     </div>
                     {currentComponent === "personalInfo" && (
-                        <div className="flex justify-center">
+                        <div className="flex justify-center mb-10">
                             <button
-                                className="mt-8 flex gradient border-none cursor-pointer appearance-none touch-manipulation items-center justify-center outline-none hover:scale-105 transition-transform shadow-md rounded-full font-extrabold h-15 text-[17px] min-w-[180px] text-white bg-gradient-to-r from-brandPink to-brandRed py-4 px-[4rem]"
+                                className="mt-8  flex gradient border-none cursor-pointer appearance-none touch-manipulation items-center justify-center outline-none hover:scale-105 transition-transform shadow-md rounded-full font-extrabold h-15 text-[17px] min-w-[180px] text-white bg-gradient-to-r from-brandPink to-brandRed py-4 px-[4rem]"
                                 onClick={() => setAddContent(true)}
                             >
                                 <AiOutlinePlus className="text-3xl mr-2" />
@@ -249,7 +251,73 @@ const CreateResume = () => {
 
             {/* right */}
             <div className="grow-[4] bg-white h-screen my-[2rem] w-1/4 px-[3rem] overflow-hidden break-words sticky top-8">
-                <PersonalData />
+                <div>
+                    {resumeData.customization.layout.columnsArrangement.left.map((data) => {
+                        switch (data.title) {
+                            case "Personal Info":
+                                return <PersonalData />;
+
+                            case "Certificates":
+                                return <Certificates />;
+
+                            case "Skills":
+                                return <SkillsComponent />;
+
+                            case "Courses":
+                                return <Education currentComponent="courses" />;
+
+                            case "Projects":
+                                return <Projects />;
+
+                            case "Languages":
+                                return <Languages />;
+
+                            case "Professional Experience":
+                                return <Education currentComponent={"professional Experience"} />;
+
+                            case "Interests":
+                                return <InterestComponent />;
+
+                            case "Education":
+                                return <Education currentComponent="education" />;
+                        }
+                    })}
+                </div>
+
+                <div>
+                    {resumeData.customization.layout.columnsArrangement.right.map((data) => {
+                        switch (data.title) {
+                            case "Personal Info":
+                                return <PersonalData />;
+
+                            case "Certificates":
+                                return <Certificates />;
+
+                            case "Skills":
+                                return <SkillsComponent />;
+
+                            case "Courses":
+                                return <Education currentComponent="courses" />;
+
+                            case "Projects":
+                                return <Projects />;
+
+                            case "Languages":
+                                return <Languages />;
+
+                            case "Professional Experience":
+                                return <Education currentComponent={"professional Experience"} />;
+
+                            case "Interests":
+                                return <InterestComponent />;
+
+                            case "Education":
+                                return <Education currentComponent="education" />;
+                        }
+                    })}
+
+                    {/*
+
                 <Education currentComponent={"education"} />
                 <Education currentComponent={"professional Experience"} />
                 <Education currentComponent={"courses"} />
@@ -258,6 +326,9 @@ const CreateResume = () => {
                 <Certificates />
                 <InterestComponent />
                 <Projects />
+
+                */}
+                </div>
             </div>
             {addContent && <AddContent setAddContent={setAddContent} handleCurrentComponent={handleCurrentComponent} />}
         </div>

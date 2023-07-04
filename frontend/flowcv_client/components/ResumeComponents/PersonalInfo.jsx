@@ -54,8 +54,6 @@ const PersonalInfo = () => {
     };
 
     const handleSetLinks = (e = null, payload = {}) => {
-        console.log("E", e);
-
         dispatchLinks(e ? { [e.target.name]: e.target.value } : payload);
     };
 

@@ -56,6 +56,10 @@ const initialState = {
             direction: null,
             columns: null,
             contentArrangement: [],
+            columnsArrangement: {
+                left: [],
+                right: [],
+            },
             columnWidth: {
                 left: null,
                 right: null,
