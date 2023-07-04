@@ -33,7 +33,7 @@ const CreateResume = () => {
 
     const resumeData = useAppSelector((state) => state.persistedReducer.resume);
 
-    console.log("CUSTOMIZATION OBJ", resumeData.customization.layout.contentArrangement);
+    console.log("CUSTOMIZATION OBJ", resumeData.customization.layout);
 
     const dispatch = useDispatch();
 

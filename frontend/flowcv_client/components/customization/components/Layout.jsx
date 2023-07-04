@@ -6,7 +6,7 @@ import { useAppSelector } from "@redux/hooks";
 import { useDispatch } from "react-redux";
 import { updateCustomization } from "@redux/resume/features";
 import { _getColumnsArrangement, _getComponentsArrangement } from "@utils/helpers";
-import { ICONS_OBJ, PERSONAL_INFO_ID } from "@utils/Constants";
+import { ADD_CONTENT, ICONS_OBJ, PERSONAL_INFO_ID } from "@utils/Constants";
 
 const LayoutButton = ({ title, style, selectedLayout, setSelectedLayout }) => {
     console.log("TITLE", title);
@@ -238,7 +238,10 @@ const Layout = () => {
         newSections.splice(result.destination.index, 0, reorderedSection);
 
         setSections(newSections);
-        handleCustomization({ contentArrangement: newSections });
+        handleCustomization({
+            contentArrangement: newSections,
+            columnsArrangement: { left: [ADD_CONTENT.find((c) => c.id === PERSONAL_INFO_ID), ...newSections] },
+        });
     };
 
     const handleIncrement = (title = "") => {
