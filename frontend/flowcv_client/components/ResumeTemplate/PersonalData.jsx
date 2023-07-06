@@ -1,5 +1,6 @@
 import { useAppSelector } from "@redux/hooks";
-import React from "react";
+import { _rgbaStringToHex } from "@utils/helpers";
+import React, { useEffect } from "react";
 import { BsGithub, BsGlobe, BsMedium, BsTwitter } from "react-icons/bs";
 import { FaLinkedinIn, FaPhoneAlt } from "react-icons/fa";
 import { MdEmail, MdLocationPin } from "react-icons/md";
@@ -14,11 +15,22 @@ const Details = ({ icon, title }) => {
 };
 
 const PersonalData = () => {
-    const personalInfoData = useAppSelector((state) => state.persistedReducer.resume.personalInfo);
+    const {
+        personalInfo: personalInfoData,
+        customization: { colors },
+    } = useAppSelector((state) => state.persistedReducer.resume);
+
+    useEffect(() => {
+        console.log("COLOR VALUE", colors.accentColorValue && "text-" + "[" + _rgbaStringToHex(colors.accentColorValue) + "]");
+    }, [colors]);
     return (
         <div className="relative mt-10 text-center">
-            <h2 className="font-bold text-lg">{personalInfoData.fullName}</h2>
-            <p className="text-sm">{personalInfoData.jobTitle}</p>
+            <h2 className={`font-bold text-lg ${colors.accentColorValue && "text-" + "[" + _rgbaStringToHex(colors.accentColorValue) + "]"}`}>
+                {personalInfoData.fullName}
+            </h2>
+            <p className={`text-sm ${colors.accentColorValue && "text-" + "[" + _rgbaStringToHex(colors.accentColorValue) + "]"}`}>
+                {personalInfoData.jobTitle}
+            </p>
             <div className="flex flex-wrap items-center justify-center my-2">
                 {personalInfoData.email?.length && <Details icon={MdEmail} title={personalInfoData.email} />}
                 {personalInfoData.phone?.length && <Details icon={FaPhoneAlt} title={personalInfoData.phone} />}

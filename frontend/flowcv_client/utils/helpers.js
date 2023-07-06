@@ -294,4 +294,39 @@ export const _getLowerCaseStr = (str = "") => {
     return str.split(" ").join("").toLowerCase();
 };
 
-// CONTENT ARRANGEMENT
+export const _rgbaStringToHex = (rgbaString = "") => {
+    if (!rgbaString.trim()) {
+        return rgbaString;
+    }
+
+    console.log("COLOR VALUE", rgbaString);
+
+    // Remove the "rgba(" prefix and ")" suffix from the string
+    const rgbaValues = rgbaString.slice(5, -1);
+
+    console.log("COLOR VALUE", rgbaValues);
+
+    // Split the string into individual color components
+    const components = rgbaValues.split(",");
+
+    console.log("COLOR VALUE", components);
+
+    // Extract the red, green, blue, and alpha values
+    const red = parseInt(components[0].trim());
+    const green = parseInt(components[1].trim());
+    const blue = parseInt(components[2].trim());
+    const alpha = parseFloat(components[3]?.trim() || 1);
+
+    // Convert each color component to hexadecimal
+    const hexRed = red.toString(16).padStart(2, "0");
+    const hexGreen = green.toString(16).padStart(2, "0");
+    const hexBlue = blue.toString(16).padStart(2, "0");
+    const hexAlpha = Math.round(alpha * 255)
+        .toString(16)
+        .padStart(2, "0");
+
+    // Concatenate the color components
+    const hexValue = "#" + hexRed + hexGreen + hexBlue + hexAlpha;
+
+    return hexValue;
+};
