@@ -5,8 +5,8 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { useAppSelector } from "@redux/hooks";
 import { useDispatch } from "react-redux";
 import { updateCustomization } from "@redux/resume/features";
-import { _getComponentsArrangement } from "@utils/helpers";
-import { ICONS_OBJ } from "@utils/Constants";
+import { _getColumnsArrangement, _getComponentsArrangement } from "@utils/helpers";
+import { ADD_CONTENT, ICONS_OBJ, PERSONAL_INFO_ID } from "@utils/Constants";
 
 const LayoutButton = ({ title, style, selectedLayout, setSelectedLayout }) => {
     console.log("TITLE", title);
@@ -73,8 +73,9 @@ const Coulumns = ({ setSelectedColumn, selectedColumn }) => {
     );
 };
 
-const RearrangeSection = ({ sections, handleDragEnd }) => {
+const RearrangeSection = ({ sections, handleDragEnd, newSections = { left: [], right: [] } }) => {
     console.log("SECTION", sections);
+    console.log("NEW SECTION", newSections);
 
     return (
         <div className="relative">
@@ -91,23 +92,47 @@ const RearrangeSection = ({ sections, handleDragEnd }) => {
                 <Droppable droppableId="sections">
                     {(provided) => (
                         <div {...provided.droppableProps} ref={provided.innerRef}>
-                            {sections.map((section, index) => (
-                                <Draggable key={section.id.toString()} draggableId={section.id.toString()} index={index}>
-                                    {(provided) => (
-                                        <div
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            className="flex items-center w-full bg-gray-100 rounded-xl my-3 gap-3 py-1 px-1 cursor-grab"
-                                        >
-                                            <CgLayoutGridSmall className="text-3xl text-gray-400" />
-                                            <h1 className="flex gap-3 items-center font-semibold text-sm">
-                                                <span className="text-lg">{ICONS_OBJ[section.title]()}</span> {section.title}
-                                            </h1>
-                                        </div>
-                                    )}
-                                </Draggable>
-                            ))}
+                            {newSections.left
+                                .filter((c) => c.id !== PERSONAL_INFO_ID)
+                                .map((section, index) => (
+                                    <Draggable key={section.id.toString()} draggableId={section.id.toString()} index={index}>
+                                        {(provided) => (
+                                            <div
+                                                ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                {...provided.dragHandleProps}
+                                                className="flex items-center w-full bg-gray-100 rounded-xl my-3 gap-3 py-1 px-1 cursor-grab"
+                                            >
+                                                <CgLayoutGridSmall className="text-3xl text-gray-400" />
+                                                <h1 className="flex gap-3 items-center font-semibold text-sm">
+                                                    <span className="text-lg">{ICONS_OBJ[section.title] ? ICONS_OBJ[section.title]() : ""}</span>{" "}
+                                                    {section.title}
+                                                </h1>
+                                            </div>
+                                        )}
+                                    </Draggable>
+                                ))}
+
+                            {newSections.right
+                                .filter((c) => c.id !== PERSONAL_INFO_ID)
+                                .map((section, index) => (
+                                    <Draggable key={section.id.toString()} draggableId={section.id.toString()} index={index}>
+                                        {(provided) => (
+                                            <div
+                                                ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                {...provided.dragHandleProps}
+                                                className="flex items-center w-full bg-gray-100 rounded-xl my-3 gap-3 py-1 px-1 cursor-grab"
+                                            >
+                                                <CgLayoutGridSmall className="text-3xl text-gray-400" />
+                                                <h1 className="flex gap-3 items-center font-semibold text-sm">
+                                                    <span className="text-lg">{ICONS_OBJ[section.title] ? ICONS_OBJ[section.title]() : ""}</span>{" "}
+                                                    {section.title}
+                                                </h1>
+                                            </div>
+                                        )}
+                                    </Draggable>
+                                ))}
                             {provided.placeholder}
                         </div>
                     )}
@@ -135,9 +160,8 @@ const ColumnWidth = ({ title, columnsWidth, handleIncrement }) => {
 };
 
 const Layout = () => {
-    const { professionalExperience, skills, languages, projects, certificates, interests, education, courses, customization } = useAppSelector(
-        (state) => state.persistedReducer.resume
-    );
+    const { personalInfo, professionalExperience, skills, languages, projects, certificates, interests, education, courses, customization } =
+        useAppSelector((state) => state.persistedReducer.resume);
 
     const dispatch = useDispatch();
 
@@ -171,6 +195,26 @@ const Layout = () => {
         })
     );
 
+    const [newSections, setNewSections] = useState(
+        _getColumnsArrangement(
+            {
+                professionalExperience,
+                skills,
+                languages,
+                projects,
+                certificates,
+                interests,
+                education,
+                courses,
+                columnsArrangement: layout.columnsArrangement,
+                personalInfo,
+            },
+            layout.direction || "top"
+        )
+    );
+
+    console.log("NEW SECTIONS", newSections);
+
     const handleDragEnd = (result) => {
         if (!result.destination) return;
 
@@ -179,7 +223,10 @@ const Layout = () => {
         newSections.splice(result.destination.index, 0, reorderedSection);
 
         setSections(newSections);
-        handleCustomization({ contentArrangement: newSections });
+        handleCustomization({
+            contentArrangement: newSections,
+            columnsArrangement: { left: [ADD_CONTENT.find((c) => c.id === PERSONAL_INFO_ID), ...newSections] },
+        });
     };
 
     const handleIncrement = (title = "") => {

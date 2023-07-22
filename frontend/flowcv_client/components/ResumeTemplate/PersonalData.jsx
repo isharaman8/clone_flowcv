@@ -1,6 +1,7 @@
 import { useAppSelector } from "@redux/hooks";
 import { HEADER_LAYOUT } from "@utils/Constants";
-import React from "react";
+import { _rgbaStringToHex } from "@utils/helpers";
+import React, { useEffect } from "react";
 import { BsGithub, BsGlobe, BsMedium, BsTwitter } from "react-icons/bs";
 import { FaLinkedinIn, FaPhoneAlt } from "react-icons/fa";
 import { MdEmail, MdLocationPin } from "react-icons/md";
@@ -21,11 +22,21 @@ const Details = ({ icon, title, spacing, header }) => {
 
 const PersonalData = ({ spacing, header, name, job }) => {
     const personalInfoData = useAppSelector((state) => state.persistedReducer.resume.personalInfo);
+    const {
+        customization: { colors },
+    } = useAppSelector((state) => state.persistedReducer.resume);
+
+    useEffect(() => {
+        console.log("COLOR VALUE", colors.accentColorValue && "text-" + "[" + _rgbaStringToHex(colors.accentColorValue) + "]");
+    }, [colors]);
+
     return (
         <div className={`relative mt-10 ${HEADER_LAYOUT[header.type]}`}>
             <div className={`${job.position === "same line" && "flex gap-4 flex-wrap items-center justify-center"}`}>
                 <h2
-                    className={`text-lg ${name.bold && "font-bold"}`}
+                    className={`text-lg ${name.bold && "font-bold"} ${
+                        colors.accentColorValue && "text-" + "[" + _rgbaStringToHex(colors.accentColorValue) + "]"
+                    }`}
                     style={{
                         lineHeight: `${spacing.value.lineHeight}rem`,
                         fontSize: `${
@@ -49,7 +60,7 @@ const PersonalData = ({ spacing, header, name, job }) => {
                     {personalInfoData.fullName}
                 </h2>
                 <p
-                    className="text-sm mt-2"
+                    className={`text-sm mt-2 ${colors.accentColorValue && "text-" + "[" + _rgbaStringToHex(colors.accentColorValue) + "]"}`}
                     style={{
                         lineHeight: `${spacing.value.lineHeight}rem`,
                         fontSize: `${spacing.value.fontSize + 0.5 + (job.size === "S" ? 0 : job.size === "M" ? 1 : 2)}pt`,

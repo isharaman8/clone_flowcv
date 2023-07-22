@@ -52,6 +52,7 @@ const CreateResume = () => {
         education,
         professionalExperience,
     } = resumeData.customization || {};
+    console.log("CUSTOMIZATION OBJ", resumeData.customization.layout);
 
     const dispatch = useDispatch();
 
@@ -254,9 +255,9 @@ const CreateResume = () => {
                         )}
                     </div>
                     {currentComponent === "personalInfo" && (
-                        <div className="flex justify-center">
+                        <div className="flex justify-center mb-10">
                             <button
-                                className="mt-8 flex gradient border-none cursor-pointer appearance-none touch-manipulation items-center justify-center outline-none hover:scale-105 transition-transform shadow-md rounded-full font-extrabold h-15 text-[17px] min-w-[180px] text-white bg-gradient-to-r from-brandPink to-brandRed py-4 px-[4rem]"
+                                className="mt-8  flex gradient border-none cursor-pointer appearance-none touch-manipulation items-center justify-center outline-none hover:scale-105 transition-transform shadow-md rounded-full font-extrabold h-15 text-[17px] min-w-[180px] text-white bg-gradient-to-r from-brandPink to-brandRed py-4 px-[4rem]"
                                 onClick={() => setAddContent(true)}
                             >
                                 <AiOutlinePlus className="text-3xl mr-2" />

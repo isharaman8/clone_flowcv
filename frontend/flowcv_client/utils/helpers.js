@@ -24,7 +24,7 @@ import {
     updateProject,
     updateSkills,
 } from "@redux/resume/features";
-import { ADD_CONTENT, AVAILABLE_COMPONENTS, LINKS, NULL_VALUE, TEMPLATE_BOOLEAN_KEYS } from "./Constants";
+import { ADD_CONTENT, AVAILABLE_COMPONENTS, LINKS, NULL_VALUE, PERSONAL_INFO_ID, TEMPLATE_BOOLEAN_KEYS } from "./Constants";
 
 export const _getYears = () => {
     const year = new Date().getFullYear();
@@ -189,11 +189,30 @@ export const _getPersonalObjLinks = (linksObj = {}, handleFunc) => {
     return retArr;
 };
 
-export const _getComponentsArrangement = (resume = {}) => {
-    const retArray = [];
+export const _getColumnsArrangement = (resume = {}, direction) => {
+    const retObj = {
+        left: [],
+        right: [],
+    };
 
-    if (resume.contentArrangement?.length) {
-        return resume.contentArrangement;
+    if (resume.personalInfo) {
+        const personalInfoContent = ADD_CONTENT.find((c) => c.id === PERSONAL_INFO_ID);
+
+        switch (direction.toLowerCase()) {
+            case "top":
+            case "left":
+                retObj.left.unshift(personalInfoContent);
+                retObj.right = retObj.right.filter((c) => c.id !== PERSONAL_INFO_ID);
+                break;
+
+            case "right":
+                retObj.left = retObj.right.filter((c) => c.id !== PERSONAL_INFO_ID);
+                retObj.right.unshift(personalInfoContent);
+                break;
+
+            default:
+                break;
+        }
     }
 
     const compObj = {
@@ -207,7 +226,40 @@ export const _getComponentsArrangement = (resume = {}) => {
         courses: Boolean(resume.courses?.length),
     };
 
-    console.log("COMPOBJ", compObj);
+    for (const key in compObj) {
+        if (compObj[key]) {
+            const reqdContent = ADD_CONTENT.find((c) => {
+                return _getLowerCaseStr(key) === _getLowerCaseStr(c.title);
+            });
+
+            if (reqdContent) {
+                retObj.left.push(reqdContent);
+            }
+        }
+    }
+
+    if (retObj.left.length + retObj.right.length === resume.columnsArrangement.left.length + resume.columnsArrangement.right.length) {
+        return resume.columnsArrangement;
+    }
+
+    return retObj;
+};
+
+export const _getComponentsArrangement = (resume = {}) => {
+    const retArray = [];
+
+    const compObj = {
+        professionalExperience: Boolean(resume.professionalExperience?.length),
+        skills: Boolean(resume.skills?.length),
+        languages: Boolean(resume.languages?.length),
+        projects: Boolean(resume.projects?.length),
+        certificates: Boolean(resume.certificates?.length),
+        interests: Boolean(resume.interests?.length),
+        education: Boolean(resume.education?.length),
+        courses: Boolean(resume.courses?.length),
+    };
+
+    console.log("COMPOBJ OBJ", compObj);
 
     for (const key in compObj) {
         if (compObj[key]) {
@@ -231,9 +283,50 @@ export const _getComponentsArrangement = (resume = {}) => {
     console.log("RESUME", resume);
     console.log("RESUME COMPOBJ", compObj);
 
+    if (resume.contentArrangement?.length === retArray.length) {
+        return resume.contentArrangement;
+    }
+
     return retArray;
 };
 
 export const _getLowerCaseStr = (str = "") => {
     return str.split(" ").join("").toLowerCase();
+};
+
+export const _rgbaStringToHex = (rgbaString = "") => {
+    if (!rgbaString.trim()) {
+        return rgbaString;
+    }
+
+    console.log("COLOR VALUE", rgbaString);
+
+    // Remove the "rgba(" prefix and ")" suffix from the string
+    const rgbaValues = rgbaString.slice(5, -1);
+
+    console.log("COLOR VALUE", rgbaValues);
+
+    // Split the string into individual color components
+    const components = rgbaValues.split(",");
+
+    console.log("COLOR VALUE", components);
+
+    // Extract the red, green, blue, and alpha values
+    const red = parseInt(components[0].trim());
+    const green = parseInt(components[1].trim());
+    const blue = parseInt(components[2].trim());
+    const alpha = parseFloat(components[3]?.trim() || 1);
+
+    // Convert each color component to hexadecimal
+    const hexRed = red.toString(16).padStart(2, "0");
+    const hexGreen = green.toString(16).padStart(2, "0");
+    const hexBlue = blue.toString(16).padStart(2, "0");
+    const hexAlpha = Math.round(alpha * 255)
+        .toString(16)
+        .padStart(2, "0");
+
+    // Concatenate the color components
+    const hexValue = "#" + hexRed + hexGreen + hexBlue + hexAlpha;
+
+    return hexValue;
 };
