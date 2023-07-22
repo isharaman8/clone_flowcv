@@ -75,7 +75,7 @@ const Heading = () => {
 
     const [heading, setHeading] = useState({
         size: storeHeading.size || "",
-        style: storeHeading.style || "",
+        style: storeHeading.style || 0,
         icons: storeHeading.icons || false,
         textTransform: storeHeading.textTransform || "",
     });

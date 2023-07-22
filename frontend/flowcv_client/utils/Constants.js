@@ -270,7 +270,7 @@ export const FONTS = {
         "IBM Plex Serif",
     ],
     sans: [
-        "Source Sans 3",
+        "Noto Sans",
         "Karla",
         "Mulish",
         "Lato",
@@ -311,3 +311,37 @@ export const NULL_VALUE = "NULL_VALUE";
 export const TEMPLATE_BOOLEAN_KEYS = ["dontshow", "onlyyear", "presentyear", "basic", "advanced", "border", "accent", "multicolor"];
 
 export const COLOR_CHECK_BOXES = ["Name", "Dots/Bars/Bubbles", "Headings", "Dates", "Header icons", "Link icons"];
+
+export const COLUMN_LAYOUT = {
+    layout: {
+        top: "",
+        left: "flex gap-4",
+        right: "flex gap-4 flex-row-reverse",
+    },
+};
+
+export const HEADING_LAYOUT = {
+    0: "border-b-2 border-black",
+    1: "justify-center bg-gray-200",
+    2: "",
+    3: "",
+    4: "",
+};
+
+export const HEADER_LAYOUT = {
+    1: "text-left",
+    2: "text-center justify-center",
+    3: "text-left",
+};
+
+export const DATE_LAYOUT = {
+    slash: "/",
+    hyphen: "-",
+    dot: ".",
+};
+
+export const SEPARATOR = {
+    bullet: "•",
+    pipe: "|",
+    wrap: ",",
+};

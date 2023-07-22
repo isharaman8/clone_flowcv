@@ -46,11 +46,20 @@ const initialState = {
     courses: [],
     customization: {
         spacing: {
-            fontSize: null,
-            lineHeight: null,
-            lRMargin: null,
-            tBMargin: null,
-            spaceBtwEntries: null,
+            value: {
+                fontSize: null,
+                lineHeight: null,
+                lRMargin: null,
+                tBMargin: null,
+                spaceBtwEntries: null,
+            },
+            transform: {
+                fontSize: null,
+                lineHeight: null,
+                lRMargin: null,
+                tBMargin: null,
+                spaceBtwEntries: null,
+            },
         },
         layout: {
             direction: null,

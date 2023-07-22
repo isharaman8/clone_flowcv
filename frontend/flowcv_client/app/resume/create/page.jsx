@@ -7,7 +7,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 import { useAppSelector } from "@redux/hooks";
 import { _camelize } from "../../../utils/helpers";
-import { AVAILABLE_COMPONENTS } from "@utils/Constants";
+import { AVAILABLE_COMPONENTS, COLUMN_LAYOUT } from "@utils/Constants";
 import Skills from "@components/ResumeComponents/Skills";
 import Language from "@components/ResumeComponents/Language";
 import Interest from "@components/ResumeComponents/Interests";
@@ -32,6 +32,26 @@ const CreateResume = () => {
     const [currentComponent, setCurrentComponent] = useState(AVAILABLE_COMPONENTS.project);
 
     const resumeData = useAppSelector((state) => state.persistedReducer.resume);
+
+    const personalInfo = resumeData.personalInfo;
+
+    const {
+        layout,
+        spacing,
+        font,
+        heading,
+        header,
+        name,
+        footer,
+        job,
+        date,
+        skills,
+        language,
+        interest,
+        certificate,
+        education,
+        professionalExperience,
+    } = resumeData.customization || {};
 
     const dispatch = useDispatch();
 
@@ -248,17 +268,149 @@ const CreateResume = () => {
             </div>
 
             {/* right */}
-            <div className="grow-[4] bg-white h-screen my-[2rem] w-1/4 px-[3rem] overflow-hidden break-words sticky top-8">
-                <PersonalData />
-                <Education currentComponent={"education"} />
-                <Education currentComponent={"professional Experience"} />
-                <Education currentComponent={"courses"} />
-                <SkillsComponent />
-                <Languages />
-                <Certificates />
-                <InterestComponent />
-                <Projects />
+            <div
+                className={`grow-[4] bg-white min-h-screen h-full my-[2rem] w-1/4 px-[3rem] overflow-hidden break-words sticky top-8`}
+                style={{
+                    padding: `${spacing.value.tBMargin - 9.5}mm ${spacing.value.lRMargin}mm`,
+                    fontFamily: `${font.font}, ${font.family}`,
+                }}
+            >
+                <div className="relative w-full min-h-screen h-full pb-[3rem]">
+                    {layout.direction === "top" ? (
+                        <div style={{ display: "flex", flexDirection: "column", rowGap: `${spacing.value.spaceBtwEntries}px` }}>
+                            <PersonalData job={job} name={name} header={header} spacing={spacing} />
+                            {layout.columns === 1 ? (
+                                <>
+                                    <Education education={education} date={date} spacing={spacing} heading={heading} currentComponent={"education"} />
+                                    <Education
+                                        professionalExperience={professionalExperience}
+                                        date={date}
+                                        spacing={spacing}
+                                        heading={heading}
+                                        currentComponent={"professional Experience"}
+                                    />
+                                    <Education date={date} spacing={spacing} heading={heading} currentComponent={"courses"} />
+                                    <SkillsComponent skills={skills} spacing={spacing} heading={heading} />
+                                    <Languages language={language} spacing={spacing} heading={heading} />
+                                    <Certificates certificate={certificate} spacing={spacing} heading={heading} />
+                                    <InterestComponent interest={interest} spacing={spacing} heading={heading} />
+                                    <Projects date={date} spacing={spacing} heading={heading} />
+                                </>
+                            ) : (
+                                <>
+                                    <div className={`flex gap-4`}>
+                                        <div className="w-1/2">
+                                            <Education
+                                                education={education}
+                                                date={date}
+                                                spacing={spacing}
+                                                heading={heading}
+                                                currentComponent={"education"}
+                                            />
+                                            <Education
+                                                professionalExperience={professionalExperience}
+                                                date={date}
+                                                spacing={spacing}
+                                                heading={heading}
+                                                currentComponent={"professional Experience"}
+                                            />
+                                            <Education date={date} spacing={spacing} heading={heading} currentComponent={"courses"} />
+                                            <SkillsComponent skills={skills} spacing={spacing} heading={heading} />
+                                        </div>
+                                        <div className="w-1/2">
+                                            <Languages language={language} spacing={spacing} heading={heading} />
+                                            <Certificates certificate={certificate} spacing={spacing} heading={heading} />
+                                            <InterestComponent interest={interest} spacing={spacing} heading={heading} />
+                                            <Projects date={date} spacing={spacing} heading={heading} />
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                    ) : (
+                        <>
+                            {layout.columns === 2 && (
+                                <div className={`${COLUMN_LAYOUT.layout[layout.direction]}`}>
+                                    <div
+                                        style={{
+                                            width: `${layout.columnWidth.left}%`,
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            rowGap: `${spacing.value.spaceBtwEntries}px`,
+                                        }}
+                                    >
+                                        {layout.direction === "left" && <PersonalData job={job} name={name} header={header} spacing={spacing} />}
+                                        <Education
+                                            education={education}
+                                            date={date}
+                                            spacing={spacing}
+                                            currentComponent={"education"}
+                                            heading={heading}
+                                        />
+                                        <Education
+                                            professionalExperience={professionalExperience}
+                                            date={date}
+                                            spacing={spacing}
+                                            currentComponent={"professional Experience"}
+                                            heading={heading}
+                                        />
+                                        <Education date={date} spacing={spacing} currentComponent={"courses"} heading={heading} />
+                                        <SkillsComponent skills={skills} spacing={spacing} heading={heading} />
+                                    </div>
+                                    <div
+                                        style={{
+                                            width: `${layout.columnWidth.right}%`,
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            rowGap: `${spacing.value.spaceBtwEntries}px`,
+                                        }}
+                                    >
+                                        {layout.direction === "right" && <PersonalData job={job} name={name} header={header} spacing={spacing} />}
+                                        <Languages language={language} spacing={spacing} heading={heading} />
+                                        <Certificates certificate={certificate} spacing={spacing} heading={heading} />
+                                        <InterestComponent interest={interest} spacing={spacing} heading={heading} />
+                                        <Projects date={date} spacing={spacing} heading={heading} />
+                                    </div>
+                                </div>
+                            )}
+                            {layout.columns === 1 && (
+                                <div style={{ display: "flex", flexDirection: "column", rowGap: `${spacing.value.spaceBtwEntries}px` }}>
+                                    <div className={`${layout.direction === "left" ? "flex gap-2" : "flex justify-end"}`}>
+                                        <div style={{ width: `${layout.columnWidth.left}%` }}>
+                                            {layout.direction === "left" && <PersonalData job={job} name={name} header={header} spacing={spacing} />}
+                                        </div>
+                                        <div style={{ width: `${layout.columnWidth.right}%` }}>
+                                            {layout.direction === "right" && <PersonalData job={job} name={name} header={header} spacing={spacing} />}
+                                        </div>
+                                    </div>
+                                    <Education education={education} date={date} spacing={spacing} currentComponent={"education"} heading={heading} />
+                                    <Education
+                                        professionalExperience={professionalExperience}
+                                        date={date}
+                                        spacing={spacing}
+                                        currentComponent={"professional Experience"}
+                                        heading={heading}
+                                    />
+                                    <Education date={date} spacing={spacing} currentComponent={"courses"} heading={heading} />
+                                    <SkillsComponent skills={skills} spacing={spacing} heading={heading} />
+                                    <Languages language={language} spacing={spacing} heading={heading} />
+                                    <Certificates certificate={certificate} spacing={spacing} heading={heading} />
+                                    <InterestComponent interest={interest} spacing={spacing} heading={heading} />
+                                    <Projects date={date} spacing={spacing} heading={heading} />
+                                </div>
+                            )}
+                        </>
+                    )}
+                    {(footer.name || footer.page || footer.email) && (
+                        <div className="absolute bottom-4 w-full flex items-center text-[.6rem] text-gray-600 justify-between ">
+                            <div>{footer.name && personalInfo?.fullName}</div>
+                            <div>{footer.email && personalInfo?.email}</div>
+                            <div>{footer.page && "1/1"}</div>
+                        </div>
+                    )}
+                </div>
             </div>
+
             {addContent && <AddContent setAddContent={setAddContent} handleCurrentComponent={handleCurrentComponent} />}
         </div>
     );

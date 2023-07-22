@@ -33,26 +33,25 @@ const LayoutButton = ({ title, style, selectedLayout, setSelectedLayout }) => {
     );
 };
 
-const Coulumns = ({ setSelectedColumn, selectedColumn, selectedLayout }) => {
+const Coulumns = ({ setSelectedColumn, selectedColumn }) => {
     return (
         <div className="my-6">
             <h2 className="text-sm font-semibold">Columns</h2>
             <div className="flex items-center gap-[1.4rem] my-2">
-                {selectedLayout === "top" && (
-                    <div
-                        className="rounded-[.6rem] px-[.4rem] py-[.8rem] grid place-content-center cursor-pointer w-[6rem] hover:opacity-80"
-                        style={{
-                            border: `${selectedColumn === 1 ? "1px solid #4B55DC" : "1px solid #cbcbcb"}`,
-                        }}
-                        onClick={() => setSelectedColumn(1)}
-                    >
-                        <svg width="63" height="21" viewBox="0 0 63 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="63" height="4" rx="2" fill={selectedColumn === 1 ? "#4b55dc" : "#C7C7C7"} />
-                            <rect y="8" width="63" height="4" rx="2" fill={selectedColumn === 1 ? "#4b55dc" : "#C7C7C7"} />
-                            <rect y="17" width="63" height="4" rx="2" fill={selectedColumn === 1 ? "#4b55dc" : "#C7C7C7"} />
-                        </svg>
-                    </div>
-                )}
+                <div
+                    className="rounded-[.6rem] px-[.4rem] py-[.8rem] grid place-content-center cursor-pointer w-[6rem] hover:opacity-80"
+                    style={{
+                        border: `${selectedColumn === 1 ? "1px solid #4B55DC" : "1px solid #cbcbcb"}`,
+                    }}
+                    onClick={() => setSelectedColumn(1)}
+                >
+                    <svg width="63" height="21" viewBox="0 0 63 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="63" height="4" rx="2" fill={selectedColumn === 1 ? "#4b55dc" : "#C7C7C7"} />
+                        <rect y="8" width="63" height="4" rx="2" fill={selectedColumn === 1 ? "#4b55dc" : "#C7C7C7"} />
+                        <rect y="17" width="63" height="4" rx="2" fill={selectedColumn === 1 ? "#4b55dc" : "#C7C7C7"} />
+                    </svg>
+                </div>
+
                 <div
                     className="rounded-[.6rem] px-[.4rem] py-[.8rem] grid place-content-center cursor-pointer w-[6rem] hover:opacity-80"
                     style={{
@@ -67,20 +66,6 @@ const Coulumns = ({ setSelectedColumn, selectedColumn, selectedLayout }) => {
                         <rect x="35" y="8" width="28" height="4" rx="2" fill={selectedColumn === 2 ? "#4b55dc" : "#C7C7C7"} />
                         <rect y="17" width="28" height="4" rx="2" fill={selectedColumn === 2 ? "#4b55dc" : "#C7C7C7"} />
                         <rect x="35" y="17" width="28" height="4" rx="2" fill={selectedColumn === 2 ? "#4b55dc" : "#C7C7C7"} />
-                    </svg>
-                </div>
-                <div
-                    className="rounded-[.6rem] px-[.4rem] py-[.8rem] grid place-content-center cursor-pointer w-[6rem] hover:opacity-80"
-                    style={{
-                        border: `${selectedColumn === 3 ? "1px solid #4B55DC" : "1px solid #cbcbcb"}`,
-                    }}
-                    onClick={() => setSelectedColumn(3)}
-                >
-                    <svg width="63" height="21" viewBox="0 0 63 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="28" height="4" rx="2" fill={selectedColumn === 3 ? "#4b55dc" : "#C7C7C7"} />
-                        <rect x="31" width="32" height="4" rx="2" fill={selectedColumn === 3 ? "#4b55dc" : "#C7C7C7"} />
-                        <rect y="8" width="63" height="4" rx="2" fill={selectedColumn === 3 ? "#4b55dc" : "#C7C7C7"} />
-                        <rect y="17" width="43" height="4" rx="2" fill={selectedColumn === 3 ? "#4b55dc" : "#C7C7C7"} />
                     </svg>
                 </div>
             </div>
@@ -250,7 +235,7 @@ const Layout = () => {
                     selectedLayout={layout?.direction}
                 />
             </div>
-            <Coulumns setSelectedColumn={handleSelectedColumn} selectedColumn={layout?.columns} selectedLayout={handleSelectedLayout} />
+            <Coulumns setSelectedColumn={handleSelectedColumn} selectedColumn={layout?.columns} />
             <RearrangeSection sections={sections} handleDragEnd={handleDragEnd} />
             {layout?.direction !== "top" && (
                 <div>

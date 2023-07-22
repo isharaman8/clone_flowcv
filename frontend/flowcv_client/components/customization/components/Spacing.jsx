@@ -185,7 +185,7 @@ const SpacingComponents = ({ title, transform, handleDecrement, handleIncrement,
                     className="cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 text-primaryBlack border-4 border-solid border-buttonGray min-w-10 min-h-10 h-10 w-10 rounded-small"
                     fdprocessedid="a87izf"
                     onClick={() => handleDecrement(title, value)}
-                    disabled={transform[title] < 1}
+                    disabled={transform[title] < 2}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-[1.4em]">
                         <path d="M0 0h24v24H0V0z" fill="none"></path>
@@ -216,19 +216,19 @@ const Spacing = () => {
     const { spacing } = useAppSelector((state) => state.persistedReducer.resume.customization);
 
     const [transform, setTransform] = useState({
-        fontSize: spacing.fontSize || 0,
-        lineHeight: spacing.lineHeight || 0,
-        leftRightMargin: spacing.lRMargin || 0,
-        topBottomMargin: spacing.tBMargin || 0,
-        space: spacing.spaceBtwEntries || 0,
+        fontSize: spacing.transform.fontSize || 0,
+        lineHeight: spacing.transform.lineHeight || 0,
+        leftRightMargin: spacing.transform.lRMargin || 0,
+        topBottomMargin: spacing.transform.tBMargin || 0,
+        space: spacing.transform.spaceBtwEntries || 0,
     });
 
     const [value, setValue] = useState({
-        fontSize: 9,
-        lineHeight: 1.1,
-        leftRightMargin: 10,
-        topBottomMargin: 10,
-        space: 1,
+        fontSize: spacing.value.fontSize || 9,
+        lineHeight: spacing.value.lineHeight || 1.1,
+        leftRightMargin: spacing.value.lRMargin || 10,
+        topBottomMargin: spacing.value.tBMargin || 10,
+        space: spacing.value.spaceBtwEntries || 1,
     });
 
     const dispatch = useDispatch();
@@ -267,20 +267,27 @@ const Spacing = () => {
             updateCustomization({
                 key: "spacing",
                 value: {
-                    fontSize: transform.fontSize,
-                    lineHeight: transform.lineHeight,
-                    lRMargin: transform.leftRightMargin,
-                    tBMargin: transform.topBottomMargin,
-                    spaceBtwEntries: transform.space,
+                    value: {
+                        fontSize: value.fontSize,
+                        lineHeight: value.lineHeight,
+                        lRMargin: value.leftRightMargin,
+                        tBMargin: value.topBottomMargin,
+                        spaceBtwEntries: value.space,
+                    },
+                    transform: {
+                        fontSize: transform.fontSize,
+                        lineHeight: transform.lineHeight,
+                        lRMargin: transform.leftRightMargin,
+                        tBMargin: transform.topBottomMargin,
+                        spaceBtwEntries: transform.space,
+                    },
                 },
             })
         );
     };
 
+    console.log("SPACING", spacing);
     useEffect(() => {
-        console.log("SPACING STORE obj", spacing);
-        console.log("SPACING STATE", transform);
-
         handleSpacingCustomization();
     }, [transform]);
 

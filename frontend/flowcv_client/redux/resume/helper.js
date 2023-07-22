@@ -155,11 +155,20 @@ const _createOrUpdateCertificates = (payload = {}, oldData = {}) => {
 
 const _setSpacing = (payload = {}, oldData = {}) => {
     return {
-        fontSize: _getValue(payload, oldData, "fontSize"),
-        lRMargin: _getValue(payload, oldData, "lRMargin"),
-        tBMargin: _getValue(payload, oldData, "tBMargin"),
-        lineHeight: _getValue(payload, oldData, "lineHeight"),
-        spaceBtwEntries: _getValue(payload, oldData, "spaceBtwEntries"),
+        value: {
+            fontSize: _getValue(payload.value, oldData.value, "fontSize"),
+            lRMargin: _getValue(payload.value, oldData.value, "lRMargin"),
+            tBMargin: _getValue(payload.value, oldData.value, "tBMargin"),
+            lineHeight: _getValue(payload.value, oldData.value, "lineHeight"),
+            spaceBtwEntries: _getValue(payload.value, oldData.value, "spaceBtwEntries"),
+        },
+        transform: {
+            fontSize: _getValue(payload.transform, oldData.transform, "fontSize"),
+            lRMargin: _getValue(payload.transform, oldData.transform, "lRMargin"),
+            tBMargin: _getValue(payload.transform, oldData.transform, "tBMargin"),
+            lineHeight: _getValue(payload.transform, oldData.value, "lineHeight"),
+            spaceBtwEntries: _getValue(payload.value, oldData.transform, "spaceBtwEntries"),
+        },
     };
 };
 
