@@ -39,7 +39,7 @@ const Education = () => {
             <div>
                 <div className="flex gap-2">
                     <div
-                        className={`py-2 px-[2.4rem] text-sm border  ${
+                        className={`py-2 px-[1.4rem] sm:px-[2.4rem] text-xs sm:text-sm border  ${
                             education.type === "Degree - School" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                         onClick={() => setEducation({ ...education, type: "Degree - School" })}
@@ -48,7 +48,7 @@ const Education = () => {
                     </div>
 
                     <div
-                        className={`py-2 px-[2.4rem] text-sm border ${
+                        className={`py-2 px-[1.4rem] sm:px-[2.4rem] text-xs sm:text-sm border ${
                             education.type === "School - Degree" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                         onClick={() => setEducation({ ...education, type: "School - Degree" })}

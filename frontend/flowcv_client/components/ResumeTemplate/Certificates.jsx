@@ -13,6 +13,7 @@ const Certificates = ({ spacing, heading, certificate }) => {
                     heading.textTransform.toLowerCase() || "capitalize"
                 }`}
                 style={{
+                    textTransform: `${heading.textTransform.toLowerCase()}`,
                     lineHeight: `${spacing.value.lineHeight}rem`,
                     fontSize: `${
                         spacing.value.fontSize +
@@ -23,7 +24,7 @@ const Certificates = ({ spacing, heading, certificate }) => {
                     borderBottom: `${heading.style === 3 ? "2px solid #111" : ""} `,
                 }}
             >
-                {heading.icons && <GrCertificate className="text-xl" />} Certificates
+                {heading.icons && <GrCertificate className="text-lg" />} Certificates
             </h1>
             {heading.style === 4 && <div className="w-[2.6em] mt-[3px] border-b-[6px] border-black rounded-[1px]"></div>}
             <div

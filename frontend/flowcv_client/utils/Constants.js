@@ -64,43 +64,52 @@ export const ADD_CONTENT = [
     },
 ];
 
-export const ICONS_OBJ = Object.freeze({
-    ...ADD_CONTENT.reduce((acc, val) => ({ ...acc, [val.title]: val.icon, [val.id]: val.icon }), {}),
-});
 export const PROFILE_ICONS = [
     {
         id: 1,
         icon: MdEmail,
+        title: "Email",
     },
     {
         id: 2,
         icon: FaPhoneAlt,
+        title: "Phone",
     },
     {
         id: 3,
         icon: MdLocationPin,
+        title: "Address",
     },
     {
         id: 4,
         icon: BsGithub,
+        title: "Github",
     },
     {
         id: 5,
         icon: BsGlobe,
+        title: "Website",
     },
     {
         id: 6,
         icon: FaLinkedinIn,
+        title: "LinkedIn",
     },
     {
         id: 7,
         icon: BsTwitter,
+        title: "Twitter",
     },
     {
         id: 8,
         icon: BsMedium,
+        title: "Medium",
     },
 ];
+
+export const ICONS_OBJ = Object.freeze({
+    ...PROFILE_ICONS.reduce((acc, val) => ({ ...acc, [val.title]: val.icon, [val.id]: val.icon }), {}),
+});
 
 export const cardsData = [
     {
@@ -330,7 +339,7 @@ export const COLUMN_LAYOUT = {
 
 export const HEADING_LAYOUT = {
     0: "border-b-2 border-black",
-    1: "justify-center bg-gray-200",
+    1: "justify-center bg-gray-200 py-1",
     2: "",
     3: "",
     4: "",

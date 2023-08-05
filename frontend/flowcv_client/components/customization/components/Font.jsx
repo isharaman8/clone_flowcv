@@ -56,7 +56,7 @@ const Font = () => {
                 <FontElement title={"Sans"} fontFamily={fontFamily} setFontFamily={setFontFamily} />
                 <FontElement title={"Mono"} fontFamily={fontFamily} setFontFamily={setFontFamily} />
             </div>
-            <div className="w-full max-w-[30rem] grid grid-cols-3 gap-4 my-4">
+            <div className="w-full max-w-[30rem] grid grid-cols-2 sm:grid-cols-3 gap-4 my-4">
                 {FONTS[fontFamily.family.toLowerCase()].map((c) => (
                     <div
                         onClick={() => setFontFamily({ ...fontFamily, font: c })}

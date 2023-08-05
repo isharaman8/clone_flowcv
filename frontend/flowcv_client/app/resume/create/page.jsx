@@ -4,10 +4,9 @@ import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
-
 import { useAppSelector } from "@redux/hooks";
 import { _camelize } from "../../../utils/helpers";
-import { AVAILABLE_COMPONENTS, COLUMN_LAYOUT } from "@utils/Constants";
+import { AVAILABLE_COMPONENTS } from "@utils/Constants";
 import Skills from "@components/ResumeComponents/Skills";
 import Language from "@components/ResumeComponents/Language";
 import Interest from "@components/ResumeComponents/Interests";
@@ -18,49 +17,25 @@ import ProjectComponent from "@components/ResumeComponents/Project";
 import PersonalInfo from "@components/ResumeComponents/PersonalInfo";
 import ProfessionalExperience from "@components/ResumeComponents/ProfessionalExpAndEducation";
 import DropDownComp from "@components/ResumeComponents/minicomponents/DropDownComp/DropDownComp";
-import PersonalData from "@components/ResumeTemplate/PersonalData";
-import Education from "@components/ResumeTemplate/EducationCoursesAndExp";
-import SkillsComponent from "@components/ResumeTemplate/Skills";
-import Languages from "@components/ResumeTemplate/Languages";
-import Certificates from "@components/ResumeTemplate/Certificates";
-import InterestComponent from "@components/ResumeTemplate/InterestComponent";
-import Projects from "@components/ResumeTemplate/Projects";
 import Customization from "@components/customization/Customization";
+import MobileNav from "@components/ResumeComponents/MobileNav";
+import TemplateDemo from "@components/ResumeComponents/TemplateDemo";
+import { AiFillCloseCircle } from "react-icons/ai";
 
 const CreateResume = () => {
     const [addContent, setAddContent] = useState(false);
-    const [currentComponent, setCurrentComponent] = useState(AVAILABLE_COMPONENTS.project);
+    const [demo, setDemo] = useState(false);
+    const [currentComponent, setCurrentComponent] = useState(AVAILABLE_COMPONENTS.personalInfo);
 
     const resumeData = useAppSelector((state) => state.persistedReducer.resume);
 
-    const personalInfo = resumeData.personalInfo;
-
-    const {
-        layout,
-        spacing,
-        font,
-        heading,
-        header,
-        name,
-        footer,
-        job,
-        date,
-        skills,
-        language,
-        interest,
-        certificate,
-        education,
-        professionalExperience,
-    } = resumeData.customization || {};
-    console.log("CUSTOMIZATION OBJ", resumeData.customization.layout);
+    const { spacing, font } = resumeData.customization || {};
+    console.log("CUSTOMIZATION OBJ", resumeData.customization);
 
     const dispatch = useDispatch();
 
     const handleCurrentComponent = (e) => {
         setCurrentComponent(e.title);
-
-        console.log("TITLE", e.title);
-
         setAddContent(false);
     };
 
@@ -71,9 +46,6 @@ const CreateResume = () => {
     };
 
     const handleEditObj = (key, value) => {
-        console.log("KEY", key);
-        console.log("VLAUE", value);
-
         dispatch(setEditObj({ key, value }));
         dispatch(setPrevObj({ key, value: null }));
     };
@@ -83,11 +55,14 @@ const CreateResume = () => {
     }, []);
 
     return (
-        <div className="min-h-[90vh] w-[100vw] flex gap-5 relative bg-[#EEF0F4] px-10">
+        <div className="min-h-[90vh] w-[100vw] flex gap-5 relative bg-[#EEF0F4] px-0 sm:px-10">
+            {/* mobile menus  */}
+            <MobileNav currentComponent={currentComponent} setCurrentComponent={setCurrentComponent} setDemo={setDemo} />
+
             {/* left */}
             <div className="flex grow items-start gap-8 relative">
                 {/* left */}
-                <div className="grow-0 sticky top-8 z-[10000] flex flex-col items-center justify-center gap-10 px-2 py-5 rounded-xl shadow-lg bg-gray-50">
+                <div className="grow-0 sticky top-8 z-[10000] hidden sm:flex flex-col items-center justify-center gap-10 px-2 py-5 rounded-xl shadow-lg bg-gray-50">
                     <Link href={"/"}>
                         <img src="/flowcv.svg" alt="flow cv" className="w-16" />
                     </Link>
@@ -113,19 +88,18 @@ const CreateResume = () => {
                         <img src={currentComponent === "CUSTOMIZE" ? "/customize1.svg" : "/customize.svg"} alt="customize" className="w-10" />
                         <p>Customize</p>
                     </div>
-                    <div className="flex flex-col justify-center items-center">
-                        <img src="/links.svg" alt="links" className="w-10" />
-                        <p>Links</p>
-                    </div>
                 </div>
 
                 {/* right */}
-                <div className="flex grow flex-col  justify-center items-stretch gap-4">
-                    <div className="sticky top-0 rounded-b-lg pt-[2rem] bg-[#EEF0F4] z-[6] mb-6 w-full shadow-sm">
-                        <div className="sticky top-8 z-[1000]  grid max-w-full grid-cols-[min-content_1fr_min-content] items-center bg-gray-50 px-6 py-3 md:px-8 md:py-4  lg:px-9 lg:py-5 rounded-xl shadow-lg">
-                            <a className="sidebar:hidden mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 hover:cursor-pointer hover:opacity-80">
+                <div className="flex grow flex-col justify-center items-stretch gap-4">
+                    <div className="sticky top-0 rounded-b-lg pt-0 sm:pt-[2rem] bg-[#EEF0F4] z-[6] mb-6 w-full shadow-sm">
+                        <div className="sticky top-8 z-[1000]  grid grid-cols-[min-content_1fr_min-content] items-center bg-white px-6 py-3 md:px-8 md:py-4  lg:px-9 lg:py-5 rounded-xl shadow-none sm:shadow-lg">
+                            <Link
+                                href={"/resume"}
+                                className="sidebar:hidden mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-white hover:cursor-pointer hover:opacity-80"
+                            >
                                 <img src="/arrow.svg" className="w-6" />
-                            </a>
+                            </Link>
                             <div className="min-w-0">
                                 <div className="flex w-full cursor-pointer items-center space-x-2 pr-4 hover:opacity-80">
                                     <p className="text-black truncate text-2xl font-extrabold">Resume No. 1</p>
@@ -142,7 +116,7 @@ const CreateResume = () => {
                                     type="button"
                                     className="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 min-h-[30px] min-w-[30px] text-white bg-black h-12 w-12 rounded-full md:hidden"
                                 >
-                                    <img src="/download.svg" />
+                                    <img src="/download.svg" className="w-6" />
                                 </button>
                                 <button
                                     type="button"
@@ -155,7 +129,7 @@ const CreateResume = () => {
                     </div>
 
                     {/* resume components */}
-                    <div className="w-full max-w-[800px] pb-16">
+                    <div className="w-full max-w-[800px] pb-16 px-4 sm:px-0">
                         {currentComponent === AVAILABLE_COMPONENTS.skill && <Skills setCurrentComponent={setCurrentComponent} />}
                         {currentComponent === "CUSTOMIZE" && <Customization setCurrentComponent={setCurrentComponent} />}
                         {currentComponent === AVAILABLE_COMPONENTS.language && <Language setCurrentComponent={setCurrentComponent} />}
@@ -268,149 +242,36 @@ const CreateResume = () => {
                 </div>
             </div>
 
-            {/* right */}
+            {/* Template demo */}
             <div
-                className={`grow-[4] bg-white min-h-screen h-full my-[2rem] w-1/4 px-[3rem] overflow-hidden break-words sticky top-8`}
+                className={`hidden sm:block grow-[4] bg-white min-h-screen h-full my-[2rem] w-1/4 px-[3rem] overflow-hidden break-words sticky top-8`}
                 style={{
-                    padding: `${spacing.value.tBMargin - 9.5}mm ${spacing.value.lRMargin}mm`,
+                    padding: `${spacing?.value?.tBMargin - 9.5}mm ${spacing?.value?.lRMargin}mm`,
                     fontFamily: `${font.font}, ${font.family}`,
                 }}
             >
-                <div className="relative w-full min-h-screen h-full pb-[3rem]">
-                    {layout.direction === "top" ? (
-                        <div style={{ display: "flex", flexDirection: "column", rowGap: `${spacing.value.spaceBtwEntries}px` }}>
-                            <PersonalData job={job} name={name} header={header} spacing={spacing} />
-                            {layout.columns === 1 ? (
-                                <>
-                                    <Education education={education} date={date} spacing={spacing} heading={heading} currentComponent={"education"} />
-                                    <Education
-                                        professionalExperience={professionalExperience}
-                                        date={date}
-                                        spacing={spacing}
-                                        heading={heading}
-                                        currentComponent={"professional Experience"}
-                                    />
-                                    <Education date={date} spacing={spacing} heading={heading} currentComponent={"courses"} />
-                                    <SkillsComponent skills={skills} spacing={spacing} heading={heading} />
-                                    <Languages language={language} spacing={spacing} heading={heading} />
-                                    <Certificates certificate={certificate} spacing={spacing} heading={heading} />
-                                    <InterestComponent interest={interest} spacing={spacing} heading={heading} />
-                                    <Projects date={date} spacing={spacing} heading={heading} />
-                                </>
-                            ) : (
-                                <>
-                                    <div className={`flex gap-4`}>
-                                        <div className="w-1/2">
-                                            <Education
-                                                education={education}
-                                                date={date}
-                                                spacing={spacing}
-                                                heading={heading}
-                                                currentComponent={"education"}
-                                            />
-                                            <Education
-                                                professionalExperience={professionalExperience}
-                                                date={date}
-                                                spacing={spacing}
-                                                heading={heading}
-                                                currentComponent={"professional Experience"}
-                                            />
-                                            <Education date={date} spacing={spacing} heading={heading} currentComponent={"courses"} />
-                                            <SkillsComponent skills={skills} spacing={spacing} heading={heading} />
-                                        </div>
-                                        <div className="w-1/2">
-                                            <Languages language={language} spacing={spacing} heading={heading} />
-                                            <Certificates certificate={certificate} spacing={spacing} heading={heading} />
-                                            <InterestComponent interest={interest} spacing={spacing} heading={heading} />
-                                            <Projects date={date} spacing={spacing} heading={heading} />
-                                        </div>
-                                    </div>
-                                </>
-                            )}
-                        </div>
-                    ) : (
-                        <>
-                            {layout.columns === 2 && (
-                                <div className={`${COLUMN_LAYOUT.layout[layout.direction]}`}>
-                                    <div
-                                        style={{
-                                            width: `${layout.columnWidth.left}%`,
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            rowGap: `${spacing.value.spaceBtwEntries}px`,
-                                        }}
-                                    >
-                                        {layout.direction === "left" && <PersonalData job={job} name={name} header={header} spacing={spacing} />}
-                                        <Education
-                                            education={education}
-                                            date={date}
-                                            spacing={spacing}
-                                            currentComponent={"education"}
-                                            heading={heading}
-                                        />
-                                        <Education
-                                            professionalExperience={professionalExperience}
-                                            date={date}
-                                            spacing={spacing}
-                                            currentComponent={"professional Experience"}
-                                            heading={heading}
-                                        />
-                                        <Education date={date} spacing={spacing} currentComponent={"courses"} heading={heading} />
-                                        <SkillsComponent skills={skills} spacing={spacing} heading={heading} />
-                                    </div>
-                                    <div
-                                        style={{
-                                            width: `${layout.columnWidth.right}%`,
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            rowGap: `${spacing.value.spaceBtwEntries}px`,
-                                        }}
-                                    >
-                                        {layout.direction === "right" && <PersonalData job={job} name={name} header={header} spacing={spacing} />}
-                                        <Languages language={language} spacing={spacing} heading={heading} />
-                                        <Certificates certificate={certificate} spacing={spacing} heading={heading} />
-                                        <InterestComponent interest={interest} spacing={spacing} heading={heading} />
-                                        <Projects date={date} spacing={spacing} heading={heading} />
-                                    </div>
-                                </div>
-                            )}
-                            {layout.columns === 1 && (
-                                <div style={{ display: "flex", flexDirection: "column", rowGap: `${spacing.value.spaceBtwEntries}px` }}>
-                                    <div className={`${layout.direction === "left" ? "flex gap-2" : "flex justify-end"}`}>
-                                        <div style={{ width: `${layout.columnWidth.left}%` }}>
-                                            {layout.direction === "left" && <PersonalData job={job} name={name} header={header} spacing={spacing} />}
-                                        </div>
-                                        <div style={{ width: `${layout.columnWidth.right}%` }}>
-                                            {layout.direction === "right" && <PersonalData job={job} name={name} header={header} spacing={spacing} />}
-                                        </div>
-                                    </div>
-                                    <Education education={education} date={date} spacing={spacing} currentComponent={"education"} heading={heading} />
-                                    <Education
-                                        professionalExperience={professionalExperience}
-                                        date={date}
-                                        spacing={spacing}
-                                        currentComponent={"professional Experience"}
-                                        heading={heading}
-                                    />
-                                    <Education date={date} spacing={spacing} currentComponent={"courses"} heading={heading} />
-                                    <SkillsComponent skills={skills} spacing={spacing} heading={heading} />
-                                    <Languages language={language} spacing={spacing} heading={heading} />
-                                    <Certificates certificate={certificate} spacing={spacing} heading={heading} />
-                                    <InterestComponent interest={interest} spacing={spacing} heading={heading} />
-                                    <Projects date={date} spacing={spacing} heading={heading} />
-                                </div>
-                            )}
-                        </>
-                    )}
-                    {(footer.name || footer.page || footer.email) && (
-                        <div className="absolute bottom-4 w-full flex items-center text-[.6rem] text-gray-600 justify-between ">
-                            <div>{footer.name && personalInfo?.fullName}</div>
-                            <div>{footer.email && personalInfo?.email}</div>
-                            <div>{footer.page && "1/1"}</div>
-                        </div>
-                    )}
-                </div>
+                <TemplateDemo resumeData={resumeData} />
             </div>
+
+            {/* Template Demo for Mobile */}
+            {demo && (
+                <div className="fixed sm:hidden top-0 left-0 h-screen w-full text-sm z-[500] px-4 py-[3rem] grid place-content-center bg-[rgba(0,0,0,0.7)]">
+                    <div>
+                        <div className="absolute top-4 right-6 text-5xl text-white" onClick={() => setDemo(false)}>
+                            <AiFillCloseCircle />
+                        </div>
+                        <div
+                            className={`bg-white scale-[0.5] h-auto my-[2rem] w-[40rem] px-[3rem] overflow-hidden break-words`}
+                            style={{
+                                padding: `${spacing?.value?.tBMargin - 9.5}mm ${spacing?.value?.lRMargin}mm`,
+                                fontFamily: `${font.font}, ${font.family}`,
+                            }}
+                        >
+                            <TemplateDemo resumeData={resumeData} />
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {addContent && <AddContent setAddContent={setAddContent} handleCurrentComponent={handleCurrentComponent} />}
         </div>

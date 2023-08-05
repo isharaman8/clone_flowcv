@@ -28,9 +28,9 @@ const Date = () => {
             <div className="max-w-[30rem]">
                 <div>
                     <p className="font-semibold text-sm mt-4">Format</p>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 flex-wrap">
                         <div
-                            className={`py-2 px-[2rem] text-sm border  ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border  ${
                                 date.format === "DD/MM/YYYY" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setDate({ ...date, format: "DD/MM/YYYY" })}
@@ -38,7 +38,7 @@ const Date = () => {
                             DD/MM/YYYY
                         </div>
                         <div
-                            className={`py-2 px-[2rem] text-sm border ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                 date.format === "MM/DD/YYYY" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setDate({ ...date, format: "MM/DD/YYYY" })}
@@ -46,7 +46,7 @@ const Date = () => {
                             MM/DD/YYYY
                         </div>
                         <div
-                            className={`py-2 px-[2rem] text-sm border ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                 date.format === "YYYY/MM/DD" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setDate({ ...date, format: "YYYY/MM/DD" })}
@@ -57,9 +57,9 @@ const Date = () => {
                 </div>
                 <div>
                     <p className="font-semibold text-sm mt-4">Month</p>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 flex-wrap">
                         <div
-                            className={`py-2 px-[2rem] text-sm border  ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border  ${
                                 date.month === "digits" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setDate({ ...date, month: "digits" })}
@@ -67,7 +67,7 @@ const Date = () => {
                             Digits
                         </div>
                         <div
-                            className={`py-2 px-[2rem] text-sm border ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                 date.month === "short" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setDate({ ...date, month: "short" })}
@@ -75,7 +75,7 @@ const Date = () => {
                             Short
                         </div>
                         <div
-                            className={`py-2 px-[2rem] text-sm border ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                 date.month === "long" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setDate({ ...date, month: "long" })}
@@ -86,9 +86,9 @@ const Date = () => {
                 </div>
                 <div>
                     <p className="font-semibold text-sm mt-4">Delimiter</p>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 flex-wrap">
                         <div
-                            className={`py-2 px-[2rem] text-sm border  ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border  ${
                                 date.delimiter === "slash" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setDate({ ...date, delimiter: "slash" })}
@@ -96,7 +96,7 @@ const Date = () => {
                             / Slash
                         </div>
                         <div
-                            className={`py-2 px-[2rem] text-sm border ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                 date.delimiter === "hyphen" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setDate({ ...date, delimiter: "hyphen" })}
@@ -104,7 +104,7 @@ const Date = () => {
                             - Hyphen
                         </div>
                         <div
-                            className={`py-2 px-[2rem] text-sm border ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                 date.delimiter === "dot" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setDate({ ...date, delimiter: "dot" })}

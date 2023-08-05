@@ -88,7 +88,7 @@ const Name = () => {
                 <p className="font-semibold text-sm">Font</p>
                 <div className="flex gap-4">
                     <div
-                        className={`py-2 px-[4rem] text-sm border ${
+                        className={`py-2 px-[1.4rem] sm:px-[4rem] text-sm border ${
                             !name.creativeFont ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                         onClick={() => setName({ ...name, creativeFont: false })}
@@ -96,7 +96,7 @@ const Name = () => {
                         Body Font
                     </div>
                     <div
-                        className={`py-2 px-[4rem] text-sm border ${
+                        className={`py-2 px-[1.4rem] sm:px-[4rem] text-sm border ${
                             name.creativeFont ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                         onClick={() => setName({ ...name, creativeFont: true })}
@@ -105,7 +105,7 @@ const Name = () => {
                     </div>
                 </div>
             </div>
-            <div className="w-full max-w-[30rem] grid grid-cols-3 gap-4 my-4">
+            <div className="w-full max-w-[30rem] grid grid-cols-2 sm:grid-cols-3 gap-4 my-4">
                 {name.creativeFont &&
                     CREATIVE_FONTS.map((c) => (
                         <div

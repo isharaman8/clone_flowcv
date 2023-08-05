@@ -37,11 +37,11 @@ const Certificate = () => {
     return (
         <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">
             <h1 className="text-xl font-bold mb-5">Certificate</h1>
-            <div className="max-w-[30rem]">
+            <div className="w-[19rem] sm:w-[30rem]">
                 <div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 flex-wrap">
                         <div
-                            className={`py-2 px-[2rem] text-sm border  ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border  ${
                                 certificate.type === "grid" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setCertificate({ ...certificate, type: "grid", separator: null })}
@@ -50,7 +50,7 @@ const Certificate = () => {
                         </div>
 
                         <div
-                            className={`py-2 px-[2rem] text-sm border ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                 certificate.type === "text" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setCertificate({ ...certificate, type: "text", separator: null })}
@@ -58,7 +58,7 @@ const Certificate = () => {
                             Text
                         </div>
                         <div
-                            className={`py-2 px-[2rem] text-sm border ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                 certificate.type === "bubble" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setCertificate({ ...certificate, type: "bubble", separator: null })}
@@ -70,9 +70,9 @@ const Certificate = () => {
 
                 {certificate.type === "text" && (
                     <div>
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 flex-wrap">
                             <div
-                                className={`py-2 px-[2rem] text-sm border  ${
+                                className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border  ${
                                     certificate.separator === "bullet" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                                 } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                                 onClick={() => setCertificate({ ...certificate, separator: "bullet" })}
@@ -80,7 +80,7 @@ const Certificate = () => {
                                 Bullet
                             </div>
                             <div
-                                className={`py-2 px-[2rem] text-sm border ${
+                                className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                     certificate.separator === "wrap" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                                 }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                                 onClick={() => setCertificate({ ...certificate, separator: "wrap" })}
@@ -88,7 +88,7 @@ const Certificate = () => {
                                 Wrap
                             </div>
                             <div
-                                className={`py-2 px-[2rem] text-sm border ${
+                                className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                     certificate.separator === "pipe" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                                 }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                                 onClick={() => setCertificate({ ...certificate, separator: "pipe" })}

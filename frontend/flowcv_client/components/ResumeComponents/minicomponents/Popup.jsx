@@ -23,9 +23,9 @@ const Popup = ({ handleValue, list, cols = 3, monthType = "", yearType = "" }) =
 
     return (
         <div
-            className={`absolute top-0 left-0 min-w-[400px] grid ${
-                cols === 3 ? "grid-cols-3" : "grid-cols-4"
-            } bg-gray-200 z-50 p-3 gap-3 scroll-m-0 overflow-y-scroll max-h-[400px]`}
+            className={`absolute top-0 ${monthType ? "left-0" : "right-0"} min-w-[300px] sm:min-w-[400px] grid ${
+                cols === 3 ? "grid-cols-2 sm:grid-cols-3" : "grid-cols-2 sm:grid-cols-4"
+            } bg-gray-200 z-40 p-3 gap-3 scroll-m-0 overflow-y-scroll max-h-[400px]`}
         >
             {list.map((c) => (
                 <p

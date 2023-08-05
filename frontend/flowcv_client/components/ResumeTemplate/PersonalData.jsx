@@ -12,7 +12,7 @@ const Details = ({ icon, title, spacing, header }) => {
             className="flex justify-center items-center gap-[.4rem] text-xs mx-2"
             style={{ lineHeight: `${spacing.value.lineHeight}rem`, fontSize: `${spacing.value.fontSize - 1}pt` }}
         >
-            {header.details === "Icon" && <span>{icon()}</span>}
+            {(header.details === "Icon" || !header.details) && <span style={{ fontSize: `${spacing.value.fontSize + 2 - 1}pt` }}>{icon()}</span>}
             {header.details === "Bullet" && <span className="text-xl">•</span>}
             {header.details === "Bar" && <span>|</span>}
             <p>{title}</p>

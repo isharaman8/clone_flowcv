@@ -70,7 +70,7 @@ const Job = () => {
                 <p className="font-semibold text-sm">Position</p>
                 <div className="flex gap-4">
                     <div
-                        className={`py-2 px-[4rem] text-sm border ${
+                        className={`py-2 px-[1.4rem] sm:px-[4rem] text-sm border ${
                             job.position === "same line" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                         onClick={() => setJob({ ...job, position: "same line" })}
@@ -78,7 +78,7 @@ const Job = () => {
                         Try same line
                     </div>
                     <div
-                        className={`py-2 px-[4rem] text-sm border ${
+                        className={`py-2 px-[1.4rem] sm:px-[4rem] text-sm border ${
                             job.position === "below" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                         onClick={() => setJob({ ...job, position: "below" })}
@@ -91,7 +91,7 @@ const Job = () => {
                 <p className="font-semibold text-sm">Style</p>
                 <div className="flex gap-4">
                     <div
-                        className={`py-2 px-[4rem] text-sm border ${
+                        className={`py-2 px-[1.4rem] sm:px-[4rem] text-sm border ${
                             job.style === "normal" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                         onClick={() => setJob({ ...job, style: "normal" })}
@@ -99,7 +99,7 @@ const Job = () => {
                         Normal
                     </div>
                     <div
-                        className={`py-2 px-[4rem] text-sm border ${
+                        className={`py-2 px-[1.4rem] sm:px-[4rem] text-sm border ${
                             job.style === "italic" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         } my-2 rounded-lg cursor-pointer hover:opacity-80 italic`}
                         onClick={() => setJob({ ...job, style: "italic" })}

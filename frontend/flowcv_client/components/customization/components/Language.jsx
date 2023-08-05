@@ -38,11 +38,11 @@ const Language = () => {
     return (
         <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">
             <h1 className="text-xl font-bold mb-5">Language</h1>
-            <div className="max-w-[30rem]">
+            <div className="w-[19rem] sm:w-[30rem]">
                 <div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 flex-wrap">
                         <div
-                            className={`py-2 px-[2rem] text-sm border  ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border  ${
                                 language.type === "grid" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setLanguage({ ...language, type: "grid", separator: null, level: null })}
@@ -50,7 +50,7 @@ const Language = () => {
                             Grid
                         </div>
                         <div
-                            className={`py-2 px-[2rem] text-sm border ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                 language.type === "level" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setLanguage({ ...language, type: "level", separator: null, level: null })}
@@ -58,7 +58,7 @@ const Language = () => {
                             Level
                         </div>
                         <div
-                            className={`py-2 px-[2rem] text-sm border ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                 language.type === "text" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setLanguage({ ...language, type: "text", separator: null, level: null })}
@@ -66,7 +66,7 @@ const Language = () => {
                             Text
                         </div>
                         <div
-                            className={`py-2 px-[2rem] text-sm border ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                 language.type === "bubble" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setLanguage({ ...language, type: "bubble", separator: null, level: null })}
@@ -77,9 +77,9 @@ const Language = () => {
                 </div>
                 {language.type === "level" && (
                     <div>
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 flex-wrap">
                             <div
-                                className={`py-2 px-[2rem] text-sm border  ${
+                                className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border  ${
                                     language.level === "dots" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                                 } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                                 onClick={() => setLanguage({ ...language, level: "dots" })}
@@ -87,7 +87,7 @@ const Language = () => {
                                 Dots
                             </div>
                             <div
-                                className={`py-2 px-[2rem] text-sm border ${
+                                className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                     language.level === "bar" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                                 }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                                 onClick={() => setLanguage({ ...language, level: "bar" })}
@@ -99,9 +99,9 @@ const Language = () => {
                 )}
                 {language.type === "text" && (
                     <div>
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 flex-wrap">
                             <div
-                                className={`py-2 px-[2rem] text-sm border  ${
+                                className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border  ${
                                     language.separator === "bullet" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                                 } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                                 onClick={() => setLanguage({ ...language, separator: "bullet" })}
@@ -109,7 +109,7 @@ const Language = () => {
                                 Bullet
                             </div>
                             <div
-                                className={`py-2 px-[2rem] text-sm border ${
+                                className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                     language.separator === "wrap" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                                 }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                                 onClick={() => setLanguage({ ...language, separator: "wrap" })}
@@ -117,7 +117,7 @@ const Language = () => {
                                 Wrap
                             </div>
                             <div
-                                className={`py-2 px-[2rem] text-sm border ${
+                                className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                     language.separator === "pipe" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                                 }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                                 onClick={() => setLanguage({ ...language, separator: "pipe" })}

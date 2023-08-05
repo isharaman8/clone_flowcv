@@ -24,6 +24,7 @@ const Education = ({ currentComponent, spacing, heading, date, professionalExper
                     heading.textTransform.toLowerCase() || "capitalize"
                 }`}
                 style={{
+                    textTransform: `${heading.textTransform.toLowerCase()}`,
                     lineHeight: `${spacing.value.lineHeight}rem`,
                     fontSize: `${
                         spacing.value.fontSize +

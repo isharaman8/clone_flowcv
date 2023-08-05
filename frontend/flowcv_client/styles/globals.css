@@ -70,6 +70,7 @@
 body {
     background-color: var(--body-color);
     font-family: var(--poppins), sans-serif;
+    overflow-x: hidden;
 }
 
 .pageContainer {
@@ -158,4 +159,21 @@ body {
 /* For webkit-based browsers */
 ::-webkit-scrollbar {
     width: 0.5em; /* Set a width to create a space for the scrollbar */
+}
+
+@media all and (max-width: 280px) {
+    .pageContainer {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+@media all and (min-width: 340px) and (max-width: 720px) {
+    .pageContainer {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
 }

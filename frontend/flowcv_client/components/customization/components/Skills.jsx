@@ -38,11 +38,11 @@ const Skills = () => {
     return (
         <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">
             <h1 className="text-xl font-bold mb-5">Skills</h1>
-            <div className="max-w-[30rem]">
+            <div className="w-[19rem] sm:w-[30rem]">
                 <div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 flex-wrap">
                         <div
-                            className={`py-2 px-[2rem] text-sm border  ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border  ${
                                 skills.type === "grid" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setSkills({ ...skills, type: "grid", separator: null, level: null })}
@@ -50,7 +50,7 @@ const Skills = () => {
                             Grid
                         </div>
                         <div
-                            className={`py-2 px-[2rem] text-sm border ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                 skills.type === "level" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setSkills({ ...skills, type: "level", separator: null, level: null })}
@@ -58,7 +58,7 @@ const Skills = () => {
                             Level
                         </div>
                         <div
-                            className={`py-2 px-[2rem] text-sm border ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                 skills.type === "text" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setSkills({ ...skills, type: "text", separator: null, level: null })}
@@ -66,7 +66,7 @@ const Skills = () => {
                             Text
                         </div>
                         <div
-                            className={`py-2 px-[2rem] text-sm border ${
+                            className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                 skills.type === "bubble" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                             }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                             onClick={() => setSkills({ ...skills, type: "bubble", separator: null, level: null })}
@@ -77,9 +77,9 @@ const Skills = () => {
                 </div>
                 {skills.type === "level" && (
                     <div>
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 flex-wrap">
                             <div
-                                className={`py-2 px-[2rem] text-sm border  ${
+                                className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border  ${
                                     skills.level === "dots" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                                 } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                                 onClick={() => setSkills({ ...skills, level: "dots" })}
@@ -87,7 +87,7 @@ const Skills = () => {
                                 Dots
                             </div>
                             <div
-                                className={`py-2 px-[2rem] text-sm border ${
+                                className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                     skills.level === "bar" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                                 }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                                 onClick={() => setSkills({ ...skills, level: "bar" })}
@@ -99,9 +99,9 @@ const Skills = () => {
                 )}
                 {skills.type === "text" && (
                     <div>
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 flex-wrap">
                             <div
-                                className={`py-2 px-[2rem] text-sm border  ${
+                                className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border  ${
                                     skills.separator === "bullet" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                                 } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                                 onClick={() => setSkills({ ...skills, separator: "bullet" })}
@@ -109,7 +109,7 @@ const Skills = () => {
                                 Bullet
                             </div>
                             <div
-                                className={`py-2 px-[2rem] text-sm border ${
+                                className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                     skills.separator === "wrap" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                                 }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                                 onClick={() => setSkills({ ...skills, separator: "wrap" })}
@@ -117,7 +117,7 @@ const Skills = () => {
                                 Wrap
                             </div>
                             <div
-                                className={`py-2 px-[2rem] text-sm border ${
+                                className={`py-2 px-[1.4rem] sm:px-[2rem] text-sm border ${
                                     skills.separator === "pipe" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                                 }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                                 onClick={() => setSkills({ ...skills, separator: "pipe" })}

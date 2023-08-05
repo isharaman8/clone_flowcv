@@ -13,6 +13,7 @@ const Skills = ({ spacing, heading, skills }) => {
                     heading.textTransform.toLowerCase() || "capitalize"
                 }`}
                 style={{
+                    textTransform: `${heading.textTransform.toLowerCase()}`,
                     lineHeight: `${spacing.value.lineHeight}rem`,
                     fontSize: `${
                         spacing.value.fontSize +

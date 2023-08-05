@@ -51,7 +51,7 @@ const HeadersElement = ({ heading, setHeading }) => {
     return (
         <>
             <p className="font-semibold text-sm">Style</p>
-            <div className="flex items-center gap-4 max-w-[30rem] flex-wrap my-2">
+            <div className="flex items-center gap-4 w-[19rem] sm:w-[30rem] flex-wrap my-2">
                 {[HeaderOne, HeaderTwo, HeaderThree, HeaderFour, HeaderFive].map((c, i) => (
                     <div
                         key={c}
@@ -89,16 +89,16 @@ const Heading = () => {
     }, [heading]);
 
     return (
-        <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">
+        <div className="bg-white rounded-2xl pt-6 pb-9 px-5 md:px-7 lg:px-9 relative mt-4">
             <h1 className="text-xl font-bold mb-5">Heading</h1>
-            <div className="my-4">
+            <div className="relative w-full my-4">
                 <HeadersElement heading={heading} setHeading={setHeading} />
             </div>
-            <div>
+            <div className="relative w-full">
                 <p className="font-semibold text-sm">Capitalization</p>
                 <div className="flex gap-2">
                     <div
-                        className={`py-2 px-[4rem] text-sm border  ${
+                        className={`py-2 px-[1.4rem] sm:px-[4rem] text-sm border  ${
                             heading.textTransform === "Capitalize" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                         onClick={() => setHeading({ ...heading, textTransform: "Capitalize" })}
@@ -106,7 +106,7 @@ const Heading = () => {
                         Capitalize
                     </div>
                     <div
-                        className={`py-2 px-[4rem] text-sm border ${
+                        className={`py-2 px-[1.4rem] sm:px-[4rem] text-sm border ${
                             heading.textTransform === "Uppercase" ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         }  my-2 rounded-lg cursor-pointer hover:opacity-80`}
                         onClick={() => setHeading({ ...heading, textTransform: "Uppercase" })}
@@ -152,11 +152,11 @@ const Heading = () => {
                     </div>
                 </div>
             </div>
-            <div>
+            <div className="relative w-full">
                 <p className="font-semibold text-sm">Icons</p>
                 <div className="flex gap-4">
                     <div
-                        className={`py-2 px-[4rem] text-sm border ${
+                        className={`py-2 px-[1.4rem] sm:px-[4rem] text-sm border ${
                             !heading.icons ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                         onClick={() => setHeading({ ...heading, icons: false })}
@@ -164,7 +164,7 @@ const Heading = () => {
                         None
                     </div>
                     <div
-                        className={`py-2 px-[4rem] text-sm border ${
+                        className={`py-2 px-[1.4rem] sm:px-[4rem] text-sm border ${
                             heading.icons ? "border-blue-700 text-blue-700 bg-blue-50" : "border-gray-300"
                         } my-2 rounded-lg cursor-pointer hover:opacity-80`}
                         onClick={() => setHeading({ ...heading, icons: true })}

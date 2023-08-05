@@ -41,13 +41,14 @@ const Carousel = () => {
     }, []);
 
     return (
-        <div className="w-[30rem] mt-4 mx-auto">
+        <div className="w-[19rem] sm:w-[30rem] mt-4 mx-auto">
             <div className="flex cursor-all-scroll overflow-scroll scroll-smooth py-4" ref={carouselRef}>
                 {images.map((image, index) => (
-                    <div key={index} style={{ minWidth: "167.333px" }} className="relative mr-5">
+                    <div key={index} className="relative mr-5">
                         <div className="group cursor-pointer shadow-[0_0_5px_0px_rgba(0,0,0,0.2)] hover:opacity-90">
-                            <div className="w-full relative">
-                                <Image src={image} alt={image} width={290} height={300} />
+                            <div className="relative w-[6rem] h-[8rem] sm:w-[10rem] sm:h-[12rem]">
+                                <Image className="w-full h-full cover" src={image} alt={image} fill />
+
                                 <span className="font-bold bg-gray-800 px-2 py-1 rounded-xl text-white text-[.6rem] absolute bottom-6 left-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                     Use this template
                                 </span>
@@ -86,10 +87,10 @@ const Carousel = () => {
 
 const Templates = () => {
     return (
-        <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative max-w-full mt-4">
+        <div className="bg-white rounded-2xl w-full pt-6 pb-9 px-5 md:px-7 lg:px-9 relative mt-4">
             <h1 className="text-xl font-bold mb-5">Choose a template</h1>
             <p className="text-sm">Get started with a template and then customize it easily 🐣</p>
-            <div className="w-full">
+            <div className="relative w-full">
                 <Carousel />
             </div>
         </div>

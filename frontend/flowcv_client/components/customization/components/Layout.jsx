@@ -9,10 +9,6 @@ import { _getColumnsArrangement, _getComponentsArrangement } from "@utils/helper
 import { ADD_CONTENT, ICONS_OBJ, PERSONAL_INFO_ID } from "@utils/Constants";
 
 const LayoutButton = ({ title, style, selectedLayout, setSelectedLayout }) => {
-    console.log("TITLE", title);
-    console.log("STYLE", style);
-    console.log("SELECTED LAYOUT", selectedLayout);
-
     return (
         <>
             <div className="text-center cursor-pointer hover:opacity-80" onClick={() => setSelectedLayout(title)}>

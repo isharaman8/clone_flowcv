@@ -9,7 +9,7 @@ const ResumeMain = () => {
             <section className="py-[6rem] bg-[#EEF0F4]">
                 <div className="flex justify-center items-center w-[100vw] min-h-[80vh] ">
                     <div className="flex flex-col justify-center items-center gap-20">
-                        <div className="flex flex-row justify-start items-center ml-auto mr-auto">
+                        <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row justify-start items-center ml-auto mr-auto">
                             <div className="relative w-[100px] md:w-[120px] lg:order-2 lg:w-[310px] xl:w-[340px]">
                                 <img src="/blob.svg" alt="blob" className="absolute left-0 right-0 top-0 z-10 w-full" />
                                 <div className="relative z-10 mt-2 flex w-full items-center justify-center">
@@ -48,9 +48,9 @@ const ResumeMain = () => {
                                         </div>
                                         <button
                                             type="button"
-                                            className="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 min-h-[30px] min-w-[30px] text-white bg-black h-9 w-20 shrink-0 rounded-full sm:hidden"
+                                            className="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 min-h-[30px] min-w-[30px] text-white h-9 w-20 shrink-0 rounded-full sm:hidden"
                                         >
-                                            <img src="/svg5.svg" alt="svg5" className="w-20" />
+                                            <img src="/svg5.svg" alt="svg5" className="w-10" />
                                         </button>
                                         <button
                                             type="button"
