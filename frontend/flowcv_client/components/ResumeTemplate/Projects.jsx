@@ -16,7 +16,7 @@ const Projects = ({ spacing, heading, date }) => {
         <div className="mt-4">
             <h1
                 className={`font-semibold flex gap-2 items-center text-sm ${HEADING_LAYOUT[heading.style]} ${
-                    heading.textTransform.toLowerCase() || "capitalize"
+                    heading.textTransform?.toLowerCase() || "capitalize"
                 }`}
                 style={{
                     lineHeight: `${spacing.value.lineHeight}rem`,

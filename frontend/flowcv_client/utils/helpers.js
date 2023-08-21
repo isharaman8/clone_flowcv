@@ -295,21 +295,21 @@ export const _getLowerCaseStr = (str = "") => {
 };
 
 export const _rgbaStringToHex = (rgbaString = "") => {
-    if (!rgbaString.trim()) {
+    console.log("COLOR VALUE 1", rgbaString);
+
+    if (!rgbaString.trim() || rgbaString.startsWith("#") || rgbaString.includes("<empty string>")) {
         return rgbaString;
     }
-
-    console.log("COLOR VALUE", rgbaString);
 
     // Remove the "rgba(" prefix and ")" suffix from the string
     const rgbaValues = rgbaString.slice(5, -1);
 
-    console.log("COLOR VALUE", rgbaValues);
+    console.log("COLOR VALUE 2", rgbaValues);
 
     // Split the string into individual color components
     const components = rgbaValues.split(",");
 
-    console.log("COLOR VALUE", components);
+    console.log("COLOR VALUE 3", components);
 
     // Extract the red, green, blue, and alpha values
     const red = parseInt(components[0].trim());
