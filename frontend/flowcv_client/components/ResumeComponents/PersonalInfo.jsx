@@ -1,10 +1,11 @@
 import { LINKS } from "@utils/Constants";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "./minicomponents/Link";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "@redux/hooks";
 import { addLinks, addOrUpdatePersonalInfo, resetPersonalInfo } from "@redux/resume/features";
 import { _getPersonalObjLinks } from "@utils/helpers";
+import { BsCameraFill } from "react-icons/bs";
 
 const PersonalInfo = () => {
     // VARIABLES
@@ -12,6 +13,7 @@ const PersonalInfo = () => {
 
     const [open, setOpen] = useState(false);
     const [linkArray, setLinkArray] = useState([]);
+    const fileInputRef = useRef();
 
     const dispatch = useDispatch();
 
@@ -35,9 +37,23 @@ const PersonalInfo = () => {
         dispatch(addLinks(payload));
     };
 
-    const handleSetLinks = (e = null, payload = {}) => {
-        console.log("E", e);
+    const handleUpload = (e) => {
+        const file = e.target.files[0];
 
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const convertedPayload = {};
+        for (let [key, value] of formData) {
+            convertedPayload[key] = value;
+        }
+
+        console.log(convertedPayload["file"]);
+
+        dispatchPersonalInfo({ image: convertedPayload["file"] });
+    };
+
+    const handleSetLinks = (e = null, payload = {}) => {
         dispatchLinks(e ? { [e.target.name]: e.target.value } : payload);
     };
 
@@ -67,11 +83,65 @@ const PersonalInfo = () => {
                         </button>
                         <div className="mt-2">
                             <div className=" mb-4 w-16 sm:hidden">
-                                <div className="sc-hxaKAp eUurRf">
-                                    <div className="sc-gfXuXe iWLUGs">
-                                        <img src="/personal1.svg" alt="personal1" />
-                                    </div>
-                                </div>
+                                <svg width="44px" height="63px" viewBox="0 0 44 63" version="1.1">
+                                    <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                                        <g transform="translate(0.000000, 1.000000)">
+                                            <path
+                                                d="M15,44 L17,52"
+                                                stroke="#999999"
+                                                strokeWidth="2"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            ></path>
+                                            <path
+                                                d="M29,44 L27,52"
+                                                stroke="#999999"
+                                                strokeWidth="2"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            ></path>
+                                            <path
+                                                d="M33.92,44 C39.41,38 43,28.82 43,21.49 C43.1333198,9.75750809 33.7324462,0.137280776 22,0 C10.2675538,0.137280776 0.866680171,9.75750809 1,21.49 C1,28.82 4.59,38 10.08,44 L33.92,44 Z"
+                                                stroke="#54596E"
+                                                strokeWidth="2"
+                                                fill="#FFD578"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            ></path>
+                                            <path
+                                                d="M33.92,39 L10.08,39 C5.15511183,33.4084083 2.03841174,26.4568424 1.14,19.06 C1.06,19.86 1,20.67 1,21.49 C1,28.82 4.59,38 10.08,44 L33.92,44 C39.41,38 43,28.82 43,21.49 C43,20.67 42.94,19.86 42.86,19.06 C41.9615883,26.4568424 38.8448882,33.4084083 33.92,39 Z"
+                                                fill="#54596E"
+                                                opacity="0.15"
+                                            ></path>
+                                            <path
+                                                d="M28.25,44 C31.12,38 33,28.82 33,21.49 C33,9.62 28.08,0 22,0 C15.92,0 11,9.62 11,21.49 C11,28.82 12.88,38 15.75,44 L28.25,44 Z"
+                                                stroke="#54596E"
+                                                strokeWidth="2"
+                                                fill="#F4A14E"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            ></path>
+                                            <ellipse fill="#54596E" cx="22" cy="32" rx="3" ry="5"></ellipse>
+                                            <circle fill="#54596E" cx="6" cy="21" r="2"></circle>
+                                            <circle fill="#54596E" cx="38" cy="21" r="2"></circle>
+                                            <polygon
+                                                stroke="#54596E"
+                                                strokeWidth="2"
+                                                fill="#A1B7FF"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                points="27 61 17 61 16 52 28 52"
+                                            ></polygon>
+                                            <path
+                                                d="M14,52 L30,52"
+                                                stroke="#54596E"
+                                                strokeWidth="2"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            ></path>
+                                        </g>
+                                    </g>
+                                </svg>
                             </div>
                             <div>
                                 <p className="text-xl font-bold">
@@ -212,6 +282,58 @@ const PersonalInfo = () => {
                                             />
                                         </div>
                                     </div>
+                                </div>
+                                <div className="order-1 mb-4  flex justify-center md:order-2  md:mb-0 md:pt-2">
+                                    <div className="w-30 relative cursor-pointer hover:opacity-80" onClick={() => fileInputRef.current.click()}>
+                                        <div
+                                            className="flex h-[8rem] w-[8rem] items-center justify-center overflow-hidden rounded-full bg-gray-100 hover:opacity-80"
+                                            role="button"
+                                        >
+                                            {Object.keys(personalInfoData.image).length ? (
+                                                <img
+                                                    src={URL.createObjectURL(personalInfoData.image)}
+                                                    alt="Selected"
+                                                    className="w-full h-full object-cover rounded-md"
+                                                />
+                                            ) : (
+                                                <BsCameraFill className="text-6xl text-white" />
+                                            )}
+                                        </div>
+                                        <div className="gradient from-brandPink to-brandRed absolute bottom-[-1px] right-[-1px] flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r text-white ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" className="w-4">
+                                                <path
+                                                    stroke="currentColor"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth="1.5"
+                                                    d="M6.704 1.627H4.523c-1.794 0-2.919 1.27-2.919 3.068v4.85c0 1.797 1.12 3.067 2.919 3.067H9.67c1.8 0 2.92-1.27 2.92-3.068v-2.35"
+                                                ></path>
+                                                <path
+                                                    stroke="currentColor"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth="1.5"
+                                                    d="M5.15 6.37l4.36-4.359a1.391 1.391 0 011.966 0l.71.71a1.39 1.39 0 010 1.967l-4.38 4.38c-.238.237-.56.37-.896.37H4.725l.054-2.204c.009-.324.141-.634.37-.864z"
+                                                    clipRule="evenodd"
+                                                ></path>
+                                                <path
+                                                    stroke="currentColor"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth="1.5"
+                                                    d="M8.847 2.685l2.663 2.663"
+                                                ></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="file"
+                                        name="file"
+                                        accept="image/png,image/jpeg,image/webp,image/tiff"
+                                        className="hidden"
+                                        ref={fileInputRef}
+                                        onChange={handleUpload}
+                                    />
                                 </div>
                             </div>
                         </div>

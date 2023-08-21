@@ -27,17 +27,17 @@ const Nav = () => {
 
     return (
         <>
-            <header className="pageContainer py-[2rem]">
+            <header className="pageContainer py-2 md:py-[2rem] lg:py-[2rem] xl:py-[2rem]">
                 <div className="flex items-center justify-between">
                     <Link href="/">
-                        <img src="/flowcv.svg" alt="flow cv" className="w-32" />
+                        <img src="/flowcv.svg" alt="flow cv" className="w-28 md:w-32 lg:w-32 xl:w-32" />
                     </Link>
                     <nav className="center-flex gap-4 text-[.85rem] font-extrabold">
                         {!user.access_token ? (
                             <>
                                 <Link
                                     href="/resume"
-                                    className="center-flex gap-3 btn border-4 border-[#F0F2F6] h-10 min-w[120px] hover:border-[#f2f4f7]"
+                                    className="hidden md:flex lg:flex xl:flex items-center justify-center gap-3 btn border-4 border-[#F0F2F6] h-10 min-w[120px] hover:border-[#f2f4f7]"
                                 >
                                     Try for free
                                     <span className="gradient w-[18px] h-[18px] rounded-full flex items-center justify-center mt-[.1rem]">

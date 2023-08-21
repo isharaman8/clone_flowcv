@@ -22,7 +22,7 @@ const Link = ({ heading, value, handleValue, handleLinkDelete, data }) => {
 
                 <button
                     type="button"
-                    className="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 bg-red-50 text-red-800 ml-1 h-10  min-w-10 flex-[0_0_theme(spacing.inputHeight)] rounded-md p-2"
+                    className="border-none cursor-pointer appearance-none touch-manipulation flex items-center justify-center focus-visible:outline-blue-600 hover:opacity-80 bg-red-50 text-red-800 ml-1 h-10  min-w-10 rounded-md p-2"
                     onClick={() => handleLinkDelete(heading)}
                 >
                     <img src="/delete.svg" alt="delete" className="w-7" />

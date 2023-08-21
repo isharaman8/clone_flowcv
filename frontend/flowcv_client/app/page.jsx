@@ -24,10 +24,10 @@ const Home = () => {
                             <img src="/something.svg" alt="something" className="w-0" />
                         </div>
                         <div className="mt-12">
-                            <h1 className="text-4xl md:text-5xl xl:text-[3.5rem] text-center lg:text-left font-bold">
+                            <h1 className="text-3xl md:text-5xl lg:text-5xl xl:text-[3.5rem] text-center lg:text-left font-bold">
                                 Build a job-winning resume for free
                             </h1>
-                            <p className="text-center text-base lg:text-left px-6 md:px-0 mt-4 lg:mt-5 leading-[1.6] lg:px-0 lg:pr-20 text-gray-600 md:text-lg xl:text-[1.1rem]">
+                            <p className="text-center text-[.9rem] lg:text-left px-6 md:px-0 mt-4 lg:mt-5 leading-[1.6] lg:px-0 lg:pr-20 text-gray-600 md:text-lg xl:text-[1.1rem]">
                                 Set yourself apart with a modern resume. Expert tips, customizable templates &amp; quick PDF download included.
                             </p>
                             <div className="flex justify-center mt-8 lg:justify-start lg:mt-12">

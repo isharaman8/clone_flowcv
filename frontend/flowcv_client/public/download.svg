@@ -6,7 +6,7 @@
                 >
                   <path
                     fill-rule="evenodd"
-                    stroke="currentColor"
+                    stroke="white"
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="1.6"
@@ -14,7 +14,7 @@
                     clip-rule="evenodd"
                   ></path>
                   <path
-                    stroke="currentColor"
+                    stroke="white"
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="1.6"

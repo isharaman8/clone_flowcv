@@ -2,29 +2,29 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <div className="flex flex-col justify-center items-center mt-10">
-            <div className="w-[80vw] mt-10 mb-5">
+        <div className="pageContainer flex flex-col justify-center items-center mt-10">
+            <div className="w-full lg:w-[80vw] xl:w-[80vw] mt-10 mb-5">
                 <img src={"/flowcv.svg"} alt="img" className="w-40" />
 
                 {/* FEEDBACK */}
-                <div className="flex flex-row items-start justify-between mt-10">
-                    <div>
+                <div className="w-full flex flex-col md:flex-row lg:felx-row xl:flex-row gap-8 md:gap-2 lg:gap-2 xl:gap-2 items-start justify-between mt-10">
+                    <div className="w-full">
                         <label htmlFor="footerUserFeedback" className="text-xl font-bold">
                             Do you have feedback?
                         </label>
-                        <div className="mt-2 flex max-w-[500px] items-center border-b-2 border-solid border-gray-300 pb-2">
+                        <div className="mt-2 flex w-full max-w-[500px] items-center border-b-2 border-solid border-gray-300 pb-2">
                             <textarea
                                 id="userFeedbackArea"
                                 name="userFeedback"
-                                className="mt-1 block grow bg-transparent text-[.9rem] resize-none appearance-none text-xl placeholder-gray-500 outline-none border-none overflow-auto overflow-y-hidden border-transparent focus:outline-none focus:border-transparent shadow-none outline-0 outline-offset-0 focus:outline-0 focus:outline-offset-0 ring-transparent focus:ring-transparent p-0"
+                                className="mt-1 block grow bg-transparent text-[.8rem] resize-none appearance-none text-xl placeholder-gray-500 outline-none border-none overflow-auto overflow-y-hidden border-transparent focus:outline-none focus:border-transparent shadow-none outline-0 outline-offset-0 focus:outline-0 focus:outline-offset-0 ring-transparent focus:ring-transparent p-0"
                                 placeholder="Enter feedback"
                                 rows="1"
                             ></textarea>
                             <button
                                 type="submit"
-                                className="flex border-none cursor-pointer appearance-none touch-manipulation items-center justify-center outline-none hover:opacity-80 text-white bg-gradient-to-r from-pink-600 to-red-300 h-11 w-11 min-w-min rounded-full"
+                                className="flex border-none cursor-pointer appearance-none touch-manipulation items-center justify-center outline-none hover:opacity-80 text-white bg-gradient-to-r from-pink-600 to-red-300 h-9 w-9 min-w-min rounded-full"
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 25" className="w-7">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 25" className="w-6">
                                     <path
                                         stroke="currentColor"
                                         strokeLinecap="round"
@@ -37,7 +37,7 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-[auto_auto] md:justify-end gap-16 md:gap-24 lg:gap-40">
+                    <div className="w-full grid grid-cols-[auto_auto] md:justify-end gap-16 md:gap-24 lg:gap-40">
                         <div className="flex flex-col items-start">
                             <h3 className="text-pink-600 text-xl">FlowCV</h3>
                             <a href="/about" className="mt-3 block py-3 text-base hover:opacity-80 ">
@@ -73,7 +73,7 @@ const Footer = () => {
                 </div>
 
                 {/* BOTTOM */}
-                <div className="flex flex-row justify-around items-center mt-20">
+                <div className="flex flex-col-reverse md:flex-row lg:felx-row xl:flex-row gap-8 md:gap-2 lg:gap-2 xl:gap-2 justify-around items-center mt-20">
                     <div className="w-full">
                         <div className="flex items-center space-x-4 ">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 33 33" className="w-7">
@@ -111,8 +111,10 @@ const Footer = () => {
                     </div>
                     <div className="w-full md:order-2">
                         <div className="flex flex-col md:-mr-3 md:flex-row md:items-center md:justify-end">
-                            <p className="flex items-center text-xl w-[15rem] font-extrabold md:mr-8 md:font-normal">Share with your friends</p>
-                            <div className="mt-5 -ml-3 grid grid-cols-[min-content_min-content_min-content_min-content_min-content]  gap-6 md:mt-0 md:ml-0 ">
+                            <p className="flex items-center text-xl w-full md:w-[15rem] lg:w-[15rem] xl:w-[15rem] font-extrabold md:mr-8 md:font-normal">
+                                Share with your friends
+                            </p>
+                            <div className=" -ml-3 flex flex-wrap gap-2 items-center">
                                 <button
                                     type="button"
                                     className="flex border-none cursor-pointer appearance-none touch-manipulation items-center justify-center outline-none hover:opacity-80"

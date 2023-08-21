@@ -1,9 +1,19 @@
-import { FaFolderOpen, FaGraduationCap, FaGuitar, FaSuitcase } from "react-icons/fa";
+import { FaFolderOpen, FaGraduationCap, FaGuitar, FaSuitcase, FaLinkedinIn, FaPhoneAlt, FaInfo } from "react-icons/fa";
 import { GiEarthAmerica, GiSkills } from "react-icons/gi";
 import { GrCertificate } from "react-icons/gr";
 import { ImBooks } from "react-icons/im";
+import { BsGithub, BsGlobe, BsMedium, BsTwitter } from "react-icons/bs";
+import { MdEmail, MdLocationPin } from "react-icons/md";
+
+export const PERSONAL_INFO_ID = "PERSONAL_INFO";
 
 export const ADD_CONTENT = [
+    {
+        id: PERSONAL_INFO_ID,
+        title: "Personal Info",
+        description: "Write your personal information",
+        icon: FaInfo,
+    },
     {
         id: 1,
         title: "Education",
@@ -18,41 +28,88 @@ export const ADD_CONTENT = [
     },
     {
         id: 3,
-        title: "Skill",
+        title: "Skills",
         description: "List your technical, managerial or soft skills in this section.",
         icon: GiSkills,
     },
     {
         id: 4,
-        title: "Language",
+        title: "Languages",
         description: "You speak more than one language? Make sure to list them here.",
         icon: GiEarthAmerica,
     },
     {
         id: 5,
-        title: "Certificate",
+        title: "Certificates",
         description: "Drivers licenses and other industry-specific certificates you have belong here.",
         icon: GrCertificate,
     },
     {
         id: 6,
-        title: "Interest",
+        title: "Interests",
         description: "Do you have interests that align with your career aspiration?",
         icon: FaGuitar,
     },
     {
         id: 7,
-        title: "Project",
+        title: "Projects",
         description: "Worked on a particular challenging project in the past? Mention it here.",
         icon: FaFolderOpen,
     },
     {
         id: 8,
-        title: "Course",
+        title: "Courses",
         description: "Did you complete MOOCs or an evening course? Show them off in this section.",
         icon: ImBooks,
     },
 ];
+
+export const PROFILE_ICONS = [
+    {
+        id: 1,
+        icon: MdEmail,
+        title: "Email",
+    },
+    {
+        id: 2,
+        icon: FaPhoneAlt,
+        title: "Phone",
+    },
+    {
+        id: 3,
+        icon: MdLocationPin,
+        title: "Address",
+    },
+    {
+        id: 4,
+        icon: BsGithub,
+        title: "Github",
+    },
+    {
+        id: 5,
+        icon: BsGlobe,
+        title: "Website",
+    },
+    {
+        id: 6,
+        icon: FaLinkedinIn,
+        title: "LinkedIn",
+    },
+    {
+        id: 7,
+        icon: BsTwitter,
+        title: "Twitter",
+    },
+    {
+        id: 8,
+        icon: BsMedium,
+        title: "Medium",
+    },
+];
+
+export const ICONS_OBJ = Object.freeze({
+    ...PROFILE_ICONS.reduce((acc, val) => ({ ...acc, [val.title]: val.icon, [val.id]: val.icon }), {}),
+});
 
 export const cardsData = [
     {
@@ -153,15 +210,15 @@ export const faqData = [
 
 export const AVAILABLE_COMPONENTS = Object.freeze({
     personalInfo: "personalInfo",
-    skill: "Skill",
-    certificate: "Certificate",
-    project: "Project",
+    skill: "Skills",
+    certificate: "Certificates",
+    project: "Projects",
     achievements: "Achievements",
-    language: "Language",
+    language: "Languages",
     professionalExperience: "Professional Experience",
-    interests: "Interest",
+    interests: "Interests",
     education: "Education",
-    course: "Course",
+    course: "Courses",
 });
 
 export const MONTHS = {
@@ -195,8 +252,113 @@ export const LANGUAGE_LEVELS = {
     native: 5,
 };
 
+export const COLORS = [
+    "#fff",
+    "rgb(73, 89, 99)",
+    "rgb(84, 121, 128)",
+    "rgb(147, 183, 190)",
+    "rgb(52, 138, 167)",
+    "rgb(53, 92, 125)",
+    "rgb(56, 111, 164)",
+    "rgb(103, 152, 192)",
+    "rgb(89, 165, 216)",
+    "rgb(132, 210, 246)",
+    "rgb(67, 35, 113)",
+    "rgb(103, 45, 80)",
+    "rgb(192, 108, 132)",
+    "rgb(199, 65, 123)",
+    "rgb(244, 91, 105)",
+    "picker",
+];
+
+export const FONTS = {
+    serif: [
+        "Vollkorn",
+        "Lora",
+        "PT Serif",
+        "Alegreya",
+        "Aleo",
+        "Crimson Pro",
+        "EB Garamond",
+        "Zilla Slab",
+        "Cormorant Garamond",
+        "Crimson Text",
+        "Noto Serif",
+        "IBM Plex Serif",
+    ],
+    sans: [
+        "Noto Sans",
+        "Karla",
+        "Mulish",
+        "Lato",
+        "Titillium Web",
+        "Work Sans",
+        "Barlow",
+        "Jost",
+        "Fira Sans",
+        "Roboto",
+        "Rubik",
+        "Nunito",
+        "Open Sans",
+        "Poppins",
+    ],
+    mono: ["Inconsolata", "Source Code Pro", "IBM Plex Mono", "Overpass Mono", "Space Mono", "Courier Prime"],
+};
+
+export const CREATIVE_FONTS = [
+    "Abril Fatface",
+    "Amatic SC",
+    "Bungee Shade",
+    "Caveat",
+    "Caveat Brush",
+    "Comfortaa",
+    "Elsie",
+    "Lobster",
+    "Pacifico",
+    "Parisienne",
+    "Vibur",
+];
+
 export const YEARS = Array.from({ length: new Date().getFullYear() - 1944 + 1 }, (_, i) => 1944 + i).reverse();
 
 export const LINKS = ["Github", "Website", "LinkedIn", "Twitter", "Medium"];
 
 export const NULL_VALUE = "NULL_VALUE";
+
+export const TEMPLATE_BOOLEAN_KEYS = ["dontshow", "onlyyear", "presentyear", "basic", "advanced", "border", "accent", "multicolor"];
+
+export const COLOR_CHECK_BOXES = ["Name", "Dots/Bars/Bubbles", "Headings", "Dates", "Header icons", "Link icons"];
+
+export const COLUMN_LAYOUT = {
+    layout: {
+        top: "",
+        left: "flex gap-4",
+        right: "flex gap-4 flex-row-reverse",
+    },
+};
+
+export const HEADING_LAYOUT = {
+    0: "border-b-2 border-black",
+    1: "justify-center bg-gray-200 py-1",
+    2: "",
+    3: "",
+    4: "",
+};
+
+export const HEADER_LAYOUT = {
+    1: "text-left",
+    2: "text-center justify-center",
+    3: "text-left",
+};
+
+export const DATE_LAYOUT = {
+    slash: "/",
+    hyphen: "-",
+    dot: ".",
+};
+
+export const SEPARATOR = {
+    bullet: "•",
+    pipe: "|",
+    wrap: ",",
+};
